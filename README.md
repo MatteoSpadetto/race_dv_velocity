@@ -3,6 +3,7 @@
 ## Key words
 
 * FFT of an image and its info
+* FFT filters
 * Velocity vector direction
 * Veclocity vector modulus
 * Ideal sample frame and camera parameters
@@ -10,6 +11,11 @@
 * Auto adaptive camera settings
 
 ## Reference
+
+[What is an FFT](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1447887)
+
+[FFT of an image (basics)](https://www.cs.unm.edu/~brayer/vision/fourier.html)
+
 [Accurate Speed Measurement Methodologies for Formula One Cars](https://ieeexplore.ieee.org/abstract/document/4258488)
 
 [Velocity measuerment based on image blur January 2008](https://www.researchgate.net/publication/228993494_Velocity_measuerment_based_on_image_blur)
