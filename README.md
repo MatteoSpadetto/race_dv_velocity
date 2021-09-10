@@ -34,9 +34,13 @@
 
 [An Introduction to the Kalman Filter](https://didatticaonline.unitn.it/dol/pluginfile.php/1043712/mod_resource/content/0/kalman_intro.pdf)
 
-### Velocity vector
+### Velocity vector measurament systems comparison
 
-### Applications
+[End-to-End Velocity Estimation For Autonomous Racing](https://arxiv.org/pdf/2003.06917.pdf)
+
+[GPS Estimation Algorithms for Precise Velocity, Slip and Race-track Position Measurements](http://acl.mit.edu/papers/2002_MSEC_93.pdf)
+
+### Applications of image based on-board velocity measurement system
 
 [Accurate Speed Measurement Methodologies for Formula One Cars](https://ieeexplore.ieee.org/abstract/document/4258488)
 
