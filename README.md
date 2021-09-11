@@ -18,7 +18,7 @@
 
 [FFT of an image (general)](https://www.cs.unm.edu/~brayer/vision/fourier.html)
 
-[Fourier transform of images](http://mstrzel.eletel.p.lodz.pl/mstrzel/pattern_rec/fft_ang.pdf)
+[Fourier transform of images (math)](http://mstrzel.eletel.p.lodz.pl/mstrzel/pattern_rec/fft_ang.pdf)
 
 [Images and videos (part 1)](https://didatticaonline.unitn.it/dol/pluginfile.php/739709/mod_resource/content/0/01-1%20Images%20and%20Videos.pdf)
 
@@ -26,9 +26,9 @@
 
 [Features](https://didatticaonline.unitn.it/dol/pluginfile.php/800036/mod_resource/content/0/06%20Features.pdf)
 
-[Filtering image for FFT (general)](http://paulbourke.net/miscellaneous/imagefilter/)
+[Filtering image in frequency (general)](http://paulbourke.net/miscellaneous/imagefilter/)
 
-[Image Enhancement in the frequency domain](https://www.di.univr.it/documenti/OccorrenzaIns/matdid/matdid997179.pdf)
+[Image enhancement in the frequency domain](https://www.di.univr.it/documenti/OccorrenzaIns/matdid/matdid997179.pdf)
 
 [Frequency Domain Filtering](http://www.cs.cmu.edu/~16385/s15/lectures/Lecture3.pdf)
 
