@@ -38,8 +38,6 @@
 
 [End-to-End Velocity Estimation For Autonomous Racing](https://arxiv.org/pdf/2003.06917.pdf)
 
-### Applications of image based on-board velocity measurement system
-
 [Accurate Speed Measurement Methodologies for Formula One Cars](https://ieeexplore.ieee.org/abstract/document/4258488)
 
 [Velocity measuerment based on image blur January 2008](https://www.researchgate.net/publication/228993494_Velocity_measuerment_based_on_image_blur)
