@@ -44,6 +44,8 @@
 
 [Measuring Vehicle Velocity in Real Time Using Modulated Motion Blur of Camera Image Data](https://ieeexplore.ieee.org/document/7543532)
 
+[Velocity detection from a motion blur image using radon transformation (not official)](https://www.researchgate.net/publication/334263992_Velocity_Detection_from_a_Motion_Blur_Image_Using_Radon_Transformation)
+
 ### Camera parameters and auto adaptability
 
 [Camera models](https://didatticaonline.unitn.it/dol/pluginfile.php/778032/mod_resource/content/0/02%20Models.pdf)
