@@ -6,8 +6,8 @@
 * FFT filters
 * Velocity vector direction
 * Veclocity vector modulus
-* Ideal sample frame and camera parameters
 * Real scenarios and problems
+* Sample frame and camera parameters
 * Auto adaptive camera settings
 
 ## Reference
