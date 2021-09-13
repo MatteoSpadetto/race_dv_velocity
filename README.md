@@ -40,7 +40,7 @@
 
 [Accurate Speed Measurement Methodologies for Formula One Cars](https://ieeexplore.ieee.org/abstract/document/4258488)
 
-[Velocity measuerment based on image blur January 2008](https://www.researchgate.net/publication/228993494_Velocity_measuerment_based_on_image_blur)
+[Velocity measuerment based on image blur January 2008 (not official)](https://www.researchgate.net/publication/228993494_Velocity_measuerment_based_on_image_blur)
 
 [Measuring Vehicle Velocity in Real Time Using Modulated Motion Blur of Camera Image Data](https://ieeexplore.ieee.org/document/7543532)
 
@@ -50,6 +50,4 @@
 
 [Camera geometry](https://didatticaonline.unitn.it/dol/pluginfile.php/796020/mod_resource/content/0/05%20Geometry.pdf)
 
-[Camera parameters](https://www.exposureguide.com/exposure/)
-
-[Camera settings prediction using deep convolutional neural networks](https://edwardlaurence.me/assets/pdf/exif.pdf)
+[Camera parameters (not official)](https://www.exposureguide.com/exposure/)
