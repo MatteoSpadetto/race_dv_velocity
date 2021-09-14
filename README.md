@@ -52,4 +52,8 @@
 
 [Camera geometry](https://didatticaonline.unitn.it/dol/pluginfile.php/796020/mod_resource/content/0/05%20Geometry.pdf)
 
-[Camera parameters (not official)](https://www.exposureguide.com/exposure/)
+[Camera exposure (not official)](https://www.exposureguide.com/exposure/)
+
+[Camera parameters (not official)](https://www.borrowlenses.com/blog/shutter-speed-chart/)
+
+[Neural auto exposure](https://light.cs.princeton.edu/wp-content/uploads/2021/04/Neural_Auto_Exposure.pdf)
