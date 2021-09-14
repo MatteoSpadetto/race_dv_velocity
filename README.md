@@ -12,7 +12,7 @@
 
 ## Reference
 
-### FFT
+### Fast Fourier Transform (FFT)
 
 [What is an FFT](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1447887)
 
