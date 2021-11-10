@@ -10,6 +10,12 @@
 * Sample frame and camera parameters
 * Auto adaptive camera settings
 
+## Summary graph
+
+<br/>
+
+![Alt text](flow.png?raw=true "Title")
+
 ## Reference
 
 ### Fast Fourier Transform (FFT)
