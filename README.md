@@ -16,6 +16,8 @@
 
 ![Alt text](flow.png?raw=true "Title")
 
+This summary is just a base to give a structure to the project but it will be changed several times accordingly with the improvements.
+
 ## Reference
 
 ### Fast Fourier Transform (FFT)
