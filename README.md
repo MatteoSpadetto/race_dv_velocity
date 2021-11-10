@@ -2,13 +2,13 @@
 
 ## Key words
 
-* FFT of an image and its info
-* FFT filters
-* Velocity vector direction
-* Veclocity vector modulus
-* Real scenarios and problems
-* Sample frame and camera parameters
-* Auto adaptive camera settings
+* FFT of an image and its info;
+* FFT filters;
+* Velocity vector direction;
+* Veclocity vector modulus;
+* Real scenarios and problems;
+* Sample frame and camera parameters;
+* Auto adaptive camera settings.
 
 ## Summary graph
 
@@ -17,6 +17,24 @@
 ![Alt text](flow.png?raw=true "Title")
 
 This summary is just a base to give a structure to the project but it will be changed several times accordingly with the improvements.
+
+## Milestones
+
+1. Understand 3 + 1 methods: 
+    * Long exposition for blurred frame analysis by FFT;
+    * Analysis of differences between two consecutive frames;
+    * EKF on direct measurements;
+    * [+1] Different kinds of direct measurements (GPS, Encoder, IMU);
+2. Introduction on direct measurements (more qualitative just to understand the state of art) and explenation of why there are not sufficient anymore;
+3. Explaining the EKF in order to use it for comparison with the other 2 main methods;
+3. QFD and comparison between the 3 main technologies and the different kinds of direct measurements:
+    * Long exposition for blurred frame analysis by FFT;
+    * Analysis of differences between two consecutive frames;
+    * EKF on direct measurements;
+4. Analyse the best 2 technologies also comparing them with EKF:
+    * Long exposition for blurred frame analysis by FFT;
+    * Analysis of differences between two consecutive frames;
+
 
 ## Reference
 
