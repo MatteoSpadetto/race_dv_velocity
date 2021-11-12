@@ -14,7 +14,7 @@
 
 <br/>
 
-![Alt text](flow.png?raw=true "Title")
+![flow](flow.png?raw=true "Flow")
 
 This summary is just a base to give a structure to the project but it will be changed several times accordingly with the improvements.
 
@@ -27,14 +27,21 @@ This summary is just a base to give a structure to the project but it will be ch
     * [+1] Different kinds of direct measurements (GPS, Encoder, IMU);
 2. Introduction on direct measurements (more qualitative just to understand the state of art) and explenation of why there are not sufficient anymore;
 3. Explaining the EKF in order to use it for comparison with the other 2 main methods;
-3. QFD and comparison between the 3 main technologies and the different kinds of direct measurements:
-    * Long exposition for blurred frame analysis by FFT;
-    * Analysis of differences between two consecutive frames;
-    * EKF on direct measurements;
+3. QFD and comparison between the 3 main competitors and the different kinds of direct measurements:
+    * Preavious E-agleTRT car (Chimera Evoluzione);
+    * Formula1 car;
+    * AMZ racing Formula Student driverless car;
 4. Analyse the best 2 technologies also comparing them with EKF:
     * Long exposition for blurred frame analysis by FFT;
     * Analysis of differences between two consecutive frames;
 
+## QFD
+
+The following QFD is analysing the most important features to implement in the method to calculate the velocity vector (this is just a first try to improve during the thesis improvement).
+
+<br/>
+
+![qfd](qfd.png?raw=true "QFD")
 
 ## Reference
 
