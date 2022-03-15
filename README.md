@@ -14,7 +14,7 @@
 
 <br/>
 
-![flow]((intro/flow.png?raw=true "Flow")
+![flow](intro/flow.png?raw=true "Flow")
 
 This summary is just a base to give a structure to the project but it will be changed several times accordingly with the improvements.
 
