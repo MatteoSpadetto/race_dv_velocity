@@ -14,14 +14,14 @@
 
 <br/>
 
-![flow](flow.png?raw=true "Flow")
+![flow]((intro/flow.png?raw=true "Flow")
 
 This summary is just a base to give a structure to the project but it will be changed several times accordingly with the improvements.
 
 ## Milestones
 
-![mile1](milestones-1.png?raw=true "Milestones")
-![mile2](milestones-2.png?raw=true "Milestones")
+![mile1](intro/milestones-1.png?raw=true "Milestones")
+![mile2](intro/milestones-2.png?raw=true "Milestones")
 
 ## QFD
 
@@ -29,7 +29,7 @@ The following QFD is analysing the most important features to implement in the m
 
 <br/>
 
-![qfd](qfd.png?raw=true "QFD")
+![qfd](qfd/qfd.png?raw=true "QFD")
 
 ## Reference
 
