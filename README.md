@@ -20,7 +20,8 @@ This summary is just a base to give a structure to the project but it will be ch
 
 ## Milestones
 
-![flow](milestones.png?raw=true "Milestones")
+![mile1](milestones-1.png?raw=true "Milestones")
+![mile2](milestones-2.png?raw=true "Milestones")
 
 ## QFD
 
