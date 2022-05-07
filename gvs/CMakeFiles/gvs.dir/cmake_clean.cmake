@@ -1,6 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/gvs.dir/lib/gvs_dft.cpp.o"
   "CMakeFiles/gvs.dir/lib/gvs_fd.cpp.o"
+  "CMakeFiles/gvs.dir/lib/gvs_hog.cpp.o"
   "CMakeFiles/gvs.dir/lib/gvs_utils.cpp.o"
   "CMakeFiles/gvs.dir/main.cpp.o"
   "gvs"

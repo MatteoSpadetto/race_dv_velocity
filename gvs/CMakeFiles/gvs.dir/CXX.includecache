@@ -6,12 +6,6 @@
 
 #IncludeRegexTransform: 
 
-/home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs/lib/gvs_ae.hpp
-
-/home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs/lib/gvs_dft.cpp
-gvs_dft.hpp
-/home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs/lib/gvs_dft.hpp
-
 /home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs/lib/gvs_dft.hpp
 opencv2/opencv.hpp
 -
@@ -32,10 +26,6 @@ math.h
 string
 -
 
-/home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs/lib/gvs_fd.cpp
-gvs_fd.hpp
-/home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs/lib/gvs_fd.hpp
-
 /home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs/lib/gvs_fd.hpp
 opencv2/opencv.hpp
 -
@@ -55,10 +45,50 @@ math.h
 -
 string
 -
+algorithm
+-
+cmath
+-
+iterator
+-
+limits
+-
+numeric
+-
+vector
+-
 
-/home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs/lib/gvs_utils.cpp
-gvs_utils.hpp
-/home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs/lib/gvs_utils.hpp
+/home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs/lib/gvs_hog.hpp
+opencv2/opencv.hpp
+-
+opencv2/core/core.hpp
+-
+opencv2/highgui.hpp
+-
+opencv2/imgproc/imgproc.hpp
+-
+iostream
+-
+fstream
+-
+unistd.h
+-
+math.h
+-
+string
+-
+algorithm
+-
+cmath
+-
+iterator
+-
+limits
+-
+numeric
+-
+vector
+-
 
 /home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs/lib/gvs_utils.hpp
 opencv2/opencv.hpp
@@ -85,12 +115,14 @@ lib/gvs_utils.hpp
 /home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs/lib/gvs_utils.hpp
 lib/gvs_fd.hpp
 /home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs/lib/gvs_fd.hpp
-lib/gvs_ae.hpp
-/home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs/lib/gvs_ae.hpp
+lib/gvs_hog.hpp
+/home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs/lib/gvs_hog.hpp
 lib/gvs_dft.hpp
 /home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs/lib/gvs_dft.hpp
 math.h
 /home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs/math.h
+iomanip
+-
 
 /usr/local/include/opencv4/opencv2/calib3d.hpp
 opencv2/core.hpp

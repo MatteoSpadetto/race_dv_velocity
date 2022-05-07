@@ -16,6 +16,7 @@ using namespace std;
 
 #define GVS_FD_MODE 0
 #define GVS_AE_MODE 1
+#define GVS_HOG_MODE 2
 #define LINEAR 0
 #define MEAN_ANGLE 1
 #define START_FRAME 900
@@ -24,7 +25,7 @@ using namespace std;
 #define CROP_H 100
 #define STEP 1
 #define THRESH 100
-#define FRAME_PATH_0 "./test_0/20220407T144859/gss_camera/"
+#define FRAME_PATH_0 "./test_fd/20220407T144859/gss_camera/"
 #define FRAME_PATH_1 ".png"
 
 typedef struct
@@ -35,8 +36,9 @@ typedef struct
     double theta;
 } pt_dist_t; // Frames with their informations
 
-std::string var_path(long n);
-std::string merge_path(int n);
-void show_img(Mat img, String title);
+std::string var_path(long n);                                    // Create string piece path to img
+std::string merge_path(int n);                                   //  Build complete path to img
+void line_ang_p(float angle, cv::Point center, cv::Mat &img_in); // Draw a line with center and angle
+void rot_img(cv::Mat &img_in, float angle);                      // Rotate image
 
 #endif

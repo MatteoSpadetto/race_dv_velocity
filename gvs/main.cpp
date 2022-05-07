@@ -1,33 +1,30 @@
 #include "lib/gvs_utils.hpp"
 #include "lib/gvs_fd.hpp"
-#include "lib/gvs_ae.hpp"
+#include "lib/gvs_hog.hpp"
 #include "lib/gvs_dft.hpp"
 #include "math.h"
+#include <iomanip>
 
 using namespace cv;
 using namespace std;
 
-int flag_mode = GVS_FD_MODE;
+#define gvs_mode GVS_HOG_MODE
 
 int main(int argc, char const *argv[])
 {
-    uint16_t frame_id = START_FRAME;
-
-    switch (flag_mode)
+    cout << std::setprecision(3) << std::fixed;
+    if (gvs_mode == GVS_FD_MODE)
     {
-    case GVS_FD_MODE:
+        uint16_t frame_id = START_FRAME;
+        ofstream file_fd;
+        file_fd.open("data_csv/data_fd.csv");
+        vector<float> thetas_tot;
+        vector<float> dists_tot;
         while (frame_id < END_FRAME)
         {
             /// Import 2 frames ///
             Mat img_a = imread(merge_path(frame_id - STEP), IMREAD_COLOR);
             Mat img_b = imread(merge_path(frame_id), IMREAD_COLOR);
-
-            /// Crop 2 frames around the center ///
-            int width = img_a.cols - CROP_W;
-            int heigth = img_a.rows - CROP_H;
-            cv::Rect crop_region((img_a.cols / 2) - (width / 2), (img_a.rows / 2) - (heigth / 2), width, heigth);
-            img_a = img_a(crop_region);
-            img_b = img_b(crop_region);
 
             /// Check for not corrupted data ///
             if (!img_a.data || !img_b.data)
@@ -35,6 +32,17 @@ int main(int argc, char const *argv[])
                 cout << "Incorrect data frame\n";
                 return -1;
             }
+
+            /// Testing rotation ///
+            rot_img(img_a, 45);
+            rot_img(img_b, 45);
+
+            /// Crop 2 frames around the center ///
+            int width = img_a.cols - CROP_W;
+            int heigth = img_a.rows - CROP_H;
+            cv::Rect crop_region((img_a.cols / 2) - (width / 2), (img_a.rows / 2) - (heigth / 2), width, heigth);
+            img_a = img_a(crop_region);
+            img_b = img_b(crop_region);
 
             /// Go to grayscale ///
             Mat img_th_a;
@@ -130,23 +138,16 @@ int main(int argc, char const *argv[])
 
             /// Rearrange distances in a vector ///
             vector<float> dists;
-            ofstream file_feat;
-            file_feat.open("data_csv/data_feat.csv");
             for (int i = 0; i < feat_vect.size(); i++)
             {
                 for (int m = 0; m < feat_vect[i].size(); m++)
                 {
                     dists.push_back(feat_vect[i][m].dist);
-                    file_feat << feat_vect[i][m].dist << "," << feat_vect[i][m].theta << "\n";
                 }
             }
-            file_feat.close();
-            float dists_mode = get_mode_float(dists); // Get the mode of the vector (aka choose the most common length)
+            float dists_mode = get_mode_float(dists, 5); // Get the mode of the vector (aka choose the most common length)
 
             /// Rearrange the angles in a vetor ///
-            ofstream file_dist_theta;
-            file_dist_theta.open("data_csv/data_dt.csv");
-
             vector<float> thetas;
             for (int i = 0; i < feat_vect.size(); i++)
             {
@@ -155,13 +156,10 @@ int main(int argc, char const *argv[])
                     if ((feat_vect[i][m].dist > dists_mode - 10) && (feat_vect[i][m].dist < dists_mode + 10))
                     {
                         thetas.push_back(feat_vect[i][m].theta); // Take just the vector with amplitude around the mode
-                        file_dist_theta << feat_vect[i][m].dist << "," << feat_vect[i][m].theta << '\n';
                     }
                 }
             }
-            file_dist_theta.close();
-            float thetas_mode = get_mode_float(thetas); // Get the mode of remaining thetas
-            cout << "thetas_mode: " << thetas_mode << endl;
+            float thetas_mode = get_mode_float(thetas, 5); // Get the mode of remaining thetas
 
             /// Debug arrow on image ///
             arrowedLine(img_b,
@@ -170,193 +168,182 @@ int main(int argc, char const *argv[])
                         Scalar(0, 0, 255), 5);
             resize(img_b, img_b, Size(img_b.cols * 0.5, img_b.rows * 0.5), INTER_LINEAR);
             imshow("Frame Diff GVS", img_b);
-            waitKey(0);
-            frame_id++;
-        }
-        break;
-    case GVS_AE_MODE:
-        for (int l = 0; l < 1; l++)
-        {
-            /// Import motion blurred frame ///
-            Mat img_tot = imread("./test_1/mb_2.png", IMREAD_COLOR);
-
-            /// Testing rotation ///
-            /*Point2f center((img_tot.cols - 1) / 2.0, (img_tot.rows - 1) / 2.0);
-            Mat rotation_matix = getRotationMatrix2D(center, 45, 1.0);
-            warpAffine(img_tot, img_tot, rotation_matix, img_tot.size());
-            int width = img_tot.cols - 500;
-            int heigth = img_tot.rows - 400;
-            cv::Rect crop_region((img_tot.cols / 2) - (width / 2), (img_tot.rows / 2) - (heigth / 2), width, heigth);
-            img_tot = img_tot(crop_region);*/
-
-            /// Go to gray scale ///
-            cv::cvtColor(img_tot, img_tot, COLOR_RGBA2GRAY);
-
-            /// Sobel filter ///
-            cv::Sobel(img_tot, img_tot, CV_8UC1, 1, 0);
-
-            /// Find magnitude Mat ///
-            Mat padded_img;
-            int m = getOptimalDFTSize(img_tot.rows);
-            int n = getOptimalDFTSize(img_tot.cols);
-            copyMakeBorder(img_tot, padded_img, 0, m - img_tot.rows, 0, n - img_tot.cols, BORDER_CONSTANT, Scalar::all(0));
-            Mat planes[] = {Mat_<float>(padded_img), Mat::zeros(padded_img.size(), CV_32F)};
-            Mat complexI;
-            merge(planes, 2, complexI);
-            dft(complexI, complexI);
-            split(complexI, planes);
-            magnitude(planes[0], planes[1], planes[0]); // planes[0] = magnitude
-            Mat magI = planes[0];
-            magI += Scalar::all(1); // switch to logarithmic scale
-            log(magI, magI);
-            // crop the spectrum, if it has an odd frame_idber of rows or columns
-            magI = magI(Rect(0, 0, magI.cols & -2, magI.rows & -2));
-            int cx = magI.cols / 2;
-            int cy = magI.rows / 2;
-            Mat q0(magI, Rect(0, 0, cx, cy));   // Top-Left - Create a ROI per quadrant
-            Mat q1(magI, Rect(cx, 0, cx, cy));  // Top-Right
-            Mat q2(magI, Rect(0, cy, cx, cy));  // Bottom-Left
-            Mat q3(magI, Rect(cx, cy, cx, cy)); // Bottom-Right
-            Mat tmp;                            // swap quadrants (Top-Left with Bottom-Right)
-            q0.copyTo(tmp);
-            q3.copyTo(q0);
-            tmp.copyTo(q3);
-            q1.copyTo(tmp); // swap quadrant (Top-Right with Bottom-Left)
-            q2.copyTo(q1);
-            tmp.copyTo(q2);
-            normalize(magI, magI, 0, 1, NORM_MINMAX);
-
-            /// LP filter on dft ///
-            magI = ideal_low_pass_filter(magI, CUT_FREQ);
-
-            /// Find maximum on of each col of magnitude Mat ///
-            vector<Point> store; // Store the magnitude max point values
-            int bound = int(magI.cols / 2);
-            int llim = int(magI.cols / 2);
-            int ulim = int(magI.cols / 2) + bound;
-            int err = ERROR * magI.rows / 2;
-            for (int k = llim; k < ulim; k++)
+            if (thetas_mode != 0)
             {
-                float max_col = 0.0f;
-                int max_col_id = 0;
-                for (int i = 0; i < magI.rows; i++)
+                if (frame_id - START_FRAME < WINDOW_SIZE)
                 {
-                    if (magI.at<float>(i, k) > max_col)
-                    {
-                        max_col = magI.at<float>(i, k);
-                        max_col_id = i;
-                    }
-                }
-                if (store.size() > 1)
-                {
-                    if (abs(max_col_id - store[store.size() - 1].y) <= err)
-                    {
-                        store.push_back(Point(k, max_col_id));
-                    }
+                    dists_tot.push_back(dists_mode);
+                    thetas_tot.push_back(thetas_mode);
+                    cout << "dists_mode: " << dists_mode << "\t---\t"
+                         << "thetas_mode: " << thetas_mode << endl;
+                    file_fd << dists_mode << "," << thetas_mode << '\n';
+                    // TAKE DIST AND THETA FROM HERE for first 10 frames
                 }
                 else
                 {
-                    store.push_back(Point(k, max_col_id));
-                }
-            }
-            for (int i = 0; i < store.size(); i++)
-            {
-                circle(magI, Point(int(magI.cols / 2) + i, store[i].y), 1, Scalar(255, 255, 255), 1);
-            }
+                    float theta_mean = mean(thetas_tot, thetas_tot.size() - WINDOW_SIZE, thetas_tot.size());
+                    float dist_mean = mean(dists_tot, dists_tot.size() - WINDOW_SIZE, dists_tot.size());
 
-            ofstream file_freq;
-            file_freq.open("data_csv/data_freq_2.csv");
-            vector<float> store_data;
-            for (int i = 0; i < magI.rows; i++)
-            {
-                file_freq << magI.at<float>(i, magI.rows / 2) << "," << i << "\n";
-                store_data.push_back(magI.at<float>(i, magI.rows / 2));
-            }
-            file_freq.close();
+                    float theta_std = stdev(thetas_tot, theta_mean, thetas_tot.size() - WINDOW_SIZE, thetas_tot.size());
+                    float dist_std = stdev(dists_tot, dist_mean, thetas_tot.size() - WINDOW_SIZE, dists_tot.size());
 
-            int xc = int(magI.cols / 2);
-            int yc = int(magI.rows / 2);
-            int maxp = yc;
-            int store_id = 0;
+                    float theta_cut_off = theta_std * 3;
+                    float theta_l_lim = theta_mean - theta_cut_off;
+                    float theta_u_lim = theta_mean + theta_cut_off;
 
-            int flag_app = MEAN_ANGLE;
-            float mean_ang = 0.0f;
-            float len = 0.0f;
+                    float dist_cut_off = dist_std * 3;
+                    float dist_l_lim = dist_mean - dist_cut_off;
+                    float dist_u_lim = dist_mean + dist_cut_off;
 
-            /// Linear interpoilation between points of store ///
-            if (flag_app == LINEAR)
-            {
-                for (int i = 0; i < store.size(); i++)
-                {
-                    if (store[i].y >= maxp)
+                    /*cout << "###########" << endl;
+                    cout << "theta_mean: " << theta_mean << endl;
+                    cout << "dist_mean: " << dist_mean << endl;
+                    cout << "theta_std: " << theta_std << endl;
+                    cout << "dist_std: " << dist_std << endl;*/
+
+                    if (((thetas_mode > theta_l_lim) && (thetas_mode < theta_u_lim)) && ((dists_mode > dist_l_lim) && (dists_mode < dist_u_lim)))
                     {
-                        maxp = store[i].y;
-                        store_id = i;
+                        dists_tot.push_back(dists_mode);
+                        thetas_tot.push_back(thetas_mode);
+                        cout << "dists_mode: " << dists_mode << "\t---\t"
+                             << "thetas_mode: " << thetas_mode << endl;
+                        file_fd << dists_mode << "," << thetas_mode << '\n';
+                        // TAKE DIST AND THETA FROM HERE for first 10 frames
                     }
                 }
-                cv::cvtColor(magI, magI, COLOR_GRAY2RGBA);
-                circle(magI, Point(store[store_id].x, store[store_id].y), 2, Scalar(0, 0, 255), 2);
-                circle(magI, Point(xc + (xc - store[store_id].x), yc + (yc - store[store_id].y)), 2, Scalar(0, 0, 255), 2);
-                line(magI, Point(store[store_id].x, store[store_id].y), Point(xc + (xc - store[store_id].x), yc + (yc - store[store_id].y)), Scalar(0, 0, 255), 1);
             }
-            /// Mean of angles between center and each store point ///
-            else if (flag_app == MEAN_ANGLE)
-            {
-                for (int k = 0; k < store.size(); k++)
-                {
-                    float angle = (atan2(xc - store[k].x, yc - store[k].y)) * (180 / CV_PI);
-                    mean_ang += angle;
-                }
-                mean_ang /= store.size();
-                mean_ang += 90;
-                double s = sin(mean_ang * CV_PI / 180);
-                double c = cos(mean_ang * CV_PI / 180);
-                Point p0(xc + c * 250, yc - s * 250);
-                Point p1(xc - c * 250, yc + s * 250);
-
-                cv::cvtColor(magI, magI, COLOR_GRAY2RGBA);
-                circle(magI, p0, 2, Scalar(0, 0, 255), 2);
-                circle(magI, p1, 2, Scalar(0, 0, 255), 2);
-                line(magI, Point(xc, yc), p0, Scalar(0, 0, 255), 1);
-                line(magI, Point(xc, yc), p1, Scalar(0, 0, 255), 1);
-            }
-
-            int id_r = int(store_data.size() / 2) + 5;
-            int min_id_r = 0;
-            while (store_data[id_r] >= store_data[id_r + 1])
-            {
-                min_id_r = id_r;
-                id_r++;
-            }
-            int id_l = int(store_data.size() / 2) - 5;
-            int min_id_l = 0;
-            float ff = 0.0f;
-            while (store_data[id_l] >= store_data[id_r - 1])
-            {
-                min_id_l = id_l;
-                id_l--;
-                ff = store_data[id_l - 1];
-            }
-            float magnitude = min_id_r - min_id_l;
-            float s1 = sin((mean_ang + 90) * CV_PI / 180);
-            float c1 = cos((mean_ang + 90) * CV_PI / 180);
-            Point pc = Point(magI.cols / 2, (magI.rows / 2));
-            Point p4(pc.x + c1 * magnitude, pc.y - s1 * magnitude);
-
-            circle(magI, Point(magI.cols / 2, (magI.rows / 2)), 2, Scalar(255, 0, 0), 2);
-            arrowedLine(magI, pc, p4, Scalar(255, 0, 0), 2);
-
-            cout << "Mean_angle: " << mean_ang << endl;
-            cout << "Magnitude: " << magnitude << endl;
-
-            show_img(img_tot, "Space domain");
-            show_img(magI, "Frequency domain");
-            waitKey(0);
+            waitKey(10);
+            frame_id++;
         }
-        break;
-    default:
-        cout << "Set mode" << endl;
-        break;
+        file_fd.close();
+    }
+    else if (gvs_mode == GVS_HOG_MODE)
+    {
+        // Read image
+        Mat img_tot = imread("./test_ae_sp_noise/mb_noise_2.png", IMREAD_COLOR);
+
+        /// Check for not corrupted data ///
+        if (!img_tot.data)
+        {
+            cout << "Incorrect data frame\n";
+            return -1;
+        }
+
+        vector<float> store_ang;
+        cv::cvtColor(img_tot, img_tot, COLOR_RGBA2GRAY);
+
+        /// Testing rotation ///
+        rot_img(img_tot, 45);
+        Mat img_out = img_tot;
+
+        img_tot.convertTo(img_tot, CV_32F);            // Convert to multi-channels
+        GaussianBlur(img_tot, img_tot, Size(3, 3), 0); // Blur to avoid big outliers
+        Mat gx, gy, mag, angle;
+        Sobel(img_tot, gx, CV_32F, 1, 0, 3); // Gradient
+        Sobel(img_tot, gy, CV_32F, 0, 1, 3); // Gradient
+        cartToPolar(gx, gy, mag, angle, 1);  // Get HOG
+
+        vector<Point> test_p;
+        vector<int> bins;
+        vector<float> ang_bins;
+
+        #define hog_mode FIVE_P
+        if (hog_mode == OPT_P)
+        {
+            /// Find optimal point to analyse (aka highest magnitude area) ///
+            Point p = find_opt_p(angle, mag);
+            test_p.push_back(Point(p.y, p.x));
+        }
+        else if (hog_mode == FOUR_P)
+        {
+            test_p.push_back(Point((angle.cols / 2) + PD_X, (angle.rows / 2) + PD_Y));
+            test_p.push_back(Point((angle.cols / 2) + PD_X, (angle.rows / 2) - PD_Y));
+            test_p.push_back(Point((angle.cols / 2) - PD_X, (angle.rows / 2) + PD_Y));
+            test_p.push_back(Point((angle.cols / 2) - PD_X, (angle.rows / 2) - PD_Y));
+        }
+        else if (hog_mode == FIVE_P)
+        {
+            test_p.push_back(Point((angle.cols / 2), (angle.rows / 2)));
+            test_p.push_back(Point((angle.cols / 2) + PD_X, (angle.rows / 2) + PD_Y));
+            test_p.push_back(Point((angle.cols / 2) + PD_X, (angle.rows / 2) - PD_Y));
+            test_p.push_back(Point((angle.cols / 2) - PD_X, (angle.rows / 2) + PD_Y));
+            test_p.push_back(Point((angle.cols / 2) - PD_X, (angle.rows / 2) - PD_Y));
+        }
+
+        for (int l = 0; l < test_p.size(); l++)
+        {
+            float ang_step = 0;
+            circle(img_out, Point(test_p[l].x, test_p[l].y), RADIUS, Scalar(255, 0, 255), 1);
+
+            while (ang_step < 180)
+            {
+                bins.push_back(0);
+                ang_bins.push_back(ang_step);
+                for (int i = 0; i < angle.cols; i++)
+                {
+                    for (int j = 0; j < angle.rows; j++)
+                    {
+                        if ((abs(i - test_p[l].x) * abs(i - test_p[l].x)) + (abs(j - test_p[l].y) * abs(j - test_p[l].y)) <= (RADIUS) * (RADIUS))
+                        {
+                            if (angle.at<float>(j, i) == ang_step)
+                            {
+                                bins[bins.size() - 1] += mag.at<float>(j, i);
+                            }
+                            else if ((angle.at<float>(j, i) > ang_step - 0.5) && (angle.at<float>(j, i) < ang_step))
+                            {
+                                bins[bins.size() - 1] += mag.at<float>(j, i);
+                                bins[bins.size() - 1] += mag.at<float>(j, i);
+                            }
+                        }
+                    }
+                }
+                ang_step += 0.5;
+            }
+
+            /// Store bins hist in .csv ///
+            /*ofstream file_hog;
+            file_hog.open("./data_csv/data_hog.csv");
+            for (int i = 0; i < bins.size(); i++)
+            {
+                file_hog << ang_bins[i] << "," << bins[i] << endl;
+            }*/
+
+            /// Sort in descendent order ///
+            for (int i = 0; i < bins.size(); i++)
+            {
+                for (int j = 0; j < bins.size(); j++)
+                {
+                    if (bins[i] > bins[j])
+                    {
+                        float tmp_bins = bins[i];
+                        float tmp_ang_bins = ang_bins[i];
+                        bins[i] = bins[j];
+                        ang_bins[i] = ang_bins[j];
+                        bins[j] = tmp_bins;
+                        ang_bins[j] = tmp_ang_bins;
+                    }
+                }
+            }
+
+            float final_dir_hog = (180 - ang_bins[0]); // Delete 180 offset (add 90 for motion direction)
+            line_ang_p(final_dir_hog, Point(test_p[l].x, test_p[l].y), img_out);
+            store_ang.push_back(ang_bins[0]); // Store img gradient direction
+        }
+
+        /// Mean value of store_ang ///
+        float sum = 0;
+        for (int k = 0; k < store_ang.size(); k++)
+        {
+            sum += store_ang[k];
+        }
+        sum /= store_ang.size();
+
+        float final_dir_hog = (180 - sum);
+        line_ang_p(final_dir_hog, Point(img_out.cols / 2, img_out.rows / 2), img_out);
+
+        imshow("HOG direction", img_out);
+        waitKey(0);
+        cout << "Final dir_hog: " << final_dir_hog << endl;
     }
     return 0;
 }

@@ -1,0 +1,11 @@
+cmake_minimum_required(VERSION 2.8)
+project(gvs)
+find_package(OpenCV REQUIRED)
+find_package(PythonLibs REQUIRED)
+find_package(Python3 3.7 COMPONENTS Interpreter NumPy REQUIRED)
+include_directories(${PYTHON_INCLUDE_DIRS})
+include_directories(${OpenCV_INCLUDE_DIRS})
+include_directories(${OpenCV_SOURCE_DIR})
+add_executable(gvs main.cpp lib/gvs_utils.hpp lib/gvs_utils.cpp lib/gvs_fd.hpp lib/gvs_fd.cpp lib/gvs_dft.hpp lib/gvs_dft.cpp lib/gvs_hog.cpp lib/gvs_hog.hpp)
+target_link_libraries(gvs ${OpenCV_LIBS})
+

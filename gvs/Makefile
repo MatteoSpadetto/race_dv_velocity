@@ -177,6 +177,33 @@ lib/gvs_fd.cpp.s:
 	$(MAKE) -f CMakeFiles/gvs.dir/build.make CMakeFiles/gvs.dir/lib/gvs_fd.cpp.s
 .PHONY : lib/gvs_fd.cpp.s
 
+lib/gvs_hog.o: lib/gvs_hog.cpp.o
+
+.PHONY : lib/gvs_hog.o
+
+# target to build an object file
+lib/gvs_hog.cpp.o:
+	$(MAKE) -f CMakeFiles/gvs.dir/build.make CMakeFiles/gvs.dir/lib/gvs_hog.cpp.o
+.PHONY : lib/gvs_hog.cpp.o
+
+lib/gvs_hog.i: lib/gvs_hog.cpp.i
+
+.PHONY : lib/gvs_hog.i
+
+# target to preprocess a source file
+lib/gvs_hog.cpp.i:
+	$(MAKE) -f CMakeFiles/gvs.dir/build.make CMakeFiles/gvs.dir/lib/gvs_hog.cpp.i
+.PHONY : lib/gvs_hog.cpp.i
+
+lib/gvs_hog.s: lib/gvs_hog.cpp.s
+
+.PHONY : lib/gvs_hog.s
+
+# target to generate assembly for a file
+lib/gvs_hog.cpp.s:
+	$(MAKE) -f CMakeFiles/gvs.dir/build.make CMakeFiles/gvs.dir/lib/gvs_hog.cpp.s
+.PHONY : lib/gvs_hog.cpp.s
+
 lib/gvs_utils.o: lib/gvs_utils.cpp.o
 
 .PHONY : lib/gvs_utils.o
@@ -246,6 +273,9 @@ help:
 	@echo "... lib/gvs_fd.o"
 	@echo "... lib/gvs_fd.i"
 	@echo "... lib/gvs_fd.s"
+	@echo "... lib/gvs_hog.o"
+	@echo "... lib/gvs_hog.i"
+	@echo "... lib/gvs_hog.s"
 	@echo "... lib/gvs_utils.o"
 	@echo "... lib/gvs_utils.i"
 	@echo "... lib/gvs_utils.s"
