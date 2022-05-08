@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs
+CMAKE_SOURCE_DIR = /home/matteospadetto/Documents/thesis/race_dv_velocity/gvs
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs
+CMAKE_BINARY_DIR = /home/matteospadetto/Documents/thesis/race_dv_velocity/gvs
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,9 +80,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs/CMakeFiles /home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/matteospadetto/Documents/thesis/race_dv_velocity/gvs/CMakeFiles /home/matteospadetto/Documents/thesis/race_dv_velocity/gvs/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/matteospadetto/Documents/thesis/race_dv_velocity/gvs/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
