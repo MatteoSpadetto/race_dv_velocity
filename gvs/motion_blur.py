@@ -4,16 +4,16 @@ from cv2 import imshow
 from cv2 import circle
 import numpy as np
 
-img = cv2.imread('./test_fd/20220407T144859/gss_camera/0900.png')
+img = cv2.imread('../../test_fd/20220407T144859/gss_camera/0900.png')
 # https://www.tutorialkart.com/opencv/python/opencv-python-resize-image/
 
-'''
+
 for i in range(0, img.shape[1]):
     if (i % 50 == 0):
         for j in range(0, img.shape[0]):
             if (j % 50 == 0):
                 cv2.circle(img, (i, j), 1, (255, 255, 255), 2)
-'''
+
 
 '''
 cv2.circle(img, (900, 500), 20, (255, 255, 255), 40)
@@ -42,7 +42,7 @@ while i < 120:
     # applying the kernel to the input image
     output = cv2.filter2D(img, -1, kernel_motion_blur)
     #cv2.imshow('Motion Blur', output)
-    file_name = "./test_speed/mb_speed_" + str(i) + ".png"
+    file_name = "../../test_sp/mb_speed_" + str(i) + ".png"
     cv2.imwrite(file_name, output)
     i = i + 1
 

@@ -14,7 +14,7 @@ int main(int argc, char const *argv[])
 {
     cout << std::setprecision(3) << std::fixed;
     ofstream file_hog_tot;
-    file_hog_tot.open("./data_csv/data_hog_tot_85.csv");
+    file_hog_tot.open("./data_csv/data_hog_tot_90.csv");
     for (int p = 1; p < 120; p++)
     {
         if (gvs_mode == GVS_FD_MODE)
@@ -225,9 +225,8 @@ int main(int argc, char const *argv[])
         {
             // Read image
             // Mat img = imread("./test_ae_sp_noise/mb_noise_5.png", IMREAD_COLOR);
-            String path = "./test_speed/mb_speed_" + to_string(p) + ".png";
+            String path = "../../test_speed/mb_speed_" + to_string(p) + ".png";
             Mat img = imread(path, IMREAD_COLOR);
-
             /// Check for not corrupted data ///
             if (!img.data)
             {
@@ -240,7 +239,7 @@ int main(int argc, char const *argv[])
             cv::cvtColor(img, img, COLOR_RGBA2GRAY);
 
             /// Testing rotation ///
-            rot_img(img, 85, true);
+            rot_img(img, 90, true);
             Mat img_out = img;
 
             img.convertTo(img, CV_32F);            // Convert to multi-channels
@@ -306,7 +305,6 @@ int main(int argc, char const *argv[])
                     }
                     ang_step += 1;
                 }
-
                 /// Store bins hist in .csv ///
                 /*ofstream file_hog;
                 file_hog.open("./data_csv/data_hog.csv");

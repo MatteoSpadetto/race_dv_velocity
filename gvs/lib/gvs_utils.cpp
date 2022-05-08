@@ -56,8 +56,8 @@ void rot_img(cv::Mat &img_in, float angle, bool crop)
     warpAffine(img_in, img_in, rotation_matix, img_in.size());
     if (crop)
     {
-        int width = img_in.cols - 500;
-        int heigth = img_in.rows - 400;
+        int width = 400;
+        int heigth = 400;
         Rect crop_region = Rect((img_in.cols / 2) - (width / 2), (img_in.rows / 2) - (heigth / 2), width, heigth);
         img_in = img_in(crop_region);
     }
