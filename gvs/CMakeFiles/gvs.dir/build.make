@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs
+CMAKE_SOURCE_DIR = /home/matteospadetto/Documents/thesis/race_dv_velocity/gvs
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs
+CMAKE_BINARY_DIR = /home/matteospadetto/Documents/thesis/race_dv_velocity/gvs
 
 # Include any dependencies generated for this target.
 include CMakeFiles/gvs.dir/depend.make
@@ -59,68 +59,68 @@ include CMakeFiles/gvs.dir/flags.make
 
 CMakeFiles/gvs.dir/main.cpp.o: CMakeFiles/gvs.dir/flags.make
 CMakeFiles/gvs.dir/main.cpp.o: main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/gvs.dir/main.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gvs.dir/main.cpp.o -c /home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs/main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/matteospadetto/Documents/thesis/race_dv_velocity/gvs/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/gvs.dir/main.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gvs.dir/main.cpp.o -c /home/matteospadetto/Documents/thesis/race_dv_velocity/gvs/main.cpp
 
 CMakeFiles/gvs.dir/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/gvs.dir/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs/main.cpp > CMakeFiles/gvs.dir/main.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/matteospadetto/Documents/thesis/race_dv_velocity/gvs/main.cpp > CMakeFiles/gvs.dir/main.cpp.i
 
 CMakeFiles/gvs.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/gvs.dir/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs/main.cpp -o CMakeFiles/gvs.dir/main.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/matteospadetto/Documents/thesis/race_dv_velocity/gvs/main.cpp -o CMakeFiles/gvs.dir/main.cpp.s
 
 CMakeFiles/gvs.dir/lib/gvs_utils.cpp.o: CMakeFiles/gvs.dir/flags.make
 CMakeFiles/gvs.dir/lib/gvs_utils.cpp.o: lib/gvs_utils.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/gvs.dir/lib/gvs_utils.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gvs.dir/lib/gvs_utils.cpp.o -c /home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs/lib/gvs_utils.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/matteospadetto/Documents/thesis/race_dv_velocity/gvs/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/gvs.dir/lib/gvs_utils.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gvs.dir/lib/gvs_utils.cpp.o -c /home/matteospadetto/Documents/thesis/race_dv_velocity/gvs/lib/gvs_utils.cpp
 
 CMakeFiles/gvs.dir/lib/gvs_utils.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/gvs.dir/lib/gvs_utils.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs/lib/gvs_utils.cpp > CMakeFiles/gvs.dir/lib/gvs_utils.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/matteospadetto/Documents/thesis/race_dv_velocity/gvs/lib/gvs_utils.cpp > CMakeFiles/gvs.dir/lib/gvs_utils.cpp.i
 
 CMakeFiles/gvs.dir/lib/gvs_utils.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/gvs.dir/lib/gvs_utils.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs/lib/gvs_utils.cpp -o CMakeFiles/gvs.dir/lib/gvs_utils.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/matteospadetto/Documents/thesis/race_dv_velocity/gvs/lib/gvs_utils.cpp -o CMakeFiles/gvs.dir/lib/gvs_utils.cpp.s
 
 CMakeFiles/gvs.dir/lib/gvs_fd.cpp.o: CMakeFiles/gvs.dir/flags.make
 CMakeFiles/gvs.dir/lib/gvs_fd.cpp.o: lib/gvs_fd.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/gvs.dir/lib/gvs_fd.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gvs.dir/lib/gvs_fd.cpp.o -c /home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs/lib/gvs_fd.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/matteospadetto/Documents/thesis/race_dv_velocity/gvs/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/gvs.dir/lib/gvs_fd.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gvs.dir/lib/gvs_fd.cpp.o -c /home/matteospadetto/Documents/thesis/race_dv_velocity/gvs/lib/gvs_fd.cpp
 
 CMakeFiles/gvs.dir/lib/gvs_fd.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/gvs.dir/lib/gvs_fd.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs/lib/gvs_fd.cpp > CMakeFiles/gvs.dir/lib/gvs_fd.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/matteospadetto/Documents/thesis/race_dv_velocity/gvs/lib/gvs_fd.cpp > CMakeFiles/gvs.dir/lib/gvs_fd.cpp.i
 
 CMakeFiles/gvs.dir/lib/gvs_fd.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/gvs.dir/lib/gvs_fd.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs/lib/gvs_fd.cpp -o CMakeFiles/gvs.dir/lib/gvs_fd.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/matteospadetto/Documents/thesis/race_dv_velocity/gvs/lib/gvs_fd.cpp -o CMakeFiles/gvs.dir/lib/gvs_fd.cpp.s
 
 CMakeFiles/gvs.dir/lib/gvs_dft.cpp.o: CMakeFiles/gvs.dir/flags.make
 CMakeFiles/gvs.dir/lib/gvs_dft.cpp.o: lib/gvs_dft.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/gvs.dir/lib/gvs_dft.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gvs.dir/lib/gvs_dft.cpp.o -c /home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs/lib/gvs_dft.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/matteospadetto/Documents/thesis/race_dv_velocity/gvs/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/gvs.dir/lib/gvs_dft.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gvs.dir/lib/gvs_dft.cpp.o -c /home/matteospadetto/Documents/thesis/race_dv_velocity/gvs/lib/gvs_dft.cpp
 
 CMakeFiles/gvs.dir/lib/gvs_dft.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/gvs.dir/lib/gvs_dft.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs/lib/gvs_dft.cpp > CMakeFiles/gvs.dir/lib/gvs_dft.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/matteospadetto/Documents/thesis/race_dv_velocity/gvs/lib/gvs_dft.cpp > CMakeFiles/gvs.dir/lib/gvs_dft.cpp.i
 
 CMakeFiles/gvs.dir/lib/gvs_dft.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/gvs.dir/lib/gvs_dft.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs/lib/gvs_dft.cpp -o CMakeFiles/gvs.dir/lib/gvs_dft.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/matteospadetto/Documents/thesis/race_dv_velocity/gvs/lib/gvs_dft.cpp -o CMakeFiles/gvs.dir/lib/gvs_dft.cpp.s
 
 CMakeFiles/gvs.dir/lib/gvs_hog.cpp.o: CMakeFiles/gvs.dir/flags.make
 CMakeFiles/gvs.dir/lib/gvs_hog.cpp.o: lib/gvs_hog.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/gvs.dir/lib/gvs_hog.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gvs.dir/lib/gvs_hog.cpp.o -c /home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs/lib/gvs_hog.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/matteospadetto/Documents/thesis/race_dv_velocity/gvs/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/gvs.dir/lib/gvs_hog.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gvs.dir/lib/gvs_hog.cpp.o -c /home/matteospadetto/Documents/thesis/race_dv_velocity/gvs/lib/gvs_hog.cpp
 
 CMakeFiles/gvs.dir/lib/gvs_hog.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/gvs.dir/lib/gvs_hog.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs/lib/gvs_hog.cpp > CMakeFiles/gvs.dir/lib/gvs_hog.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/matteospadetto/Documents/thesis/race_dv_velocity/gvs/lib/gvs_hog.cpp > CMakeFiles/gvs.dir/lib/gvs_hog.cpp.i
 
 CMakeFiles/gvs.dir/lib/gvs_hog.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/gvs.dir/lib/gvs_hog.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs/lib/gvs_hog.cpp -o CMakeFiles/gvs.dir/lib/gvs_hog.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/matteospadetto/Documents/thesis/race_dv_velocity/gvs/lib/gvs_hog.cpp -o CMakeFiles/gvs.dir/lib/gvs_hog.cpp.s
 
 # Object files for target gvs
 gvs_OBJECTS = \
@@ -193,7 +193,7 @@ gvs: /usr/local/lib/libopencv_photo.so.4.5.3
 gvs: /usr/local/lib/libopencv_imgproc.so.4.5.3
 gvs: /usr/local/lib/libopencv_core.so.4.5.3
 gvs: CMakeFiles/gvs.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable gvs"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/matteospadetto/Documents/thesis/race_dv_velocity/gvs/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable gvs"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/gvs.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -206,6 +206,6 @@ CMakeFiles/gvs.dir/clean:
 .PHONY : CMakeFiles/gvs.dir/clean
 
 CMakeFiles/gvs.dir/depend:
-	cd /home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs /home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs /home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs /home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs /home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs/CMakeFiles/gvs.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/matteospadetto/Documents/thesis/race_dv_velocity/gvs && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/matteospadetto/Documents/thesis/race_dv_velocity/gvs /home/matteospadetto/Documents/thesis/race_dv_velocity/gvs /home/matteospadetto/Documents/thesis/race_dv_velocity/gvs /home/matteospadetto/Documents/thesis/race_dv_velocity/gvs /home/matteospadetto/Documents/thesis/race_dv_velocity/gvs/CMakeFiles/gvs.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/gvs.dir/depend
 
