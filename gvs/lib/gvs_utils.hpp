@@ -15,8 +15,8 @@ using namespace cv;
 using namespace std;
 
 #define GVS_FD_MODE 0
-#define GVS_AE_MODE 1
-#define GVS_HOG_MODE 2
+#define GVS_HOG_MODE 1
+#define GVS_LAP_MODE 2
 #define LINEAR 0
 #define MEAN_ANGLE 1
 #define START_FRAME 900
@@ -39,6 +39,6 @@ typedef struct
 std::string var_path(long n);                                    // Create string piece path to img
 std::string merge_path(int n);                                   //  Build complete path to img
 void line_ang_p(float angle, cv::Point center, cv::Mat &img_in); // Draw a line with center and angle
-void rot_img(cv::Mat &img_in, float angle);                      // Rotate image
+void rot_img(cv::Mat &img_in, float angle, bool crop);                      // Rotate image
 
 #endif
