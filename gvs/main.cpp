@@ -13,8 +13,8 @@ using namespace std;
 int main(int argc, char const *argv[])
 {
     cout << std::setprecision(3) << std::fixed;
-    ofstream file_hog_tot;
-    file_hog_tot.open("./data_csv/data_hog_tot_90.csv");
+    // ofstream file_hog_tot;
+    // file_hog_tot.open("./data_csv/data_hog.csv");
     for (int p = 1; p < 120; p++)
     {
         if (gvs_mode == GVS_FD_MODE)
@@ -239,7 +239,7 @@ int main(int argc, char const *argv[])
             cv::cvtColor(img, img, COLOR_RGBA2GRAY);
 
             /// Testing rotation ///
-            rot_img(img, 90, true);
+            rot_img(img, 30, true);
             Mat img_out = img;
 
             img.convertTo(img, CV_32F);            // Convert to multi-channels
@@ -305,14 +305,15 @@ int main(int argc, char const *argv[])
                     }
                     ang_step += 1;
                 }
+
                 /// Store bins hist in .csv ///
                 /*ofstream file_hog;
                 file_hog.open("./data_csv/data_hog.csv");
                 for (int i = 0; i < ang_bins.size(); i++)
                 {
-                    file_hog << ang_bins[i] << "," << bins[i] << endl;
+                    file_hog_tot << ang_bins[i] << "," << bins[i] << endl;
                 }
-                file_hog.close();*/
+                // file_hog_to.close();*/
 
                 /// Sort in descendent order ///
                 for (int i = 0; i < bins.size(); i++)
@@ -365,7 +366,7 @@ int main(int argc, char const *argv[])
             // imshow("HOG direction", img_out);
             // waitKey(0);
             cout << "Final angle_hog: " << final_dir_hog << " --- Final speed_hog: " << sum_speed << endl;
-            file_hog_tot << p << "," << final_dir_hog << "," << sum_speed << endl;
+            // file_hog_tot << p << "," << final_dir_hog << "," << sum_speed << endl;
         }
         else if (gvs_mode == GVS_LAP_MODE)
         {
@@ -421,6 +422,6 @@ int main(int argc, char const *argv[])
             ;
         }
     }
-    file_hog_tot.close();
+    // file_hog_tot.close();
     return 0;
 }
