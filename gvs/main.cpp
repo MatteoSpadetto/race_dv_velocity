@@ -8,14 +8,14 @@
 using namespace cv;
 using namespace std;
 
-#define gvs_mode GVS_HOG_MODE
+#define gvs_mode GVS_LAP_MODE
 
 int main(int argc, char const *argv[])
 {
     cout << std::setprecision(3) << std::fixed;
-    // ofstream file_hog_tot;
-    // file_hog_tot.open("./data_csv/data_hog.csv");
-    for (int p = 1; p < 120; p++)
+    ofstream file_hog_tot;
+    file_hog_tot.open("./data_csv/data_hog_tot_90.csv");
+    for (int p = 1; p < 2; p++)
     {
         if (gvs_mode == GVS_FD_MODE)
         {
@@ -239,7 +239,7 @@ int main(int argc, char const *argv[])
             cv::cvtColor(img, img, COLOR_RGBA2GRAY);
 
             /// Testing rotation ///
-            rot_img(img, 30, true);
+            rot_img(img, 90, true);
             Mat img_out = img;
 
             img.convertTo(img, CV_32F);            // Convert to multi-channels
@@ -366,7 +366,7 @@ int main(int argc, char const *argv[])
             // imshow("HOG direction", img_out);
             // waitKey(0);
             cout << "Final angle_hog: " << final_dir_hog << " --- Final speed_hog: " << sum_speed << endl;
-            // file_hog_tot << p << "," << final_dir_hog << "," << sum_speed << endl;
+            file_hog_tot << p << "," << final_dir_hog << "," << sum_speed << endl;
         }
         else if (gvs_mode == GVS_LAP_MODE)
         {
@@ -374,11 +374,11 @@ int main(int argc, char const *argv[])
             // Read image
             vector<float> ker;
             vector<float> speed;
-            for (int i = 1; i < 120; i++)
+            for (int i = 1; i < 150; i++)
             {
-                String path = "./test_speed/test_speed_0/mb_speed_" + to_string(i) + ".png";
+                String path = "../../test_blob/mb_speed_" + to_string(i) + ".png";
                 Mat img = imread(path, IMREAD_COLOR);
-                int angl = 60;
+                int angl = 90;
                 Mat img_out;
                 rot_img(img, angl, true);
                 imshow("Not Laplacian", img);
@@ -389,7 +389,6 @@ int main(int argc, char const *argv[])
                     return -1;
                 }
                 rot_img(img, -angl, false);
-
                 int width = 300;
                 int heigth = 300;
                 Rect crop_region = Rect((img.cols / 2) - (width / 2), (img.rows / 2) - (heigth / 2), width, heigth);
@@ -397,6 +396,15 @@ int main(int argc, char const *argv[])
 
                 Mat img_lap;
                 cv::cvtColor(img, img, COLOR_RGB2GRAY);
+                size_t elem_x_erd = 5;
+                size_t elem_y_erd = 5;
+                size_t elem_x_dil = 5;
+                size_t elem_y_dil = 5;
+                Mat element_erd = getStructuringElement(MORPH_CROSS, Size(2 * elem_x_erd + 1, 2 * elem_y_erd + 1), Point(elem_x_erd, elem_y_erd)); // Setting dilation
+                Mat element_dil = getStructuringElement(MORPH_CROSS, Size(2 * elem_x_dil + 1, 2 * elem_y_dil + 1), Point(elem_x_dil, elem_y_dil)); // Setting dilation
+
+                erode(img, img, element_erd);  // Erode
+                dilate(img, img, element_dil); // Dilate
                 Laplacian(img, img_lap, CV_64F, 3);
 
                 /// PROBLEMS WITH SP NOISE ///
@@ -405,14 +413,14 @@ int main(int argc, char const *argv[])
                 Scalar mean;
                 Scalar std_dev;
                 meanStdDev(img_lap, mean, std_dev, Mat());
-                cout << "Std_dev: " << std_dev[0] << endl;
+                cout << "Frame: " << i << " --- Std_dev: " << std_dev[0] << endl;
                 ker.push_back(i * 1);
                 speed.push_back(std_dev[0]);
                 imshow("Laplacian", img_lap);
             }
 
             ofstream file_lap;
-            file_lap.open("./data_csv/data_lap_0.csv");
+            file_lap.open("./data_csv/data_lap_90_morph_blob.csv");
             for (int i = 0; i < ker.size(); i++)
             {
                 file_lap << ker[i] << "," << (speed[i]) << endl;
@@ -422,6 +430,6 @@ int main(int argc, char const *argv[])
             ;
         }
     }
-    // file_hog_tot.close();
+    file_hog_tot.close();
     return 0;
 }

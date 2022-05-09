@@ -30,7 +30,7 @@ img = cv2.resize(img, dim)
 
 
 i = 1
-while i < 120:
+while i < 350:
     size = i * 1
 
     # generating the kernel

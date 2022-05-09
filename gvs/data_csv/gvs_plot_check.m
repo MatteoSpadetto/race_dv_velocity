@@ -409,4 +409,193 @@ dir_hog_90 = Table90(:, 2);
 vel_hog_90 = Table90(:, 3);
 plot(bins_hog_90, vel_hog_90)
 
-%% Laplacian
+%% HOG speed comparison noise blob
+fig_0 = figure;
+subtitle("HOG speed comparison blob noise 30 deg")
+xlabel('Sample frame [#]')
+ylabel('Speed [std dev]')
+hold on
+
+Table30=csvread('data_hog_tot_30.csv');
+bins_hog_30 = Table30(:, 1);
+vel_hog_30 = Table30(:, 3);
+plot(bins_hog_30, vel_hog_30)
+hold on
+
+Table30_blob=csvread('data_hog_tot_30_blob.csv');
+bins_hog_30_blob = Table30_blob(:, 1);
+vel_hog_30_blob = Table30_blob(:, 3);
+plot(bins_hog_30_blob, vel_hog_30_blob, 'r')
+
+%% HOG speed comparison noise sp
+fig_0 = figure;
+subtitle("HOG speed comparison sp noise 30 deg")
+xlabel('Sample frame [#]')
+ylabel('Speed [std dev]')
+hold on
+
+Table30=csvread('data_hog_tot_30.csv');
+bins_hog_30 = Table30(:, 1);
+vel_hog_30 = Table30(:, 3);
+plot(bins_hog_30, vel_hog_30)
+hold on
+
+Table30_sp=csvread('data_hog_tot_30_sp.csv');
+bins_hog_30_sp = Table30_sp(:, 1);
+vel_hog_30_sp = Table30_sp(:, 3);
+plot(bins_hog_30_sp, vel_hog_30_sp, 'r')
+
+%% Laplacian speed
+Table0=csvread('data_lap_30.csv');
+
+vel_hog = Table0(:, 2);
+bins_hog = Table0(:, 1);
+f_4 = figure;
+plot(bins_hog, vel_hog, '.');
+subtitle("LAP speed 30°")
+xlabel('Blur size [#]')
+ylabel('Speed [std dev]')
+
+%% LAP speed comparison
+fig_0 = figure;
+subtitle("LAP speed comparison diff rotations")
+xlabel('Sample frame [#]')
+ylabel('Speed [std dev]')
+hold on
+
+Table30=csvread('data_lap_30.csv');
+bins_hog_30 = Table30(:, 1);
+vel_hog_30 = Table30(:, 2);
+plot(bins_hog_30, vel_hog_30, '.')
+hold on
+
+Table45=csvread('data_lap_45.csv');
+bins_hog_45 = Table45(:, 1);
+vel_hog_45 = Table45(:, 2);
+plot(bins_hog_45, vel_hog_45, '.')
+hold on
+
+Table60=csvread('data_lap_60.csv');
+bins_hog_60 = Table60(:, 1);
+vel_hog_60 = Table60(:, 2);
+plot(bins_hog_60, vel_hog_60, '.')
+hold on
+
+Table85=csvread('data_lap_85.csv');
+bins_hog_85 = Table85(:, 1);
+vel_hog_85 = Table85(:, 2);
+plot(bins_hog_85, vel_hog_85, '.')
+hold on
+
+Table90=csvread('data_lap_90.csv');
+bins_hog_90 = Table90(:, 1);
+vel_hog_90 = Table90(:, 2);
+plot(bins_hog_90, vel_hog_90, '.')
+
+%% LAP speed noise blob comparison
+fig_0 = figure;
+subtitle("LAP speed comparison blob noise 30 deg")
+xlabel('Sample frame [#]')
+ylabel('Speed [std dev]')
+hold on
+
+Table30=csvread('data_lap_30.csv');
+bins_hog_30 = Table30(:, 1);
+vel_hog_30 = Table30(:, 2);
+plot(bins_hog_30, vel_hog_30, '.')
+hold on
+
+Table30_blob=csvread('data_lap_30_blob.csv');
+bins_hog_30_blob = Table30_blob(:, 1);
+vel_hog_30_blob = Table30_blob(:, 2);
+plot(bins_hog_30_blob, vel_hog_30_blob, '.')
+
+%% LAP speed noise sp comparison
+fig_0 = figure;
+subtitle("LAP speed comparison sp noise 30 deg")
+xlabel('Sample frame [#]')
+ylabel('Speed [std dev]')
+hold on
+
+Table30=csvread('data_lap_30.csv');
+bins_hog_30 = Table30(:, 1);
+vel_hog_30 = Table30(:, 2);
+plot(bins_hog_30, vel_hog_30, '.')
+hold on
+
+Table30_sp=csvread('data_lap_30_sp.csv');
+bins_hog_30_sp = Table30_sp(:, 1);
+vel_hog_30_sp = Table30_sp(:, 2);
+plot(bins_hog_30_sp, vel_hog_30_sp, '.')
+
+%% LAP speed comparison MORPH
+fig_0 = figure;
+subtitle("LAP speed comparison diff rotations morph")
+xlabel('Sample frame [#]')
+ylabel('Speed [std dev]')
+hold on
+
+Table30=csvread('data_lap_30_morph.csv');
+bins_hog_30 = Table30(:, 1);
+vel_hog_30 = Table30(:, 2);
+plot(bins_hog_30, vel_hog_30, '.')
+hold on
+
+Table45=csvread('data_lap_45_morph.csv');
+bins_hog_45 = Table45(:, 1);
+vel_hog_45 = Table45(:, 2);
+plot(bins_hog_45, vel_hog_45, '.')
+hold on
+
+Table60=csvread('data_lap_60_morph.csv');
+bins_hog_60 = Table60(:, 1);
+vel_hog_60 = Table60(:, 2);
+plot(bins_hog_60, vel_hog_60, '.')
+hold on
+
+Table85=csvread('data_lap_85_morph.csv');
+bins_hog_85 = Table85(:, 1);
+vel_hog_85 = Table85(:, 2);
+plot(bins_hog_85, vel_hog_85, '.')
+hold on
+
+Table90=csvread('data_lap_90_morph.csv');
+bins_hog_90 = Table90(:, 1);
+vel_hog_90 = Table90(:, 2);
+plot(bins_hog_90, vel_hog_90, '.')
+
+%% LAP speed noise blob comparison MORPH
+fig_0 = figure;
+subtitle("LAP speed comparison blob noise 90 deg morph")
+xlabel('Sample frame [#]')
+ylabel('Speed [std dev]')
+hold on
+
+Table30=csvread('data_lap_90_morph.csv');
+bins_hog_30 = Table30(:, 1);
+vel_hog_30 = Table30(:, 2);
+plot(bins_hog_30, vel_hog_30, '.')
+hold on
+
+Table30_blob=csvread('data_lap_90_morph_blob.csv');
+bins_hog_30_blob = Table30_blob(:, 1);
+vel_hog_30_blob = Table30_blob(:, 2);
+plot(bins_hog_30_blob, vel_hog_30_blob, '.')
+
+%% LAP speed noise sp comparison MORPH
+fig_0 = figure;
+subtitle("LAP speed comparison sp noise 90 deg morph")
+xlabel('Sample frame [#]')
+ylabel('Speed [std dev]')
+hold on
+
+Table30=csvread('data_lap_90_morph.csv');
+bins_hog_30 = Table30(:, 1);
+vel_hog_30 = Table30(:, 2);
+plot(bins_hog_30, vel_hog_30, '.')
+hold on
+
+Table30_sp=csvread('data_lap_90_morph_sp.csv');
+bins_hog_30_sp = Table30_sp(:, 1);
+vel_hog_30_sp = Table30_sp(:, 2);
+plot(bins_hog_30_sp, vel_hog_30_sp, '.')
