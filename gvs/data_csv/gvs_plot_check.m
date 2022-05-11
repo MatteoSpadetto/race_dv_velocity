@@ -117,12 +117,12 @@ nexttile
 plot(vel_0);
 [max_value,index]=max(vel_0);
 hold on
-plot(index, max_value, 'ro')
+
 subtitle("vel_0")
 xlim([0 length(vel_0)])
 xlabel('Pixel on center col [#]')
 ylabel('Magnitude of dft of pixel [dB]')
-
+plot(index, max_value, 'ro')
 nexttile
 plot(vel_1);
 [max_value,index]=max(vel_1);
@@ -349,7 +349,7 @@ xlabel('Degrees of rotation [°]')
 ylabel('Bins per direction [#]')
 
 %% HOG speed and dir
-Tablel=csvread('data_hog_tot_45.csv');
+Tablel=csvread('data_hog_tot_30_blob.csv');
 
 vel_hog = Tablel(:, 3);
 dir_hog = Tablel(:, 2);
@@ -564,6 +564,20 @@ bins_hog_90 = Table90(:, 1);
 vel_hog_90 = Table90(:, 2);
 plot(bins_hog_90, vel_hog_90, '.')
 
+x = bins_hog_30(1:17)
+%pf = fit(x, y, 'rat01')
+hold on
+pfv1 = 25 * exp(-0.074*x) + 5
+plot(x, pfv1, 'r', 'LineWidth',2)
+hold on
+x = bins_hog_30(16:91)
+pfv2 = 12.4* exp(-0.0325*x) + 5
+plot(x, pfv2 ,'r',  'LineWidth',2)
+hold on
+x = bins_hog_30(90:end)
+pfv2 = 7 -0.015* x
+plot(x, pfv2 ,'r',  'LineWidth',2)
+
 %% LAP speed noise blob comparison MORPH
 fig_0 = figure;
 subtitle("LAP speed comparison blob noise 90 deg morph")
@@ -599,3 +613,15 @@ Table30_sp=csvread('data_lap_90_morph_sp.csv');
 bins_hog_30_sp = Table30_sp(:, 1);
 vel_hog_30_sp = Table30_sp(:, 2);
 plot(bins_hog_30_sp, vel_hog_30_sp, '.')
+
+%% LAP speed 700
+fig_0 = figure;
+subtitle("LAP high speed")
+xlabel('Sample frame [#]')
+ylabel('Speed [std dev]')
+hold on
+
+Table30=csvread('data_lap_45_700.csv');
+bins_hog_30 = Table30(:, 1);
+vel_hog_30 = Table30(:, 2);
+plot(bins_hog_30, vel_hog_30, '.')

@@ -374,11 +374,11 @@ int main(int argc, char const *argv[])
             // Read image
             vector<float> ker;
             vector<float> speed;
-            for (int i = 1; i < 150; i++)
+            for (int i = 1; i < 700; i++)
             {
                 String path = "../../test_blob/mb_speed_" + to_string(i) + ".png";
                 Mat img = imread(path, IMREAD_COLOR);
-                int angl = 90;
+                int angl = 45;
                 Mat img_out;
                 rot_img(img, angl, true);
                 imshow("Not Laplacian", img);
@@ -420,14 +420,12 @@ int main(int argc, char const *argv[])
             }
 
             ofstream file_lap;
-            file_lap.open("./data_csv/data_lap_90_morph_blob.csv");
+            file_lap.open("./data_csv/data_lap_45_700.csv");
             for (int i = 0; i < ker.size(); i++)
             {
                 file_lap << ker[i] << "," << (speed[i]) << endl;
             }
             file_lap.close();
-
-            ;
         }
     }
     file_hog_tot.close();
