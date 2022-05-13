@@ -21,7 +21,7 @@ int main(int argc, char const *argv[])
         {
             uint16_t frame_id = START_FRAME;
             ofstream file_fd;
-            file_fd.open("data_csv/data_fd_30.csv");
+            file_fd.open("data_csv/data_fd_90.csv");
             vector<float> thetas_tot;
             vector<float> dists_tot;
             while (frame_id < END_FRAME)
@@ -37,8 +37,8 @@ int main(int argc, char const *argv[])
                     return -1;
                 }
                 /// Testing rotation ///
-                rot_img(img_a, 60, false);
-                rot_img(img_b, 60, false);
+                rot_img(img_a, 90, false);
+                rot_img(img_b, 90, false);
 
                 /// Crop 2 frames around the center ///
                 int width = 750;
@@ -197,8 +197,8 @@ int main(int argc, char const *argv[])
                         dists_tot.push_back(dists_mode);
                         thetas_tot.push_back(thetas_mode);
                         cout << "dists_mode: " << dists_mode << "\t---\t"
-                             << "thetas_mode: " << thetas_mode << endl;
-                        file_fd << dists_mode << "," << thetas_mode << '\n';
+                             << "thetas_mode: " << 90 - thetas_mode << endl;
+                        file_fd << frame_id - START_FRAME << "," << dists_mode << "," << 90 - thetas_mode << '\n';
                         // TAKE DIST AND THETA FROM HERE for first 10 frames
                     }
                     else
@@ -226,10 +226,10 @@ int main(int argc, char const *argv[])
                         if (((thetas_mode > theta_l_lim) && (thetas_mode < theta_u_lim)) && ((dists_mode > dist_l_lim) && (dists_mode < dist_u_lim)))
                         {
                             dists_tot.push_back(dists_mode);
-                            thetas_tot.push_back(90 - thetas_mode);
+                            thetas_tot.push_back(thetas_mode);
                             cout << "dists_mode: " << dists_mode << "\t---\t"
-                                 << "thetas_mode: " << thetas_mode << endl;
-                            file_fd << dists_mode << "," << thetas_mode << '\n';
+                                 << "thetas_mode: " << 90 - thetas_mode << endl;
+                            file_fd << frame_id - START_FRAME << "," << dists_mode << "," << 90 - thetas_mode << '\n';
                             // TAKE DIST AND THETA FROM HERE for first 10 frames
                         }
                     }

@@ -26,6 +26,10 @@ math.h
 string
 -
 
+/home/matteospadetto/Documents/thesis/race_dv_velocity/gvs/lib/gvs_fd.cpp
+gvs_fd.hpp
+/home/matteospadetto/Documents/thesis/race_dv_velocity/gvs/lib/gvs_fd.hpp
+
 /home/matteospadetto/Documents/thesis/race_dv_velocity/gvs/lib/gvs_fd.hpp
 opencv2/opencv.hpp
 -
