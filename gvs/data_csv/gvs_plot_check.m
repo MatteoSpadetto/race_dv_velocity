@@ -5,9 +5,11 @@ clc;
 load carsmall;
 
 %% Frame diff results no post-processing
-Table=csvread(['/home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs/data_csv/data_fd.csv']);
-dists = Table(:, 1);
-thetas = Table(:, 2);
+Table=csvread(['data_fd_60.csv']);
+dists = Table(:, 2);
+dists = flip(dists);
+thetas = Table(:, 3);
+thetas = flip(thetas);
 
 f_1 = figure;
 tiledlayout(2, 1);
@@ -31,8 +33,8 @@ plot(u, v);
 
 
 nexttile
-plot(90-thetas, '.');
-subtitle("Angles from X axis 45 deg")
+plot(thetas, '.');
+subtitle("Angles from X axis 0 deg")
 xlim([0 length(thetas)])
 ylabel('Theta [deg]')
 xlabel('Frame [#]')
@@ -48,12 +50,12 @@ v=polyval(coeff, u);
 hold on
 %plot(u, v);
 disp("|||||\n")
-disp(mean(90-thetas));
+disp(mean(thetas));
 hold on
-yline(mean(90-thetas), '--r');
-disp(std(90-thetas));
+yline(mean(thetas), '--r');
+disp(std(thetas));
 hold on
-disp(trimmean(90-thetas, 30));
+disp(trimmean(thetas, 30));
 %text(10,0,sprintf('MODE=%.2f',m))
 
 %% Frame diff results no post-processing rotated

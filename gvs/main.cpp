@@ -21,7 +21,7 @@ int main(int argc, char const *argv[])
         {
             uint16_t frame_id = START_FRAME;
             ofstream file_fd;
-            file_fd.open("data_csv/data_fd_90.csv");
+            file_fd.open("data_csv/data_fd_45.csv");
             vector<float> thetas_tot;
             vector<float> dists_tot;
             while (frame_id < END_FRAME)
@@ -37,8 +37,8 @@ int main(int argc, char const *argv[])
                     return -1;
                 }
                 /// Testing rotation ///
-                rot_img(img_a, 90, false);
-                rot_img(img_b, 90, false);
+                rot_img(img_a, 45, false);
+                rot_img(img_b, 45, false);
 
                 /// Crop 2 frames around the center ///
                 int width = 750;
@@ -144,7 +144,7 @@ int main(int argc, char const *argv[])
                         float tmp_theta = atan2(tmp_y, tmp_x) * 180 / CV_PI;
                         if (tmp_theta > THETA_MIN_FD && tmp_theta < THETA_MAX_FD && centers_a[m].y < centers_b[j].y) // Check just the RoI (area below because moving forward)
                         {
-                            // line(img_b, centers_a[m], centers_b[j], Scalar(255, 255, 255), 1);
+                            line(img_b, centers_a[m], centers_b[j], Scalar(255, 255, 255), 1);
                             double len = norm(centers_a[m] - centers_b[j]); // Store all conncetion lengths between centers
                             pt_dist_t tmp_pt_dist;
                             tmp_pt_dist.pt_a = centers_a[m];
@@ -189,7 +189,7 @@ int main(int argc, char const *argv[])
                             Scalar(0, 0, 255), 5);
                 resize(img_b, img_b, Size(img_b.cols * 0.5, img_b.rows * 0.5), INTER_LINEAR);
                 imshow("Frame Diff GVS", img_b);
-                waitKey(50);
+                waitKey(0);
                 if (thetas_mode != 0)
                 {
                     if (frame_id - START_FRAME < WINDOW_SIZE)
