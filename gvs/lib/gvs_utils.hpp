@@ -24,7 +24,6 @@ using namespace std;
 #define CROP_W 350
 #define CROP_H 250
 #define STEP 1
-#define THRESH 100
 #define FRAME_PATH_0 "../../test_fd/20220407T144859/gss_camera/"
 #define FRAME_PATH_1 ".png"
 

@@ -20,6 +20,8 @@
 #define WINDOW_SIZE 5
 #define THETA_MIN_FD 0
 #define THETA_MAX_FD 180
+#define C_AREA 30
+#define THRESH 100
 
 using namespace cv;
 using namespace std;

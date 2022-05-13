@@ -8,7 +8,7 @@
 using namespace cv;
 using namespace std;
 
-#define gvs_mode GVS_HOG_MODE
+#define gvs_mode GVS_FD_MODE
 
 int main(int argc, char const *argv[])
 {
@@ -37,8 +37,8 @@ int main(int argc, char const *argv[])
                     return -1;
                 }
                 /// Testing rotation ///
-                rot_img(img_a, 45, false);
-                rot_img(img_b, 45, false);
+                rot_img(img_a, 60, false);
+                rot_img(img_b, 60, false);
 
                 /// Crop 2 frames around the center ///
                 int width = 750;
@@ -50,67 +50,85 @@ int main(int argc, char const *argv[])
                 /// Go to grayscale ///
                 Mat img_th_a;
                 Mat img_bw_a;
-                cv::cvtColor(img_a, img_bw_a, COLOR_RGBA2GRAY);
-                equalizeHist(img_bw_a, img_bw_a);
-                threshold(img_bw_a, img_th_a, 0, 255, THRESH_BINARY_INV);
+                cv::cvtColor(img_a, img_bw_a, COLOR_RGB2HSV);
+                vector<Mat> channels_a;
+                split(img_bw_a, channels_a);
+                // equalizeHist(img_bw_a, img_bw_a);
+                threshold(channels_a[1], img_th_a, 0, 255, THRESH_BINARY);
 
                 Mat img_th_b;
                 Mat img_bw_b;
-                cv::cvtColor(img_b, img_bw_b, COLOR_RGBA2GRAY);
-                equalizeHist(img_bw_b, img_bw_b);
-                threshold(img_bw_b, img_th_b, 0, 255, THRESH_BINARY_INV);
+                cv::cvtColor(img_b, img_bw_b, COLOR_RGB2HSV);
+                vector<Mat> channels_b;
+                split(img_bw_b, channels_b);
+                // equalizeHist(img_bw_b, img_bw_b);
+                threshold(channels_b[1], img_th_b, 0, 255, THRESH_BINARY);
 
                 /// Erode and dilate ///
-                size_t elem_x_erd = 3;
-                size_t elem_y_erd = 3;
-                size_t elem_x_dil = 4;
-                size_t elem_y_dil = 4;
+                size_t elem_x_erd = 1;
+                size_t elem_y_erd = 1;
+                size_t elem_x_dil = 1;
+                size_t elem_y_dil = 1;
                 Mat element_erd = getStructuringElement(MORPH_ELLIPSE, Size(2 * elem_x_erd + 1, 2 * elem_y_erd + 1), Point(elem_x_erd, elem_y_erd)); // Setting dilation
                 Mat element_dil = getStructuringElement(MORPH_ELLIPSE, Size(2 * elem_x_dil + 1, 2 * elem_y_dil + 1), Point(elem_x_dil, elem_y_dil)); // Setting dilation
 
-                erode(img_th_a, img_th_a, element_erd);  // Erode
                 dilate(img_th_a, img_th_a, element_dil); // Dilate
+                erode(img_th_a, img_th_a, element_erd);  // Erode
 
-                erode(img_th_b, img_th_b, element_erd);  // Erode
                 dilate(img_th_b, img_th_b, element_dil); // Dilate
+                erode(img_th_b, img_th_b, element_erd);  // Erode
 
+                imshow("dddd_a", img_th_a);
+
+                imshow("dddd_b", img_th_b);
                 /// Find contours ///
                 Mat canny_output_a;
-                int thresh = 100;
-                Canny(img_th_a, canny_output_a, THRESH, THRESH * 2);
+                Canny(img_th_a, canny_output_a, THRESH, THRESH * 3);
                 vector<vector<Point>> contours_a;
                 findContours(canny_output_a, contours_a, RETR_EXTERNAL, CHAIN_APPROX_SIMPLE);
                 for (size_t i = 0; i < contours_a.size(); i++)
                 {
-                    Scalar color = Scalar(255, 255, 255);
-                    drawContours(img_b, contours_a, (int)i, color, 2);
+                    if (contourArea(contours_a[i]) >= C_AREA)
+                    {
+                        Scalar color = Scalar(255, 255, 255);
+                        drawContours(img_b, contours_a, (int)i, color, 2);
+                    }
                 }
 
                 Mat canny_output_b;
-                Canny(img_th_b, canny_output_b, THRESH, THRESH * 2);
+                Canny(img_th_b, canny_output_b, THRESH, THRESH * 3);
                 vector<vector<Point>> contours_b;
                 findContours(canny_output_b, contours_b, RETR_EXTERNAL, CHAIN_APPROX_SIMPLE);
                 for (size_t i = 0; i < contours_b.size(); i++)
                 {
                     Scalar color = Scalar(0, 0, 255);
-                    drawContours(img_b, contours_b, (int)i, color, 2);
+                    if (contourArea(contours_b[i]) >= C_AREA)
+                    {
+                        drawContours(img_b, contours_b, (int)i, color, 2);
+                    }
                 }
 
                 /// Find contour centers ///
                 std::vector<cv::Point> centers_a;
                 for (int i = 0; i < contours_a.size(); i++)
                 {
-                    cv::Moments M = cv::moments(contours_a[i]);
-                    cv::Point center_a(M.m10 / M.m00, M.m01 / M.m00);
-                    centers_a.push_back(center_a);
+                    if (contourArea(contours_a[i]) >= C_AREA)
+                    {
+                        cv::Moments M = cv::moments(contours_a[i]);
+                        cv::Point center_a(M.m10 / M.m00, M.m01 / M.m00);
+                        centers_a.push_back(center_a);
+                    }
                 }
 
                 std::vector<cv::Point> centers_b;
                 for (int i = 0; i < contours_b.size(); i++)
                 {
-                    cv::Moments M = cv::moments(contours_b[i]);
-                    cv::Point center_b(M.m10 / M.m00, M.m01 / M.m00);
-                    centers_b.push_back(center_b);
+                    if (contourArea(contours_b[i]) >= C_AREA)
+                    {
+                        cv::Moments M = cv::moments(contours_b[i]);
+                        cv::Point center_b(M.m10 / M.m00, M.m01 / M.m00);
+                        centers_b.push_back(center_b);
+                    }
                 }
 
                 /// Check centers correlations ///
@@ -162,7 +180,7 @@ int main(int argc, char const *argv[])
                         }
                     }
                 }
-                float thetas_mode = get_mode_float(thetas, 5); // Get the mode of remaining thetas
+                float thetas_mode = get_mode_float(thetas, 1); // Get the mode of remaining thetas
 
                 /// Debug arrow on image ///
                 arrowedLine(img_b,
@@ -171,7 +189,7 @@ int main(int argc, char const *argv[])
                             Scalar(0, 0, 255), 5);
                 resize(img_b, img_b, Size(img_b.cols * 0.5, img_b.rows * 0.5), INTER_LINEAR);
                 imshow("Frame Diff GVS", img_b);
-                waitKey(30);
+                waitKey(50);
                 if (thetas_mode != 0)
                 {
                     if (frame_id - START_FRAME < WINDOW_SIZE)
@@ -208,7 +226,7 @@ int main(int argc, char const *argv[])
                         if (((thetas_mode > theta_l_lim) && (thetas_mode < theta_u_lim)) && ((dists_mode > dist_l_lim) && (dists_mode < dist_u_lim)))
                         {
                             dists_tot.push_back(dists_mode);
-                            thetas_tot.push_back(thetas_mode);
+                            thetas_tot.push_back(90 - thetas_mode);
                             cout << "dists_mode: " << dists_mode << "\t---\t"
                                  << "thetas_mode: " << thetas_mode << endl;
                             file_fd << dists_mode << "," << thetas_mode << '\n';
@@ -311,7 +329,7 @@ int main(int argc, char const *argv[])
                 file_hog.open("./data_csv/data_hog.csv");
                 for (int i = 0; i < ang_bins.size(); i++)
                 {
-                    file_hog<< ang_bins[i] << "," << bins[i] << endl;
+                    file_hog << ang_bins[i] << "," << bins[i] << endl;
                 }
                 file_hog.close();
 
