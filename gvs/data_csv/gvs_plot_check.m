@@ -13,7 +13,7 @@ f_1 = figure;
 tiledlayout(2, 1);
 nexttile
 plot(dists, '.');
-subtitle("Distances btw points 45 deg")
+subtitle("Distances btw points 0 deg")
 xlim([0 length(dists)])
 ylabel('Speed [pixel distance]')
 xlabel('Frame [#]')
@@ -575,8 +575,8 @@ pfv2 = 12.4* exp(-0.0325*x) + 5
 plot(x, pfv2 ,'r',  'LineWidth',2)
 hold on
 x = bins_hog_30(90:end)
-pfv2 = 7 -0.015* x
-plot(x, pfv2 ,'r',  'LineWidth',2)
+pfv3 = 7 -0.015* x
+plot(x, pfv3 ,'r',  'LineWidth',2)
 
 %% LAP speed noise blob comparison MORPH
 fig_0 = figure;

@@ -8,7 +8,7 @@
 using namespace cv;
 using namespace std;
 
-#define gvs_mode GVS_LAP_MODE
+#define gvs_mode GVS_HOG_MODE
 
 int main(int argc, char const *argv[])
 {
@@ -21,7 +21,7 @@ int main(int argc, char const *argv[])
         {
             uint16_t frame_id = START_FRAME;
             ofstream file_fd;
-            file_fd.open("data_csv/data_fd.csv");
+            file_fd.open("data_csv/data_fd_30.csv");
             vector<float> thetas_tot;
             vector<float> dists_tot;
             while (frame_id < END_FRAME)
@@ -36,14 +36,13 @@ int main(int argc, char const *argv[])
                     cout << "Incorrect data frame\n";
                     return -1;
                 }
-
                 /// Testing rotation ///
-                rot_img(img_a, 45, true);
-                rot_img(img_b, 45, true);
+                rot_img(img_a, 45, false);
+                rot_img(img_b, 45, false);
 
                 /// Crop 2 frames around the center ///
-                int width = img_a.cols - CROP_W;
-                int heigth = img_a.rows - CROP_H;
+                int width = 750;
+                int heigth = 750;
                 cv::Rect crop_region((img_a.cols / 2) - (width / 2), (img_a.rows / 2) - (heigth / 2), width, heigth);
                 img_a = img_a(crop_region);
                 img_b = img_b(crop_region);
@@ -172,6 +171,7 @@ int main(int argc, char const *argv[])
                             Scalar(0, 0, 255), 5);
                 resize(img_b, img_b, Size(img_b.cols * 0.5, img_b.rows * 0.5), INTER_LINEAR);
                 imshow("Frame Diff GVS", img_b);
+                waitKey(30);
                 if (thetas_mode != 0)
                 {
                     if (frame_id - START_FRAME < WINDOW_SIZE)
@@ -199,11 +199,11 @@ int main(int argc, char const *argv[])
                         float dist_l_lim = dist_mean - dist_cut_off;
                         float dist_u_lim = dist_mean + dist_cut_off;
 
-                        /*cout << "###########" << endl;
+                        cout << "###########" << endl;
                         cout << "theta_mean: " << theta_mean << endl;
                         cout << "dist_mean: " << dist_mean << endl;
                         cout << "theta_std: " << theta_std << endl;
-                        cout << "dist_std: " << dist_std << endl;*/
+                        cout << "dist_std: " << dist_std << endl;
 
                         if (((thetas_mode > theta_l_lim) && (thetas_mode < theta_u_lim)) && ((dists_mode > dist_l_lim) && (dists_mode < dist_u_lim)))
                         {
@@ -216,7 +216,7 @@ int main(int argc, char const *argv[])
                         }
                     }
                 }
-                waitKey(10);
+
                 frame_id++;
             }
             file_fd.close();
@@ -307,13 +307,13 @@ int main(int argc, char const *argv[])
                 }
 
                 /// Store bins hist in .csv ///
-                /*ofstream file_hog;
+                ofstream file_hog;
                 file_hog.open("./data_csv/data_hog.csv");
                 for (int i = 0; i < ang_bins.size(); i++)
                 {
-                    file_hog_tot << ang_bins[i] << "," << bins[i] << endl;
+                    file_hog<< ang_bins[i] << "," << bins[i] << endl;
                 }
-                // file_hog_to.close();*/
+                file_hog.close();
 
                 /// Sort in descendent order ///
                 for (int i = 0; i < bins.size(); i++)
