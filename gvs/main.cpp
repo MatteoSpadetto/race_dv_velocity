@@ -8,7 +8,7 @@
 using namespace cv;
 using namespace std;
 
-#define gvs_mode GVS_FD_MODE
+#define gvs_mode GVS_HOG_MODE
 
 int main(int argc, char const *argv[])
 {
@@ -242,9 +242,9 @@ int main(int argc, char const *argv[])
         else if (gvs_mode == GVS_HOG_MODE)
         {
             // Read image
-            // Mat img = imread("./test_ae_sp_noise/mb_noise_5.png", IMREAD_COLOR);
-            String path = "../../test_speed/mb_speed_" + to_string(p) + ".png";
-            Mat img = imread(path, IMREAD_COLOR);
+            Mat img = imread("../../test_speed/mb_speed_100.png", IMREAD_COLOR);
+            // String path = "../../test_speed/mb_speed_" + to_string(p) + ".png";
+            // Mat img = imread(path, IMREAD_COLOR);
             /// Check for not corrupted data ///
             if (!img.data)
             {
@@ -271,7 +271,7 @@ int main(int argc, char const *argv[])
             vector<int> bins;
             vector<float> ang_bins;
 
-#define hog_mode FIVE_P
+#define hog_mode OPT_P
             if (hog_mode == OPT_P)
             {
                 /// Find optimal point to analyse (aka highest magnitude area) ///
@@ -316,7 +316,6 @@ int main(int argc, char const *argv[])
                                 else if ((angle.at<float>(j, i) > ang_step - 1) && (angle.at<float>(j, i) < ang_step))
                                 {
                                     bins[bins.size() - 1] += mag.at<float>(j, i);
-                                    bins[bins.size() - 1] += mag.at<float>(j, i);
                                 }
                             }
                         }
@@ -324,9 +323,8 @@ int main(int argc, char const *argv[])
                     ang_step += 1;
                 }
 
-                /// Store bins hist in .csv ///
                 ofstream file_hog;
-                file_hog.open("./data_csv/data_hog.csv");
+                file_hog.open("./data_csv/data_hog_90.csv");
                 for (int i = 0; i < ang_bins.size(); i++)
                 {
                     file_hog << ang_bins[i] << "," << bins[i] << endl;
@@ -349,6 +347,8 @@ int main(int argc, char const *argv[])
                         }
                     }
                 }
+
+                /// Store bins hist in .csv ///
 
                 float final_dir_hog = (180 - ang_bins[0]); // Delete 180 offset (add 90 for motion direction)
                 line_ang_p(final_dir_hog, Point(test_p[l].x, test_p[l].y), img_out);

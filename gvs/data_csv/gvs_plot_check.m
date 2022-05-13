@@ -318,7 +318,7 @@ xlabel('Pixel on center col [#]')
 ylabel('Magnitude of dft of pixel [dB]')
 
 %% HOG analysis
-Tablel=csvread('data_hog.csv');
+Tablel=csvread('data_hog_30.csv');
 
 dir_hog = Tablel(:, 2);
 bins_hog = Tablel(:, 1);
