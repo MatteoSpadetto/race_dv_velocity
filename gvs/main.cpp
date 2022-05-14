@@ -8,7 +8,7 @@
 using namespace cv;
 using namespace std;
 
-#define gvs_mode GVS_HOG_MODE
+#define gvs_mode GVS_LAP_MODE
 
 int main(int argc, char const *argv[])
 {
@@ -257,7 +257,7 @@ int main(int argc, char const *argv[])
             cv::cvtColor(img, img, COLOR_RGBA2GRAY);
 
             /// Testing rotation ///
-            rot_img(img, 90, true);
+            rot_img(img, 45, true);
             Mat img_out = img;
 
             img.convertTo(img, CV_32F);            // Convert to multi-channels
@@ -324,7 +324,7 @@ int main(int argc, char const *argv[])
                 }
 
                 ofstream file_hog;
-                file_hog.open("./data_csv/data_hog_90.csv");
+                file_hog.open("./data_csv/data_hog_45.csv");
                 for (int i = 0; i < ang_bins.size(); i++)
                 {
                     file_hog << ang_bins[i] << "," << bins[i] << endl;
@@ -392,9 +392,9 @@ int main(int argc, char const *argv[])
             // Read image
             vector<float> ker;
             vector<float> speed;
-            for (int i = 1; i < 700; i++)
+            for (int i = 1; i < 150; i++)
             {
-                String path = "../../test_blob/mb_speed_" + to_string(i) + ".png";
+                String path = "../../test_speed/mb_speed_" + to_string(i) + ".png";
                 Mat img = imread(path, IMREAD_COLOR);
                 int angl = 45;
                 Mat img_out;
@@ -438,7 +438,7 @@ int main(int argc, char const *argv[])
             }
 
             ofstream file_lap;
-            file_lap.open("./data_csv/data_lap_45_700.csv");
+            file_lap.open("./data_csv/data_lap_45.csv");
             for (int i = 0; i < ker.size(); i++)
             {
                 file_lap << ker[i] << "," << (speed[i]) << endl;

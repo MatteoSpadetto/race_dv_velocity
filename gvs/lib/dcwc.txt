@@ -1,3 +1,221 @@
+%% DFT analysis of maximum center colum different speeds
+
+Table0=csvread('/home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs/data_csv/data_freq_0.csv');
+Table1=csvread('/home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs/data_csv/data_freq_1.csv');
+Table2=csvread('/home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs/data_csv/data_freq_2.csv');
+Table3=csvread('/home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs/data_csv/data_freq_3.csv');
+
+vel_0 = Table0(:, 1);
+vel_1 = Table1(:, 1);
+vel_2 = Table2(:, 1);
+vel_3 = Table3(:, 1);
+
+f_2 = figure;
+f_2.Position = [200 200 1000 1000];
+tiledlayout(2, 2);
+nexttile
+plot(vel_0);
+[max_value,index]=max(vel_0);
+hold on
+
+subtitle("vel_0")
+xlim([0 length(vel_0)])
+xlabel('Pixel on center col [#]')
+ylabel('Magnitude of dft of pixel [dB]')
+plot(index, max_value, 'ro')
+nexttile
+plot(vel_1);
+[max_value,index]=max(vel_1);
+hold on
+plot(index, max_value, 'ro')
+subtitle("vel_1")
+xlim([0 length(vel_1)])
+xlabel('Pixel on center col [#]')
+ylabel('Magnitude of dft of pixel [dB]')
+
+nexttile
+plot(vel_2);
+[max_value,index]=max(vel_2);
+hold on
+plot(index, max_value, 'ro')
+subtitle("vel_2")
+xlim([0 length(vel_2)])
+xlabel('Pixel on center col [#]')
+ylabel('Magnitude of dft of pixel [dB]')
+
+nexttile
+plot(vel_3);
+[max_value,index]=max(vel_3);
+hold on
+plot(index, max_value, 'ro')
+subtitle("vel_3")
+xlim([0 length(vel_3)])
+xlabel('Pixel on center col [#]')
+ylabel('Magnitude of dft of pixel [dB]')
+
+%% DFT analysis of maximum center colum different speeds rotated
+Table0=csvread('/home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs/data_csv/data_freq_0_rot.csv');
+Table1=csvread('/home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs/data_csv/data_freq_1_rot.csv');
+Table2=csvread('/home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs/data_csv/data_freq_2_rot.csv');
+Table3=csvread('/home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs/data_csv/data_freq_3_rot.csv');
+
+vel_0_rot = Table0(:, 1);
+vel_1_rot = Table1(:, 1);
+vel_2_rot = Table2(:, 1);
+vel_3_rot = Table3(:, 1);
+
+f_3 = figure;
+f_3.Position = [200 200 1000 1000];
+tiledlayout(2, 2);
+nexttile
+plot(vel_0_rot);
+[max_value,index]=max(vel_0_rot);
+hold on
+plot(index, max_value, 'ro')
+subtitle("vel_0 rot")
+xlim([0 length(vel_0_rot)])
+xlabel('Pixel on center col [#]')
+ylabel('Magnitude of dft of pixel [dB]')
+
+nexttile
+plot(vel_1_rot);
+[max_value,index]=max(vel_1_rot);
+hold on
+plot(index, max_value, 'ro')
+subtitle("vel_1 rot")
+xlim([0 length(vel_1_rot)])
+xlabel('Pixel on center col [#]')
+ylabel('Magnitude of dft of pixel [dB]')
+
+nexttile
+plot(vel_2_rot);
+subtitle("vel_2 rot")
+[max_value,index]=max(vel_2_rot);
+hold on
+plot(index, max_value, 'ro')
+xlim([0 length(vel_2_rot)])
+xlabel('Pixel on center col [#]')
+ylabel('Magnitude of dft of pixel [dB]')
+
+nexttile
+plot(vel_3_rot);
+[max_value,index]=max(vel_3_rot);
+hold on
+plot(index, max_value, 'ro')
+subtitle("vel_3 rot")
+xlim([0 length(vel_3_rot)])
+xlabel('Pixel on center col [#]')
+ylabel('Magnitude of dft of pixel [dB]')
+
+%% DFT analysis of maximum center colum different speeds rotated with noise blob
+Table0=csvread('/home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs/data_csv/data_freq_noise_0_rot.csv');
+Table1=csvread('/home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs/data_csv/data_freq_noise_1_rot.csv');
+Table2=csvread('/home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs/data_csv/data_freq_noise_2_rot.csv');
+Table3=csvread('/home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs/data_csv/data_freq_noise_3_rot.csv');
+
+vel_ns_0_rot = Table0(:, 1);
+vel_ns_1_rot = Table1(:, 1);
+vel_ns_2_rot = Table2(:, 1);
+vel_ns_3_rot = Table3(:, 1);
+
+f_3 = figure;
+f_3.Position = [200 200 1000 1000];
+tiledlayout(2, 2);
+nexttile
+plot(vel_ns_0_rot);
+[max_value,index]=max(vel_ns_0_rot);
+hold on
+plot(index, max_value, 'ro')
+subtitle("vel_0 rot with noise")
+xlim([0 length(vel_ns_0_rot)])
+xlabel('Pixel on center col [#]')
+ylabel('Magnitude of dft of pixel [dB]')
+
+nexttile
+plot(vel_ns_1_rot);
+[max_value,index]=max(vel_ns_1_rot);
+hold on
+plot(index, max_value, 'ro')
+subtitle("vel_1 rot with noise")
+xlim([0 length(vel_ns_1_rot)])
+xlabel('Pixel on center col [#]')
+ylabel('Magnitude of dft of pixel [dB]')
+
+nexttile
+plot(vel_ns_2_rot);
+subtitle("vel_2 rot with noise")
+[max_value,index]=max(vel_ns_2_rot);
+hold on
+plot(index, max_value, 'ro')
+xlim([0 length(vel_ns_2_rot)])
+xlabel('Pixel on center col [#]')
+ylabel('Magnitude of dft of pixel [dB]')
+
+nexttile
+plot(vel_ns_3_rot);
+[max_value,index]=max(vel_ns_3_rot);
+hold on
+plot(index, max_value, 'ro')
+subtitle("vel_3 rot with noise")
+xlim([0 length(vel_ns_3_rot)])
+xlabel('Pixel on center col [#]')
+ylabel('Magnitude of dft of pixel [dB]')
+
+%% DFT analysis of maximum center colum different speeds rotated with noise salt and pepper
+Table0=csvread('/home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs/data_csv/data_freq_noise_sp_0_rot.csv');
+Table1=csvread('/home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs/data_csv/data_freq_noise_sp_1_rot.csv');
+Table2=csvread('/home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs/data_csv/data_freq_noise_sp_2_rot.csv');
+Table3=csvread('/home/matteospadetto/Documents/unitn_ms/Thesis_sw/gvs/data_csv/data_freq_noise_sp_3_rot.csv');
+
+vel_ns_sp_0_rot = Table0(:, 1);
+vel_ns_sp_1_rot = Table1(:, 1);
+vel_ns_sp_2_rot = Table2(:, 1);
+vel_ns_sp_3_rot = Table3(:, 1);
+
+f_3 = figure;
+f_3.Position = [200 200 1000 1000];
+tiledlayout(2, 2);
+nexttile
+plot(vel_ns_sp_0_rot);
+[max_value,index]=max(vel_ns_sp_0_rot);
+hold on
+plot(index, max_value, 'ro')
+subtitle("vel_0 rot with sp noise")
+xlim([0 length(vel_ns_sp_0_rot)])
+xlabel('Pixel on center col [#]')
+ylabel('Magnitude of dft of pixel [dB]')
+
+nexttile
+plot(vel_ns_sp_1_rot);
+[max_value,index]=max(vel_ns_sp_1_rot);
+hold on
+plot(index, max_value, 'ro')
+subtitle("vel_1 rot with sp  noise")
+xlim([0 length(vel_ns_sp_1_rot)])
+xlabel('Pixel on center col [#]')
+ylabel('Magnitude of dft of pixel [dB]')
+
+nexttile
+plot(vel_ns_sp_2_rot);
+subtitle("vel_2 rot with sp noise")
+[max_value,index]=max(vel_ns_sp_2_rot);
+hold on
+plot(index, max_value, 'ro')
+xlim([0 length(vel_ns_sp_2_rot)])
+xlabel('Pixel on center col [#]')
+ylabel('Magnitude of dft of pixel [dB]')
+
+nexttile
+plot(vel_ns_sp_3_rot);
+[max_value,index]=max(vel_ns_sp_3_rot);
+hold on
+plot(index, max_value, 'ro')
+subtitle("vel_3 rot with sp noise")
+xlim([0 length(vel_ns_sp_3_rot)])
+xlabel('Pixel on center col [#]')
+ylabel('Magnitude of dft of pixel [dB]')
+
+    
     /*else if (flag_mode == GVS_AE_MODE)
     {
         for (int l = 0; l < 1; l++)
