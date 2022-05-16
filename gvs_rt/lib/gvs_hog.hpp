@@ -20,9 +20,11 @@
 #define OPT_P 0
 #define FOUR_P 1
 #define FIVE_P 2
-#define PD_X 200  // Test point x distance from center
-#define PD_Y 60   // Test point y distance from center
-#define RADIUS 50 // Radius of analysed circle area
+#define PD_X 200   // Test point x distance from center
+#define PD_Y 60    // Test point y distance from center
+#define RADIUS 100 // Radius of analysed circle area
+#define HOG_X_CROP 600
+#define HOG_Y_CROP 600
 
 cv::Point find_opt_p(cv::Mat mat_ang, cv::Mat mat_mag); // Find point with highest mag sum
 

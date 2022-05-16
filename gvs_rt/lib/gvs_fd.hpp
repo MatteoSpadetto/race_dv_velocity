@@ -13,6 +13,7 @@
 #include <limits>
 #include <numeric>
 #include <vector>
+#include "gvs_utils.hpp"
 
 #ifndef GVS_FD
 #define GVS_FD
@@ -22,6 +23,8 @@
 #define THETA_MAX_FD 180
 #define C_AREA 30
 #define THRESH 100
+#define FD_X_CROP 750
+#define FD_Y_CROP 750
 
 using namespace cv;
 using namespace std;
@@ -29,5 +32,6 @@ using namespace std;
 float get_mode_float(vector<float> input, float lim);                          // Get vector mode
 float mean(vector<float> in_vec, int start_frame, int end_frame);              // Get vector mean
 float stdev(vector<float> in_vec, float mean, int start_frame, int end_frame); // Get vector standard deviation
+float gvs_fd(cv::Mat frame_a, cv::Mat frame_b);                                // Get angle from GVS_FD
 
 #endif

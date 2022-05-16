@@ -49,15 +49,15 @@ void line_ang_p(float angle, cv::Point center, cv::Mat &img_in)
 }
 
 /// Rotate image ///
-void rot_img(cv::Mat &img_in, float angle, bool crop)
+void rot_img(cv::Mat &img_in, float angle, bool crop, int crop_x, int crop_y)
 {
     Point2f center = Point((img_in.cols) / 2, (img_in.rows) / 2);
     Mat rotation_matix = getRotationMatrix2D(center, angle, 1.0); // Use just positive angles
     warpAffine(img_in, img_in, rotation_matix, img_in.size());
     if (crop)
     {
-        int width = 400;
-        int heigth = 400;
+        int width = crop_x;//400;
+        int heigth = crop_y;//400;
         Rect crop_region = Rect((img_in.cols / 2) - (width / 2), (img_in.rows / 2) - (heigth / 2), width, heigth);
         img_in = img_in(crop_region);
     }

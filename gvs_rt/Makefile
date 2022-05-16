@@ -123,33 +123,6 @@ gvs_rt/fast:
 	$(MAKE) -f CMakeFiles/gvs_rt.dir/build.make CMakeFiles/gvs_rt.dir/build
 .PHONY : gvs_rt/fast
 
-lib/gvs_dft.o: lib/gvs_dft.cpp.o
-
-.PHONY : lib/gvs_dft.o
-
-# target to build an object file
-lib/gvs_dft.cpp.o:
-	$(MAKE) -f CMakeFiles/gvs_rt.dir/build.make CMakeFiles/gvs_rt.dir/lib/gvs_dft.cpp.o
-.PHONY : lib/gvs_dft.cpp.o
-
-lib/gvs_dft.i: lib/gvs_dft.cpp.i
-
-.PHONY : lib/gvs_dft.i
-
-# target to preprocess a source file
-lib/gvs_dft.cpp.i:
-	$(MAKE) -f CMakeFiles/gvs_rt.dir/build.make CMakeFiles/gvs_rt.dir/lib/gvs_dft.cpp.i
-.PHONY : lib/gvs_dft.cpp.i
-
-lib/gvs_dft.s: lib/gvs_dft.cpp.s
-
-.PHONY : lib/gvs_dft.s
-
-# target to generate assembly for a file
-lib/gvs_dft.cpp.s:
-	$(MAKE) -f CMakeFiles/gvs_rt.dir/build.make CMakeFiles/gvs_rt.dir/lib/gvs_dft.cpp.s
-.PHONY : lib/gvs_dft.cpp.s
-
 lib/gvs_fd.o: lib/gvs_fd.cpp.o
 
 .PHONY : lib/gvs_fd.o
@@ -203,6 +176,33 @@ lib/gvs_hog.s: lib/gvs_hog.cpp.s
 lib/gvs_hog.cpp.s:
 	$(MAKE) -f CMakeFiles/gvs_rt.dir/build.make CMakeFiles/gvs_rt.dir/lib/gvs_hog.cpp.s
 .PHONY : lib/gvs_hog.cpp.s
+
+lib/gvs_lap.o: lib/gvs_lap.cpp.o
+
+.PHONY : lib/gvs_lap.o
+
+# target to build an object file
+lib/gvs_lap.cpp.o:
+	$(MAKE) -f CMakeFiles/gvs_rt.dir/build.make CMakeFiles/gvs_rt.dir/lib/gvs_lap.cpp.o
+.PHONY : lib/gvs_lap.cpp.o
+
+lib/gvs_lap.i: lib/gvs_lap.cpp.i
+
+.PHONY : lib/gvs_lap.i
+
+# target to preprocess a source file
+lib/gvs_lap.cpp.i:
+	$(MAKE) -f CMakeFiles/gvs_rt.dir/build.make CMakeFiles/gvs_rt.dir/lib/gvs_lap.cpp.i
+.PHONY : lib/gvs_lap.cpp.i
+
+lib/gvs_lap.s: lib/gvs_lap.cpp.s
+
+.PHONY : lib/gvs_lap.s
+
+# target to generate assembly for a file
+lib/gvs_lap.cpp.s:
+	$(MAKE) -f CMakeFiles/gvs_rt.dir/build.make CMakeFiles/gvs_rt.dir/lib/gvs_lap.cpp.s
+.PHONY : lib/gvs_lap.cpp.s
 
 lib/gvs_utils.o: lib/gvs_utils.cpp.o
 
@@ -267,15 +267,15 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... gvs_rt"
-	@echo "... lib/gvs_dft.o"
-	@echo "... lib/gvs_dft.i"
-	@echo "... lib/gvs_dft.s"
 	@echo "... lib/gvs_fd.o"
 	@echo "... lib/gvs_fd.i"
 	@echo "... lib/gvs_fd.s"
 	@echo "... lib/gvs_hog.o"
 	@echo "... lib/gvs_hog.i"
 	@echo "... lib/gvs_hog.s"
+	@echo "... lib/gvs_lap.o"
+	@echo "... lib/gvs_lap.i"
+	@echo "... lib/gvs_lap.s"
 	@echo "... lib/gvs_utils.o"
 	@echo "... lib/gvs_utils.i"
 	@echo "... lib/gvs_utils.s"

@@ -35,9 +35,9 @@ typedef struct
     double theta;
 } pt_dist_t; // Frames with their informations
 
-std::string var_path(long n);                                    // Create string piece path to img
-std::string merge_path(int n);                                   //  Build complete path to img
-void line_ang_p(float angle, cv::Point center, cv::Mat &img_in); // Draw a line with center and angle
-void rot_img(cv::Mat &img_in, float angle, bool crop);                      // Rotate image
+std::string var_path(long n);                                                  // Create string piece path to img
+std::string merge_path(int n);                                                 //  Build complete path to img
+void line_ang_p(float angle, cv::Point center, cv::Mat &img_in);               // Draw a line with center and angle
+void rot_img(cv::Mat &img_in, float angle, bool crop, int crop_x, int crop_y); // Rotate image
 
 #endif

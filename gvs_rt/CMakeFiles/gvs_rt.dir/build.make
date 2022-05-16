@@ -96,22 +96,9 @@ CMakeFiles/gvs_rt.dir/lib/gvs_fd.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/gvs_rt.dir/lib/gvs_fd.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/matteospadetto/Documents/thesis/race_dv_velocity/gvs_rt/lib/gvs_fd.cpp -o CMakeFiles/gvs_rt.dir/lib/gvs_fd.cpp.s
 
-CMakeFiles/gvs_rt.dir/lib/gvs_dft.cpp.o: CMakeFiles/gvs_rt.dir/flags.make
-CMakeFiles/gvs_rt.dir/lib/gvs_dft.cpp.o: lib/gvs_dft.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/matteospadetto/Documents/thesis/race_dv_velocity/gvs_rt/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/gvs_rt.dir/lib/gvs_dft.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gvs_rt.dir/lib/gvs_dft.cpp.o -c /home/matteospadetto/Documents/thesis/race_dv_velocity/gvs_rt/lib/gvs_dft.cpp
-
-CMakeFiles/gvs_rt.dir/lib/gvs_dft.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/gvs_rt.dir/lib/gvs_dft.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/matteospadetto/Documents/thesis/race_dv_velocity/gvs_rt/lib/gvs_dft.cpp > CMakeFiles/gvs_rt.dir/lib/gvs_dft.cpp.i
-
-CMakeFiles/gvs_rt.dir/lib/gvs_dft.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/gvs_rt.dir/lib/gvs_dft.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/matteospadetto/Documents/thesis/race_dv_velocity/gvs_rt/lib/gvs_dft.cpp -o CMakeFiles/gvs_rt.dir/lib/gvs_dft.cpp.s
-
 CMakeFiles/gvs_rt.dir/lib/gvs_hog.cpp.o: CMakeFiles/gvs_rt.dir/flags.make
 CMakeFiles/gvs_rt.dir/lib/gvs_hog.cpp.o: lib/gvs_hog.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/matteospadetto/Documents/thesis/race_dv_velocity/gvs_rt/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/gvs_rt.dir/lib/gvs_hog.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/matteospadetto/Documents/thesis/race_dv_velocity/gvs_rt/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/gvs_rt.dir/lib/gvs_hog.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gvs_rt.dir/lib/gvs_hog.cpp.o -c /home/matteospadetto/Documents/thesis/race_dv_velocity/gvs_rt/lib/gvs_hog.cpp
 
 CMakeFiles/gvs_rt.dir/lib/gvs_hog.cpp.i: cmake_force
@@ -122,13 +109,26 @@ CMakeFiles/gvs_rt.dir/lib/gvs_hog.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/gvs_rt.dir/lib/gvs_hog.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/matteospadetto/Documents/thesis/race_dv_velocity/gvs_rt/lib/gvs_hog.cpp -o CMakeFiles/gvs_rt.dir/lib/gvs_hog.cpp.s
 
+CMakeFiles/gvs_rt.dir/lib/gvs_lap.cpp.o: CMakeFiles/gvs_rt.dir/flags.make
+CMakeFiles/gvs_rt.dir/lib/gvs_lap.cpp.o: lib/gvs_lap.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/matteospadetto/Documents/thesis/race_dv_velocity/gvs_rt/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/gvs_rt.dir/lib/gvs_lap.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gvs_rt.dir/lib/gvs_lap.cpp.o -c /home/matteospadetto/Documents/thesis/race_dv_velocity/gvs_rt/lib/gvs_lap.cpp
+
+CMakeFiles/gvs_rt.dir/lib/gvs_lap.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/gvs_rt.dir/lib/gvs_lap.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/matteospadetto/Documents/thesis/race_dv_velocity/gvs_rt/lib/gvs_lap.cpp > CMakeFiles/gvs_rt.dir/lib/gvs_lap.cpp.i
+
+CMakeFiles/gvs_rt.dir/lib/gvs_lap.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/gvs_rt.dir/lib/gvs_lap.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/matteospadetto/Documents/thesis/race_dv_velocity/gvs_rt/lib/gvs_lap.cpp -o CMakeFiles/gvs_rt.dir/lib/gvs_lap.cpp.s
+
 # Object files for target gvs_rt
 gvs_rt_OBJECTS = \
 "CMakeFiles/gvs_rt.dir/main_rt.cpp.o" \
 "CMakeFiles/gvs_rt.dir/lib/gvs_utils.cpp.o" \
 "CMakeFiles/gvs_rt.dir/lib/gvs_fd.cpp.o" \
-"CMakeFiles/gvs_rt.dir/lib/gvs_dft.cpp.o" \
-"CMakeFiles/gvs_rt.dir/lib/gvs_hog.cpp.o"
+"CMakeFiles/gvs_rt.dir/lib/gvs_hog.cpp.o" \
+"CMakeFiles/gvs_rt.dir/lib/gvs_lap.cpp.o"
 
 # External object files for target gvs_rt
 gvs_rt_EXTERNAL_OBJECTS =
@@ -136,8 +136,8 @@ gvs_rt_EXTERNAL_OBJECTS =
 gvs_rt: CMakeFiles/gvs_rt.dir/main_rt.cpp.o
 gvs_rt: CMakeFiles/gvs_rt.dir/lib/gvs_utils.cpp.o
 gvs_rt: CMakeFiles/gvs_rt.dir/lib/gvs_fd.cpp.o
-gvs_rt: CMakeFiles/gvs_rt.dir/lib/gvs_dft.cpp.o
 gvs_rt: CMakeFiles/gvs_rt.dir/lib/gvs_hog.cpp.o
+gvs_rt: CMakeFiles/gvs_rt.dir/lib/gvs_lap.cpp.o
 gvs_rt: CMakeFiles/gvs_rt.dir/build.make
 gvs_rt: /usr/local/lib/libopencv_gapi.so.4.5.3
 gvs_rt: /usr/local/lib/libopencv_stitching.so.4.5.3

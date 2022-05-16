@@ -6,34 +6,6 @@
 
 #IncludeRegexTransform: 
 
-/home/matteospadetto/Documents/thesis/race_dv_velocity/gvs_rt/lib/gvs_dft.cpp
-gvs_dft.hpp
-/home/matteospadetto/Documents/thesis/race_dv_velocity/gvs_rt/lib/gvs_dft.hpp
-
-/home/matteospadetto/Documents/thesis/race_dv_velocity/gvs_rt/lib/gvs_dft.hpp
-opencv2/opencv.hpp
--
-opencv2/core/core.hpp
--
-opencv2/highgui.hpp
--
-opencv2/imgproc/imgproc.hpp
--
-iostream
--
-fstream
--
-unistd.h
--
-math.h
--
-string
--
-
-/home/matteospadetto/Documents/thesis/race_dv_velocity/gvs_rt/lib/gvs_fd.cpp
-gvs_fd.hpp
-/home/matteospadetto/Documents/thesis/race_dv_velocity/gvs_rt/lib/gvs_fd.hpp
-
 /home/matteospadetto/Documents/thesis/race_dv_velocity/gvs_rt/lib/gvs_fd.hpp
 opencv2/opencv.hpp
 -
@@ -65,10 +37,8 @@ numeric
 -
 vector
 -
-
-/home/matteospadetto/Documents/thesis/race_dv_velocity/gvs_rt/lib/gvs_hog.cpp
-gvs_hog.hpp
-/home/matteospadetto/Documents/thesis/race_dv_velocity/gvs_rt/lib/gvs_hog.hpp
+gvs_utils.hpp
+/home/matteospadetto/Documents/thesis/race_dv_velocity/gvs_rt/lib/gvs_utils.hpp
 
 /home/matteospadetto/Documents/thesis/race_dv_velocity/gvs_rt/lib/gvs_hog.hpp
 opencv2/opencv.hpp
@@ -102,7 +72,41 @@ numeric
 vector
 -
 
-/home/matteospadetto/Documents/thesis/race_dv_velocity/gvs_rt/lib/gvs_utils.cpp
+/home/matteospadetto/Documents/thesis/race_dv_velocity/gvs_rt/lib/gvs_lap.cpp
+gvs_lap.hpp
+/home/matteospadetto/Documents/thesis/race_dv_velocity/gvs_rt/lib/gvs_lap.hpp
+
+/home/matteospadetto/Documents/thesis/race_dv_velocity/gvs_rt/lib/gvs_lap.hpp
+opencv2/opencv.hpp
+-
+opencv2/core/core.hpp
+-
+opencv2/highgui.hpp
+-
+opencv2/imgproc/imgproc.hpp
+-
+iostream
+-
+fstream
+-
+unistd.h
+-
+math.h
+-
+string
+-
+algorithm
+-
+cmath
+-
+iterator
+-
+limits
+-
+numeric
+-
+vector
+-
 gvs_utils.hpp
 /home/matteospadetto/Documents/thesis/race_dv_velocity/gvs_rt/lib/gvs_utils.hpp
 
@@ -133,11 +137,13 @@ lib/gvs_fd.hpp
 /home/matteospadetto/Documents/thesis/race_dv_velocity/gvs_rt/lib/gvs_fd.hpp
 lib/gvs_hog.hpp
 /home/matteospadetto/Documents/thesis/race_dv_velocity/gvs_rt/lib/gvs_hog.hpp
-lib/gvs_dft.hpp
-/home/matteospadetto/Documents/thesis/race_dv_velocity/gvs_rt/lib/gvs_dft.hpp
+lib/gvs_lap.hpp
+/home/matteospadetto/Documents/thesis/race_dv_velocity/gvs_rt/lib/gvs_lap.hpp
 math.h
 /home/matteospadetto/Documents/thesis/race_dv_velocity/gvs_rt/math.h
 iomanip
+-
+chrono
 -
 
 /usr/local/include/opencv4/opencv2/calib3d.hpp
