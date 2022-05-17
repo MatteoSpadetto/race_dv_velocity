@@ -20,11 +20,11 @@ using namespace std;
 #define LINEAR 0
 #define MEAN_ANGLE 1
 #define START_FRAME 900
-#define END_FRAME 990
+#define END_FRAME 100
 #define CROP_W 350
 #define CROP_H 250
 #define STEP 1
-#define FRAME_PATH_0 "../../test_fd/20220407T144859/gss_camera/"
+#define FRAME_PATH_0 "../../test_speed/" //"../../test_fd/20220407T144859/gss_camera/"
 #define FRAME_PATH_1 ".png"
 
 typedef struct

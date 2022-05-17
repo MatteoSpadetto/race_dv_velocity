@@ -111,6 +111,7 @@ CMakeFiles/gvs_rt.dir/lib/gvs_fd.cpp.o: /usr/local/include/opencv4/opencv2/video
 
 CMakeFiles/gvs_rt.dir/lib/gvs_hog.cpp.o: lib/gvs_hog.cpp
 CMakeFiles/gvs_rt.dir/lib/gvs_hog.cpp.o: lib/gvs_hog.hpp
+CMakeFiles/gvs_rt.dir/lib/gvs_hog.cpp.o: lib/gvs_utils.hpp
 CMakeFiles/gvs_rt.dir/lib/gvs_hog.cpp.o: /usr/local/include/opencv4/opencv2/calib3d.hpp
 CMakeFiles/gvs_rt.dir/lib/gvs_hog.cpp.o: /usr/local/include/opencv4/opencv2/core.hpp
 CMakeFiles/gvs_rt.dir/lib/gvs_hog.cpp.o: /usr/local/include/opencv4/opencv2/core/affine.hpp

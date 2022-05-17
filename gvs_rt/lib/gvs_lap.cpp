@@ -5,7 +5,7 @@ float gvs_lap(cv::Mat frame, float angle)
 {
     /// Rotate image to vertical ///
     rot_img(frame, -angle, true, LAP_X_CROP, LAP_Y_CROP);
-    
+
     /// Morphology to mitigate noise effect ///
     Mat frame_lap;
     size_t elem_x_erd = 5;
@@ -23,6 +23,6 @@ float gvs_lap(cv::Mat frame, float angle)
     Scalar lap_mean;
     Scalar lap_std_dev;
     meanStdDev(frame_lap, lap_mean, lap_std_dev, Mat());
-
-    return lap_std_dev[0];
+    float result = lap_std_dev[0];
+    return result;
 }

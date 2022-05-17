@@ -60,29 +60,34 @@ float stdev(vector<float> in_vec, float mean, int start_frame, int end_frame)
 
 float gvs_fd(cv::Mat frame_a, cv::Mat frame_b)
 {
-    /// Crop 2 frames around the center ///
-    //int width = 750;
-    //int heigth = 750;
-    //cv::Rect crop_region((frame_a.cols / 2) - (width / 2), (frame_a.rows / 2) - (heigth / 2), width, heigth);
-    //frame_a = frame_a(crop_region);
-    //frame_b = frame_b(crop_region);
-
     /// Go to HSV and use S ///
     Mat img_th_a;
     Mat frame_bw_a;
     cv::cvtColor(frame_a, frame_bw_a, COLOR_RGB2HSV);
     vector<Mat> channels_a;
     split(frame_bw_a, channels_a);
-    // equalizeHist(frame_bw_a, frame_bw_a);
-    threshold(channels_a[1], img_th_a, 0, 255, THRESH_BINARY);
+    threshold(channels_a[0], img_th_a, 0, 255, THRESH_BINARY);
 
     Mat img_th_b;
     Mat frame_bw_b;
     cv::cvtColor(frame_b, frame_bw_b, COLOR_RGB2HSV);
     vector<Mat> channels_b;
     split(frame_bw_b, channels_b);
-    // equalizeHist(frame_bw_b, frame_bw_b);
-    threshold(channels_b[1], img_th_b, 0, 255, THRESH_BINARY);
+    threshold(channels_b[0], img_th_b, 0, 255, THRESH_BINARY);
+
+    Mat gx_a, gy_a, mag_mat_a, ang_mat_a;
+    Sobel(img_th_a, gx_a, CV_32F, 1, 0, 3);           // Gradient
+    Sobel(img_th_a, gy_a, CV_32F, 0, 1, 3);           // Gradient
+    cartToPolar(gx_a, gy_a, mag_mat_a, ang_mat_a, 1); // Get HO
+    mag_mat_a.convertTo(img_th_a, CV_8U);
+
+    Mat gx_b, gy_b, mag_mat_b, ang_mat_b;
+    Sobel(img_th_b, gx_b, CV_32F, 1, 0, 3);           // Gradient
+    Sobel(img_th_b, gy_b, CV_32F, 0, 1, 3);           // Gradient
+    cartToPolar(gx_b, gy_b, mag_mat_b, ang_mat_b, 1); // Get HO
+
+    mag_mat_b.convertTo(img_th_b, CV_8U);
+
 
     /// Erode and dilate ///
     size_t elem_x_erd = 1;
@@ -100,6 +105,7 @@ float gvs_fd(cv::Mat frame_a, cv::Mat frame_b)
 
     /// Find contours ///
     Mat canny_output_a;
+    std::vector<cv::Point> centers_a;
     Canny(img_th_a, canny_output_a, THRESH, THRESH * 3);
     vector<vector<Point>> contours_a;
     findContours(canny_output_a, contours_a, RETR_EXTERNAL, CHAIN_APPROX_SIMPLE);
@@ -109,10 +115,14 @@ float gvs_fd(cv::Mat frame_a, cv::Mat frame_b)
         {
             Scalar color = Scalar(255, 255, 255);
             drawContours(frame_b, contours_a, (int)i, color, 2);
+            cv::Moments M = cv::moments(contours_a[i]);
+            cv::Point center_a(M.m10 / M.m00, M.m01 / M.m00);
+            centers_a.push_back(center_a);
         }
     }
 
     Mat canny_output_b;
+    std::vector<cv::Point> centers_b;
     Canny(img_th_b, canny_output_b, THRESH, THRESH * 3);
     vector<vector<Point>> contours_b;
     findContours(canny_output_b, contours_b, RETR_EXTERNAL, CHAIN_APPROX_SIMPLE);
@@ -122,26 +132,6 @@ float gvs_fd(cv::Mat frame_a, cv::Mat frame_b)
         if (contourArea(contours_b[i]) >= C_AREA)
         {
             drawContours(frame_b, contours_b, (int)i, color, 2);
-        }
-    }
-
-    /// Find contour centers ///
-    std::vector<cv::Point> centers_a;
-    for (int i = 0; i < contours_a.size(); i++)
-    {
-        if (contourArea(contours_a[i]) >= C_AREA)
-        {
-            cv::Moments M = cv::moments(contours_a[i]);
-            cv::Point center_a(M.m10 / M.m00, M.m01 / M.m00);
-            centers_a.push_back(center_a);
-        }
-    }
-
-    std::vector<cv::Point> centers_b;
-    for (int i = 0; i < contours_b.size(); i++)
-    {
-        if (contourArea(contours_b[i]) >= C_AREA)
-        {
             cv::Moments M = cv::moments(contours_b[i]);
             cv::Point center_b(M.m10 / M.m00, M.m01 / M.m00);
             centers_b.push_back(center_b);
@@ -159,14 +149,13 @@ float gvs_fd(cv::Mat frame_a, cv::Mat frame_b)
             float tmp_y = centers_b[j].y - centers_a[m].y;
             float tmp_x = centers_b[j].x - centers_a[m].x;
             float tmp_theta = atan2(tmp_y, tmp_x) * 180 / CV_PI;
-            if (tmp_theta > THETA_MIN_FD && tmp_theta < THETA_MAX_FD && centers_a[m].y < centers_b[j].y) // Check just the RoI (area below because moving forward)
+            if ((tmp_x * tmp_x) + (tmp_y * tmp_y) < 3000) // Check just the RoI (area below because moving forward)
             {
                 line(frame_b, centers_a[m], centers_b[j], Scalar(255, 255, 255), 1);
                 double len = norm(centers_a[m] - centers_b[j]); // Store all conncetion lengths between centers
                 pt_dist_t tmp_pt_dist;
                 tmp_pt_dist.pt_a = centers_a[m];
                 tmp_pt_dist.pt_b = centers_b[j];
-                tmp_pt_dist.dist = len;
                 tmp_pt_dist.theta = tmp_theta;
                 tmp_feat_vect.push_back(tmp_pt_dist);
             }
@@ -174,16 +163,8 @@ float gvs_fd(cv::Mat frame_a, cv::Mat frame_b)
         feat_vect.push_back(tmp_feat_vect);
     }
 
-    /// Rearrange distances in a vector ///
-    vector<float> dists;
-    for (int i = 0; i < feat_vect.size(); i++)
-    {
-        for (int m = 0; m < feat_vect[i].size(); m++)
-        {
-            dists.push_back(feat_vect[i][m].dist);
-        }
-    }
-    float dists_mode = get_mode_float(dists, 1); // Get the mode of the vector (aka choose the most common length)
+    imshow("f", frame_b);
+    waitKey(0);
 
     /// Rearrange the angles in a vetor ///
     vector<float> thetas;
@@ -191,13 +172,10 @@ float gvs_fd(cv::Mat frame_a, cv::Mat frame_b)
     {
         for (int m = 0; m < feat_vect[i].size(); m++)
         {
-            if ((feat_vect[i][m].dist > dists_mode - 10) && (feat_vect[i][m].dist < dists_mode + 10))
-            {
-                thetas.push_back(feat_vect[i][m].theta); // Take just the vector with amplitude around the mode
-            }
+            thetas.push_back(feat_vect[i][m].theta); // Take just the vector with amplitude around the mode
         }
     }
     float thetas_mode = get_mode_float(thetas, 1); // Get the mode of remaining thetas
-
-    return (90 - thetas_mode);
+    float result = 90 - thetas_mode;
+    return result;
 }

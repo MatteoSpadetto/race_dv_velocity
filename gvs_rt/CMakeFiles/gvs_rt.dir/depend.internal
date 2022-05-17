@@ -112,6 +112,7 @@ CMakeFiles/gvs_rt.dir/lib/gvs_fd.cpp.o
 CMakeFiles/gvs_rt.dir/lib/gvs_hog.cpp.o
  /home/matteospadetto/Documents/thesis/race_dv_velocity/gvs_rt/lib/gvs_hog.cpp
  /home/matteospadetto/Documents/thesis/race_dv_velocity/gvs_rt/lib/gvs_hog.hpp
+ /home/matteospadetto/Documents/thesis/race_dv_velocity/gvs_rt/lib/gvs_utils.hpp
  /usr/local/include/opencv4/opencv2/calib3d.hpp
  /usr/local/include/opencv4/opencv2/core.hpp
  /usr/local/include/opencv4/opencv2/core/affine.hpp

@@ -394,7 +394,7 @@ int main(int argc, char const *argv[])
             {
                 String path = "../../test_blob/mb_speed_" + to_string(i) + ".png";
                 Mat img = imread(path, IMREAD_COLOR);
-                int angl = 45;
+                int angl = 60;
                 Mat img_out;
                 rot_img(img, angl, true);
                 imshow("Not Laplacian", img);
