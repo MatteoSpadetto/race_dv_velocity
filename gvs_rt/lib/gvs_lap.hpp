@@ -18,8 +18,8 @@
 #ifndef GVS_LAP
 #define GVS_LAP
 
-#define LAP_X_CROP 400
-#define LAP_Y_CROP 400
+#define LAP_X_CROP 350
+#define LAP_Y_CROP 350
 
 float gvs_lap(cv::Mat frame, float angle);
 

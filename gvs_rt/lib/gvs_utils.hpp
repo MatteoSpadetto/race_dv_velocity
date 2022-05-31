@@ -14,13 +14,12 @@
 using namespace cv;
 using namespace std;
 
-#define GVS_FD_MODE 0
-#define GVS_HOG_MODE 1
-#define GVS_LAP_MODE 2
+#define GVS_HOG_MODE 0
+#define GVS_FFT_MODE 1
 #define LINEAR 0
 #define MEAN_ANGLE 1
 #define START_FRAME 900
-#define END_FRAME 100
+#define END_FRAME 200
 #define CROP_W 350
 #define CROP_H 250
 #define STEP 1
@@ -29,8 +28,6 @@ using namespace std;
 
 typedef struct
 {
-    Point pt_a; // Frame image
-    Point pt_b;
     double dist; // Frame id
     double theta;
 } pt_dist_t; // Frames with their informations

@@ -15,8 +15,9 @@ float gvs_lap(cv::Mat frame, float angle)
     Mat element_erd = getStructuringElement(MORPH_CROSS, Size(2 * elem_x_erd + 1, 2 * elem_y_erd + 1), Point(elem_x_erd, elem_y_erd)); // Setting dilation
     Mat element_dil = getStructuringElement(MORPH_CROSS, Size(2 * elem_x_dil + 1, 2 * elem_y_dil + 1), Point(elem_x_dil, elem_y_dil)); // Setting dilation
 
-    erode(frame, frame, element_erd);  // Erode
-    dilate(frame, frame, element_dil); // Dilate
+    //erode(frame, frame, element_erd);  // Erode
+    //dilate(frame, frame, element_dil); // Dilate
+    GaussianBlur(frame, frame, Size(5, 5), 1);
     Laplacian(frame, frame_lap, CV_64F, 3);
 
     /// Find std_dev ///

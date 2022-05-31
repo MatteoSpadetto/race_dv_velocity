@@ -31,12 +31,34 @@ cv::Point find_opt_p(cv::Mat mat_ang, cv::Mat mat_mag)
 
 float gvs_hog(cv::Mat frame)
 {
-    cv::cvtColor(frame, frame, COLOR_RGBA2GRAY); // Gray scale
-    frame.convertTo(frame, CV_32F);              // Convert to multi-channels
-    GaussianBlur(frame, frame, Size(3, 3), 0);   // Blur to avoid big outliers
+
+    // frame.convertTo(frame, CV_32F);              // Convert to multi-channels
+    cvtColor(frame, frame, COLOR_RGB2HSV);
+    GaussianBlur(frame, frame, Size(5, 5), 0);
+    /*
+    Mat frame_b;
+    threshold(frame, frame_b, 0, 255, THRESH_OTSU);
+
+    imshow("f", frame_b);
+    waitKey(0);*/
+
+    /*float kdata[] = {0, 1, 0, 1, 5, 1, 0, 1, 0};
+    Mat kernel(3, 3, CV_32F, kdata);
+    Mat filt_c;
+    filter2D(frame, filt_c, CV_32F, kernel);*/
+
+    vector<Mat> channels;
+    split(frame, channels);
+
+    // equalizeHist(channels[2], channels[2]);
+
+    cv::Ptr<cv::CLAHE> clahe = cv::createCLAHE();
+    clahe->setClipLimit(4);
+    clahe->apply(channels[2], channels[2]);
+
     Mat gx, gy, mag_mat, ang_mat;
-    Sobel(frame, gx, CV_32F, 1, 0, 3);        // Gradient
-    Sobel(frame, gy, CV_32F, 0, 1, 3);        // Gradient
+    Sobel(channels[2], gx, CV_32F, 1, 0);     // Gradient
+    Sobel(channels[2], gy, CV_32F, 0, 1);     // Gradient
     cartToPolar(gx, gy, mag_mat, ang_mat, 1); // Get HOG
 
     /// Testing point ///
@@ -47,6 +69,7 @@ float gvs_hog(cv::Mat frame)
     vector<float> grd_bins;
 
     float ang_step = 0;
+
     while (ang_step < 180)
     {
         bins.push_back(0);
@@ -61,15 +84,36 @@ float gvs_hog(cv::Mat frame)
                     {
                         bins[bins.size() - 1] += mag_mat.at<float>(j, i);
                     }
-                    else if ((ang_mat.at<float>(j, i) > ang_step) && (ang_mat.at<float>(j, i) < ang_step + 1))
+                    else if ((ang_mat.at<float>(j, i) > ang_step) && (ang_mat.at<float>(j, i) < ang_step + 0.5))
                     {
                         bins[bins.size() - 1] += mag_mat.at<float>(j, i);
                     }
                 }
             }
         }
-        ang_step += 1; // More accurate means slower (a lot)
+        ang_step += 0.5; // More accurate means slower (a lot)
     }
+
+    Scalar mean, std_dev;
+    meanStdDev(bins, mean, std_dev);
+
+    ofstream file_c;
+    file_c.open("../gvs/data_csv/data_c.csv");
+    float tt = 0;
+    float index = 0;
+    for (int i = 0; i < grd_bins.size(); i++)
+    {
+        if (bins[i] < (mean[0] + 3 * std_dev[0]))
+        {
+            file_c << grd_bins[i] << "," << bins[i] << endl;
+            if (bins[i] > tt)
+            {
+                index = grd_bins[i];
+                tt = bins[i];
+            }
+        }
+    }
+    file_c.close();
 
     /// Sort HOG ///
     for (int i = 0; i < bins.size(); i++)
@@ -87,7 +131,11 @@ float gvs_hog(cv::Mat frame)
             }
         }
     }
-    
-    float result = 180 - grd_bins[0];
+
+    float result = 180 - index;
+    if (result < 270 && result > 90)
+    {
+        result -= 180;
+    }
     return result;
 }

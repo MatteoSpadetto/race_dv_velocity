@@ -64,44 +64,31 @@ float gvs_fd(cv::Mat frame_a, cv::Mat frame_b)
     Mat img_th_a;
     Mat frame_bw_a;
     cv::cvtColor(frame_a, frame_bw_a, COLOR_RGB2HSV);
-    vector<Mat> channels_a;
-    split(frame_bw_a, channels_a);
-    threshold(channels_a[0], img_th_a, 0, 255, THRESH_BINARY);
+    threshold(frame_bw_a, img_th_a, 128, 255, THRESH_BINARY);
+    inRange(img_th_a, Scalar(0, 0, 50), Scalar(255, 255, 255), img_th_a);
 
     Mat img_th_b;
     Mat frame_bw_b;
     cv::cvtColor(frame_b, frame_bw_b, COLOR_RGB2HSV);
-    vector<Mat> channels_b;
-    split(frame_bw_b, channels_b);
-    threshold(channels_b[0], img_th_b, 0, 255, THRESH_BINARY);
-
-    Mat gx_a, gy_a, mag_mat_a, ang_mat_a;
-    Sobel(img_th_a, gx_a, CV_32F, 1, 0, 3);           // Gradient
-    Sobel(img_th_a, gy_a, CV_32F, 0, 1, 3);           // Gradient
-    cartToPolar(gx_a, gy_a, mag_mat_a, ang_mat_a, 1); // Get HO
-    mag_mat_a.convertTo(img_th_a, CV_8U);
-
-    Mat gx_b, gy_b, mag_mat_b, ang_mat_b;
-    Sobel(img_th_b, gx_b, CV_32F, 1, 0, 3);           // Gradient
-    Sobel(img_th_b, gy_b, CV_32F, 0, 1, 3);           // Gradient
-    cartToPolar(gx_b, gy_b, mag_mat_b, ang_mat_b, 1); // Get HO
-
-    mag_mat_b.convertTo(img_th_b, CV_8U);
-
+    threshold(frame_bw_b, img_th_b, 128, 255, THRESH_BINARY);
+    inRange(img_th_b, Scalar(0, 0, 50), Scalar(255, 255, 255), img_th_b);
 
     /// Erode and dilate ///
-    size_t elem_x_erd = 1;
-    size_t elem_y_erd = 1;
-    size_t elem_x_dil = 1;
-    size_t elem_y_dil = 1;
+    size_t elem_x_erd = 5;
+    size_t elem_y_erd = 5;
+    size_t elem_x_dil = 6;
+    size_t elem_y_dil = 6;
     Mat element_erd = getStructuringElement(MORPH_ELLIPSE, Size(2 * elem_x_erd + 1, 2 * elem_y_erd + 1), Point(elem_x_erd, elem_y_erd)); // Setting dilation
     Mat element_dil = getStructuringElement(MORPH_ELLIPSE, Size(2 * elem_x_dil + 1, 2 * elem_y_dil + 1), Point(elem_x_dil, elem_y_dil)); // Setting dilation
 
-    dilate(img_th_a, img_th_a, element_dil); // Dilate
     erode(img_th_a, img_th_a, element_erd);  // Erode
+    dilate(img_th_a, img_th_a, element_dil); // Dilate
 
-    dilate(img_th_b, img_th_b, element_dil); // Dilate
     erode(img_th_b, img_th_b, element_erd);  // Erode
+    dilate(img_th_b, img_th_b, element_dil); // Dilate
+
+    Mat tmp_img = img_th_b.clone();
+    cvtColor(tmp_img, tmp_img, COLOR_GRAY2RGBA);
 
     /// Find contours ///
     Mat canny_output_a;
@@ -113,8 +100,6 @@ float gvs_fd(cv::Mat frame_a, cv::Mat frame_b)
     {
         if (contourArea(contours_a[i]) >= C_AREA)
         {
-            Scalar color = Scalar(255, 255, 255);
-            drawContours(frame_b, contours_a, (int)i, color, 2);
             cv::Moments M = cv::moments(contours_a[i]);
             cv::Point center_a(M.m10 / M.m00, M.m01 / M.m00);
             centers_a.push_back(center_a);
@@ -128,19 +113,24 @@ float gvs_fd(cv::Mat frame_a, cv::Mat frame_b)
     findContours(canny_output_b, contours_b, RETR_EXTERNAL, CHAIN_APPROX_SIMPLE);
     for (size_t i = 0; i < contours_b.size(); i++)
     {
-        Scalar color = Scalar(0, 0, 255);
         if (contourArea(contours_b[i]) >= C_AREA)
         {
-            drawContours(frame_b, contours_b, (int)i, color, 2);
             cv::Moments M = cv::moments(contours_b[i]);
             cv::Point center_b(M.m10 / M.m00, M.m01 / M.m00);
             centers_b.push_back(center_b);
         }
     }
+    for (int i = 0; i < contours_a.size(); i++)
+    {
+        circle(tmp_img, centers_a[i], 1, Scalar(0, 0, 255), 2);
+    }
+    for (int i = 0; i < contours_a.size(); i++)
+    {
+        circle(tmp_img, centers_b[i], 1, Scalar(0, 255, 0), 2);
+    }
 
     /// Check centers correlations ///
     vector<vector<pt_dist_t>> feat_vect;
-    Mat tmp_img = frame_b.clone();
     for (int m = 0; m < centers_a.size(); m++)
     {
         vector<pt_dist_t> tmp_feat_vect;
@@ -149,33 +139,74 @@ float gvs_fd(cv::Mat frame_a, cv::Mat frame_b)
             float tmp_y = centers_b[j].y - centers_a[m].y;
             float tmp_x = centers_b[j].x - centers_a[m].x;
             float tmp_theta = atan2(tmp_y, tmp_x) * 180 / CV_PI;
-            if ((tmp_x * tmp_x) + (tmp_y * tmp_y) < 3000) // Check just the RoI (area below because moving forward)
+            if ((tmp_x * tmp_x) + (tmp_y * tmp_y) < CHECK_R) // Check just the RoI (area below because moving forward)
             {
-                line(frame_b, centers_a[m], centers_b[j], Scalar(255, 255, 255), 1);
+                line(tmp_img, centers_a[m], centers_b[j], Scalar(255, 0, 0), 1);
                 double len = norm(centers_a[m] - centers_b[j]); // Store all conncetion lengths between centers
                 pt_dist_t tmp_pt_dist;
-                tmp_pt_dist.pt_a = centers_a[m];
-                tmp_pt_dist.pt_b = centers_b[j];
                 tmp_pt_dist.theta = tmp_theta;
+                tmp_pt_dist.dist = len;
                 tmp_feat_vect.push_back(tmp_pt_dist);
             }
         }
         feat_vect.push_back(tmp_feat_vect);
     }
 
-    imshow("f", frame_b);
-    waitKey(0);
+    // ofstream file_t;
+    // file_t.open("../gvs/data_csv/data_csv_45_t.csv");
 
+    vector<float> thetas;
+    for (int i = 0; i < feat_vect.size(); i++)
+    {
+        for (int j = 0; j < feat_vect[i].size(); j++)
+        {
+            thetas.push_back(feat_vect[i][j].theta);
+            // file_t << feat_vect[i][j].theta << endl;
+            // cout << feat_vect[i][j].theta << endl;
+        }
+    }
+    // file_t.close();
+
+    float thetas_mode = get_mode_float(thetas, 2); // Get the mode of remaining thetas
+    float result = thetas_mode;
+    // cout << "RES: " << result << endl;
+
+    /*vector<float> dists;
+    float dd = 0;
+    int n = 0;
+    for (int i = 0; i < feat_vect.size(); i++)
+    {
+        for (int m = 0; m < feat_vect[i].size(); m++)
+        {
+            dists.push_back(feat_vect[i][m].dist);
+            dd += feat_vect[i][m].dist;
+            n++;
+        }
+    }
+    float dists_mode = dd / n;
+    dists_mode = get_mode_float(dists, 1); // Get the mode of the vector (aka choose the most common length)
+    cout << "dists" << dists_mode << endl;
     /// Rearrange the angles in a vetor ///
     vector<float> thetas;
+    float sum = 0;
+    int k = 0;
     for (int i = 0; i < feat_vect.size(); i++)
     {
         for (int m = 0; m < feat_vect[i].size(); m++)
         {
             thetas.push_back(feat_vect[i][m].theta); // Take just the vector with amplitude around the mode
+            int UP_LIM = 5;
+            int DOWN_LIM = 5;
+            if ((feat_vect[i][m].dist > dists_mode - DOWN_LIM) && (feat_vect[i][m].dist < dists_mode + UP_LIM))
+            {
+                sum += feat_vect[i][m].theta;
+                cout << "cc" << feat_vect[i][m].theta << endl;
+                k++;
+            }
         }
     }
-    float thetas_mode = get_mode_float(thetas, 1); // Get the mode of remaining thetas
-    float result = 90 - thetas_mode;
+    sum /= k;
+    cout << "Theta new: " << sum << endl;*/
+
     return result;
 }

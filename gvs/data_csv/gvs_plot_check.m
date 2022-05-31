@@ -16,7 +16,7 @@ tiledlayout(2, 1);
 nexttile
 plot(dists, '.');
 subtitle("Euclidian distance btw frames 45 deg")
-xlim([0 length(dists)])
+xlim([0 length(dists)]) 
 ylabel('Magnitude [px]')
 xlabel('Difference [#]')
 
@@ -47,13 +47,29 @@ disp(trimmean(thetas, 30));
 %text(10,0,sprintf('MODE=%.2f',m))
 
 %% HOG analysis
-Tablel=csvread('data_hog_45.csv');
+Tablel=csvread('data_c.csv');
 
 dir_hog = Tablel(:, 2);
-bins_hog = Tablel(:, 1) - 90;
+bins_hog = Tablel(:, 1);
 
 f_3 = figure;
 bar(bins_hog, dir_hog);
+
+hold on
+xline(180, '--r')
+
+subtitle("HOG direction detection 45 deg")
+xlim([0 360])
+xlabel('Direction bins [deg]')
+ylabel('Sum of px magnitudes per bin [#]')
+
+%% HOG analysis
+Tablel=csvread('data_csv_45_t.csv');
+
+bins_hog = Tablel(:, 1);
+
+f_3 = figure;
+plot(bins_hog);
 
 hold on
 xline(180, '--r')
@@ -287,3 +303,141 @@ Table30=csvread('data_lap_45_700.csv');
 bins_hog_30 = Table30(:, 1);
 vel_hog_30 = Table30(:, 2);
 plot(bins_hog_30, vel_hog_30, '.')
+
+%% TOT analysis
+Table=csvread('data_csv_45_new.csv');
+thetas = Table(:, 1);
+dists = Table(:, 2);
+
+f_1 = figure;
+tiledlayout(2, 1);
+nexttile
+plot(dists, '.');
+subtitle("Euclidian distance btw frames 10 deg")
+xlim([0 length(dists)])
+ylabel('Magnitude [px]')
+xlabel('Difference [#]')
+hold on
+
+nexttile
+plot(thetas, '.');
+subtitle("Direction of shift btw frames 10 deg")
+xlim([0 length(thetas)])
+ylabel('Angle [deg]')
+xlabel('Difference [#]')
+
+x=(1:1:length(thetas));
+y=transpose(thetas);
+coeff=polyfit(x, y, 1);
+z=polyval(coeff , x);
+err2=norm(z - y, 2);
+%fprintf('\n\t ErrorRegression norma2 : %1.2e ' , err2 ) ;
+ht =1/10000; u=0:ht:length(thetas);
+v=polyval(coeff, u);
+hold on
+%plot(u, v);
+disp(mean(thetas));
+disp("|||||\n")
+hold on
+yline(0, '--r');
+disp(std(thetas));
+hold on
+disp(trimmean(thetas, 30));
+%text(10,0,sprintf('MODE=%.2f',m))
+
+%% Motion blur
+
+for c = 95:295
+    if (c < 10)
+        path = '000' + string(c);
+    elseif(c >= 10 && c < 100)
+        path = '00' + string(c);
+    elseif(c >= 100 && c < 1000)
+        path = '0' + string(c);
+    else
+        path = string(c);
+    end
+    A = imread('../../../60fps_1cd/gss_camera/' + path + '.png');
+    if (c >115)
+        len  = (c - 95);
+        theta = 90;
+        H = fspecial('motion',len,theta);
+        MotionBlur = imfilter(A ,H,'replicate');
+    else
+        MotionBlur = A;
+    end
+    imwrite(MotionBlur, '../../../test_60fps_1cd_matlab/frame_'+string(c-95)+ '.png');
+    disp(c)
+end
+
+%% Open sim log
+
+Table = load(['../../../sim_log/ramp_steer.mat']);
+
+u = Table.VehicleModel_VM_Outputs_States_u;
+v = Table.VehicleModel_VM_Outputs_States_v;
+yaw = Table.VehicleModel_VM_Outputs_States_yaw;
+fl = Table.VehicleModel_VM_Outputs_AdditionalStates_delta_rl;
+fr = Table.VehicleModel_VM_Outputs_AdditionalStates_delta_rr;
+
+amp = [];
+theta = [];
+
+for c = 1:length(u)
+    amp(end + 1) = sqrt((u(c) *u(c)) + ( v(c) * v(c)));
+    theta(end + 1) = (fl(c) + fr(c))/2;
+end
+
+tit = 'Sine steer'
+
+fig1 = figure;
+tiledlayout(3, 1);
+
+nexttile
+plot(u);
+subtitle("Longitudinal velocity")
+ylabel('Velocity [m/s]')
+xlabel('Time[ms]')
+hold on
+plot(amp, 'r');
+hold on
+
+t1 = title(tit);
+t1.Visible = 'on';
+
+nexttile
+plot(v);
+subtitle("Lateral velocity")
+ylabel('Velocity [m/s]')
+xlabel('Time[ms]')
+hold on
+
+nexttile
+plot(fl);
+hold on
+plot(fr, 'r');
+hold on
+plot(theta, 'g');
+subtitle("wheels fl/fr angle")
+ylabel('Wheel angle [rad]')
+xlabel('Time[ms]')
+
+fig2 = figure;
+tiledlayout(2, 1);
+
+nexttile
+plot(amp);
+subtitle("Amplitude velocity")
+ylabel('Velocity [m/s]')
+xlabel('Time[ms]')
+hold on
+
+t1 = title(tit);
+t1.Visible = 'on';
+
+nexttile
+plot(yaw);
+subtitle("Direction velocity")
+ylabel('Velcoity angle [rad]')
+xlabel('Time[ms]')
+hold on

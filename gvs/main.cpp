@@ -8,14 +8,14 @@
 using namespace cv;
 using namespace std;
 
-#define gvs_mode GVS_LAP_MODE
+#define gvs_mode GVS_HOG_MODE
 
 int main(int argc, char const *argv[])
 {
     cout << std::setprecision(3) << std::fixed;
     // ofstream file_hog_tot;
     // file_hog_tot.open("./data_csv/data_hog_tot_45_sp.csv");
-    for (int p = 1; p < 2; p++)
+    for (int p = 95; p < 201; p++)
     {
         if (gvs_mode == GVS_FD_MODE)
         {
@@ -240,7 +240,7 @@ int main(int argc, char const *argv[])
         {
             // Read image
             // Mat img = imread("../../test_speed/mb_speed_100.png", IMREAD_COLOR);
-            String path = "../../test_sp/mb_speed_" + to_string(p) + ".png";
+            String path = "../../test_60fps_1cd/frame_" + to_string(p) + ".png";
             Mat img = imread(path, IMREAD_COLOR);
             /// Check for not corrupted data ///
             if (!img.data)
@@ -268,7 +268,7 @@ int main(int argc, char const *argv[])
             vector<int> bins;
             vector<float> ang_bins;
 
-#define hog_mode OPT_P
+#define hog_mode FIVE_P
             if (hog_mode == OPT_P)
             {
                 /// Find optimal point to analyse (aka highest magnitude area) ///
@@ -380,7 +380,7 @@ int main(int argc, char const *argv[])
             line_ang_p(final_dir_hog, Point(img_out.cols / 2, img_out.rows / 2), img_out);
 
             imshow("HOG direction", img_out);
-            waitKey(0);
+            waitKey(10);
             cout << "Final angle_hog: " << final_dir_hog << " --- Final speed_hog: " << sum_speed << endl;
             // file_hog_tot << p << "," << final_dir_hog << "," << sum_speed << endl;
         }

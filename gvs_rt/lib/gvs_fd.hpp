@@ -20,8 +20,9 @@
 
 #define THETA_MIN_FD 0
 #define THETA_MAX_FD 180
-#define C_AREA 0
-#define THRESH 100
+#define CHECK_R 1500
+#define C_AREA 2
+#define THRESH 25
 #define FD_X_CROP 450
 #define FD_Y_CROP 450
 
