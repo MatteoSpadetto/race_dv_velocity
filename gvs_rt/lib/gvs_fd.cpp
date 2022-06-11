@@ -66,6 +66,7 @@ float gvs_fd(cv::Mat frame_a, cv::Mat frame_b)
     cv::cvtColor(frame_a, frame_bw_a, COLOR_RGB2HSV);
     threshold(frame_bw_a, img_th_a, 128, 255, THRESH_BINARY);
     inRange(img_th_a, Scalar(0, 0, 50), Scalar(255, 255, 255), img_th_a);
+    imshow("a", img_th_a);
 
     Mat img_th_b;
     Mat frame_bw_b;
@@ -74,10 +75,10 @@ float gvs_fd(cv::Mat frame_a, cv::Mat frame_b)
     inRange(img_th_b, Scalar(0, 0, 50), Scalar(255, 255, 255), img_th_b);
 
     /// Erode and dilate ///
-    size_t elem_x_erd = 5;
-    size_t elem_y_erd = 5;
-    size_t elem_x_dil = 6;
-    size_t elem_y_dil = 6;
+    size_t elem_x_erd = 1;
+    size_t elem_y_erd = 1;
+    size_t elem_x_dil = 1;
+    size_t elem_y_dil = 1;
     Mat element_erd = getStructuringElement(MORPH_ELLIPSE, Size(2 * elem_x_erd + 1, 2 * elem_y_erd + 1), Point(elem_x_erd, elem_y_erd)); // Setting dilation
     Mat element_dil = getStructuringElement(MORPH_ELLIPSE, Size(2 * elem_x_dil + 1, 2 * elem_y_dil + 1), Point(elem_x_dil, elem_y_dil)); // Setting dilation
 
@@ -152,6 +153,10 @@ float gvs_fd(cv::Mat frame_a, cv::Mat frame_b)
         feat_vect.push_back(tmp_feat_vect);
     }
 
+
+    imshow("a", tmp_img);
+    waitKey(0);
+
     // ofstream file_t;
     // file_t.open("../gvs/data_csv/data_csv_45_t.csv");
 
@@ -167,7 +172,7 @@ float gvs_fd(cv::Mat frame_a, cv::Mat frame_b)
     }
     // file_t.close();
 
-    float thetas_mode = get_mode_float(thetas, 2); // Get the mode of remaining thetas
+    float thetas_mode = get_mode_float(thetas, 0.5); // Get the mode of remaining thetas
     float result = thetas_mode;
     // cout << "RES: " << result << endl;
 

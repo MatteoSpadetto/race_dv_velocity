@@ -28,16 +28,16 @@ int main(int argc, char const *argv[])
 
     ofstream file_csv;
     file_csv.open("../gvs/data_csv/data_csv_45_new.csv");
-    for (int frame_id = 95; frame_id < END_FRAME; frame_id++)
+    for (int frame_id = 2; frame_id < END_FRAME; frame_id++)
     {
         /// FIND DIRECTION ///
 
         /// Case low speed use GVS_FD ///
-        if (frame_id <= 115)
+        if (frame_id <= 120)
         {
             /// Import 2 frames ///
-            String path_a = "../../test_60fps_1cd/frame_" + to_string(frame_id) + ".png";
-            String path_b = "../../test_60fps_1cd/frame_" + to_string(frame_id - 1) + ".png";
+            String path_a = "../../test_speed_v1/mb_speed_" + to_string(frame_id) + ".png";
+            String path_b = "../../test_speed_v1/mb_speed_" + to_string(frame_id - 1) + ".png";
 
             Mat frame_a = imread(path_a, IMREAD_COLOR);
             Mat frame_b = imread(path_b, IMREAD_COLOR);

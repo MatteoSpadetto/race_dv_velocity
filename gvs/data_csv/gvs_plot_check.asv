@@ -15,16 +15,16 @@ f_1 = figure;
 tiledlayout(2, 1);
 nexttile
 plot(dists, '.');
-subtitle("Displacement magnitude frames at 45 deg constant direction")
+subtitle("Displacement magnitude between frames at 45 deg constant direction")
 xlim([0 length(dists)]) 
-ylabel('Mode disp. lengths [px]')
+ylabel('Mode of vector lengths [px]')
 xlabel('Frame difference step [#]')
 
 nexttile
 plot(thetas, '.');
-subtitle("Displacement direction frames at 45 deg constant direction")
+subtitle("Direction of shift btw frames 45 deg")
 xlim([0 length(thetas)])
-ylabel('Mode disp. directions [deg]')
+ylabel('Mode of vector directions [deg]')
 xlabel('Frame difference step [#]')
 
 x=(1:1:length(thetas));
@@ -40,7 +40,7 @@ hold on
 disp("|||||\n")
 disp(mean(thetas));
 hold on
-yline(45, '--r');
+yline(mean(thetas), '--r');
 disp(std(thetas));
 hold on
 disp(trimmean(thetas, 30));
