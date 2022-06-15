@@ -7,7 +7,7 @@
 #include <iomanip>
 #include <chrono>
 
-#define FAKE_ANGLE 0
+#define FAKE_ANGLE 10
 #define SPEED_TH 40
 
 using namespace cv;
@@ -18,7 +18,7 @@ int main(int argc, char const *argv[])
     cout << std::setprecision(3) << std::fixed;
     vector<float> thetas_fd;
     vector<float> thetas;
-    vector<int> time;
+    vector<float> time;
     vector<float> thetas_hog;
     vector<float> thetas_fft;
     vector<float> speeds_lap;
@@ -33,7 +33,7 @@ int main(int argc, char const *argv[])
         /// FIND DIRECTION ///
 
         /// Case low speed use GVS_FD ///
-        if (frame_id <= 120)
+        if (frame_id < 20)
         {
             /// Import 2 frames ///
             String path_a = "../../test_speed_v1/mb_speed_" + to_string(frame_id) + ".png";
@@ -54,7 +54,10 @@ int main(int argc, char const *argv[])
             rot_img(frame_b, FAKE_ANGLE, true, FD_X_CROP, FD_Y_CROP);
 
             /// Get ang_mat ///
+            std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
             float theta_fd = gvs_fd(frame_a, frame_b);
+            std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
+            time.push_back((std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count()) / 1000);
             theta_fd = -theta_fd - 90;
             theta_main = theta_fd;
             /*thetas.push_back(theta_fd);    // TAKE DIST AND THETA FROM HERE for first 10 frames
@@ -70,7 +73,7 @@ int main(int argc, char const *argv[])
         else
         {
             /// Import frame ///
-            String path = "../../test_60fps_1cd/frame_" + to_string(frame_id) + ".png";
+            String path = "../../test_speed/mb_speed_" + to_string(frame_id) + ".png";
             Mat frame = imread(path, IMREAD_COLOR);
 
             /// Check for not corrupted data ///
@@ -99,7 +102,9 @@ int main(int argc, char const *argv[])
             }
             else
             {
+
                 float theta_fft = gvs_fft(frame);
+
                 theta_main = theta_fft;
                 /*thetas_fft.push_back(theta_fft); // Store img gradient direction
                 thetas.push_back(theta_fft);     // TAKE DIST AND THETA FROM HERE for first 10 frame
@@ -113,7 +118,7 @@ int main(int argc, char const *argv[])
         }
 
         /// FIND SPEED with GVS_LAP ///
-        String path = "../../test_60fps_1cd/frame_" + to_string(frame_id) + ".png";
+        String path = "../../test_speed/mb_speed_" + to_string(frame_id) + ".png";
         Mat img = imread(path, IMREAD_COLOR);
 
         rot_img(img, FAKE_ANGLE, true, HOG_X_CROP, HOG_Y_CROP);
@@ -124,8 +129,8 @@ int main(int argc, char const *argv[])
             cout << "Incorrect data frame\n";
             return -1;
         }
+        speed_main = gvs_lap(img);
 
-        speed_main = gvs_lap(img, theta_main);
         /*speeds_lap.push_back(speed_main);
 
         speed_main = 0;
@@ -141,6 +146,14 @@ int main(int argc, char const *argv[])
         }
     }
     file_csv.close();
+
+    float k = 0;
+    for (size_t i = 0; i < sizeof(time); i++)
+    {
+        k += time[i];
+    }
+    k /= sizeof(time);
+    cout << "Mean time: " << k << endl;
     return 0;
 }
 

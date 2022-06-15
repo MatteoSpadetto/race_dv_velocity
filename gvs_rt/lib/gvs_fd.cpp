@@ -75,10 +75,10 @@ float gvs_fd(cv::Mat frame_a, cv::Mat frame_b)
     inRange(img_th_b, Scalar(0, 0, 50), Scalar(255, 255, 255), img_th_b);
 
     /// Erode and dilate ///
-    size_t elem_x_erd = 1;
-    size_t elem_y_erd = 1;
-    size_t elem_x_dil = 1;
-    size_t elem_y_dil = 1;
+    size_t elem_x_erd = 3;
+    size_t elem_y_erd = 3;
+    size_t elem_x_dil = 3;
+    size_t elem_y_dil = 3;
     Mat element_erd = getStructuringElement(MORPH_ELLIPSE, Size(2 * elem_x_erd + 1, 2 * elem_y_erd + 1), Point(elem_x_erd, elem_y_erd)); // Setting dilation
     Mat element_dil = getStructuringElement(MORPH_ELLIPSE, Size(2 * elem_x_dil + 1, 2 * elem_y_dil + 1), Point(elem_x_dil, elem_y_dil)); // Setting dilation
 
@@ -152,10 +152,6 @@ float gvs_fd(cv::Mat frame_a, cv::Mat frame_b)
         }
         feat_vect.push_back(tmp_feat_vect);
     }
-
-
-    imshow("a", tmp_img);
-    waitKey(0);
 
     // ofstream file_t;
     // file_t.open("../gvs/data_csv/data_csv_45_t.csv");

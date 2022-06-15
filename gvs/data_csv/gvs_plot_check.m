@@ -12,42 +12,44 @@ thetas = Table(:, 3);
 thetas = flip(thetas);
 
 f_1 = figure;
-tiledlayout(2, 1);
-nexttile
+%tiledlayout(2, 1);
+%nexttile
 plot(dists, '.');
 subtitle("Displacement magnitude frames at 45 deg constant direction")
 xlim([0 length(dists)]) 
-ylabel('Mode disp. lengths [px]')
+ylabel('Mode disp. magnitude [px]')
 xlabel('Frame difference step [#]')
 
-nexttile
-plot(thetas, '.');
-subtitle("Displacement direction frames at 45 deg constant direction")
-xlim([0 length(thetas)])
-ylabel('Mode disp. directions [deg]')
-xlabel('Frame difference step [#]')
-
-x=(1:1:length(thetas));
-y=transpose(thetas);
-coeff=polyfit(x, y, 1);
-z=polyval(coeff , x);
-err2=norm(z - y, 2);
-%fprintf('\n\t ErrorRegression norma2 : %1.2e ' , err2 ) ;
-ht =1/10000; u=0:ht:length(thetas);
-v=polyval(coeff, u);
+% nexttile
+% plot(thetas, '.');
+% subtitle("Displacement direction frames at 45 deg constant direction")
+% xlim([0 length(thetas)])
+% ylabel('Mode disp. directions [deg]')
+% xlabel('Frame difference step [#]')
+% 
+% x=(1:1:length(thetas));
+% y=transpose(thetas);
+% coeff=polyfit(x, y, 1);
+% z=polyval(coeff , x);
+% err2=norm(z - y, 2);
+% %fprintf('\n\t ErrorRegression norma2 : %1.2e ' , err2 ) ;
+% ht =1/10000; u=0:ht:length(thetas);
+% v=polyval(coeff, u);
+% hold on
+% %plot(u, v);
+% disp("|||||\n")
+% disp(mean(thetas));
+% hold on
+% yline(45, '--r');
+% disp(std(thetas));
+% hold on
+% disp(trimmean(thetas, 30));
 hold on
-%plot(u, v);
-disp("|||||\n")
-disp(mean(thetas));
-hold on
-yline(45, '--r');
-disp(std(thetas));
-hold on
-disp(trimmean(thetas, 30));
+xline(30, '--r');
 %text(10,0,sprintf('MODE=%.2f',m))
 
 %% HOG analysis
-Tablel=csvread('data_c.csv');
+Tablel=csvread('data_hog_45.csv');
 
 dir_hog = Tablel(:, 2);
 bins_hog = Tablel(:, 1);
@@ -57,11 +59,14 @@ bar(bins_hog, dir_hog);
 
 hold on
 xline(180, '--r')
+hold on
+xline(135, '--r')
+hold on 
 
-subtitle("HOG direction detection 45 deg")
-xlim([0 360])
+subtitle("HOG frame direction detection 45 deg")
+xlim([0 180])
 xlabel('Direction bins [deg]')
-ylabel('Sum of px magnitudes per bin [#]')
+ylabel('Sum of direction px magnitude per bin [#]')
 
 %% HOG analysis
 Tablel=csvread('data_csv_45_t.csv');
@@ -86,26 +91,30 @@ vel_hog = Tablel(:, 3);
 dir_hog = Tablel(:, 2);
 bins_hog = Tablel(:, 1);
 f_4 = figure;
-tiledlayout(2, 1);
+tiledlayout(1, 1);
+
+% nexttile
+% plot(bins_hog, vel_hog);
+% subtitle("HOG speed detection 45°")
+% xlabel('Blur kernel size NxN [#]')
+% ylabel('Frame std dev [Intensity]')
+% 
+% hold on
+
 nexttile
-plot(bins_hog, dir_hog);
+plot(dir_hog(30:length(dir_hog)-1), '.');
 subtitle("HOG direction detection 45 deg")
-xlabel('Blur kernel size NxN [#]')
-ylabel('Angle [deg]')
+xlabel('Hog analysis step [#]')
+ylabel('Velocity direction [deg]')
 hold on
 yline(45, '--r')
-hold on
-nexttile
-plot(bins_hog, vel_hog);
-subtitle("HOG speed detection 45°")
-xlabel('Blur kernel size NxN [#]')
-ylabel('Frame std dev [Intensity]')
-
+hold on 
+xline(30, '--r')
 %% HOG speed comparison
 fig_0 = figure;
 subtitle("HOG speed detection at different angles")
-xlabel('Blur kernel size NxN [#]')
-ylabel('Frame std dev [Intensity]')
+xlabel('HOG analysis step [#]')
+ylabel('Frame std dev [px]')
 hold on
 
 Table30=csvread('data_hog_tot_30.csv');
@@ -136,7 +145,11 @@ vel_hog_85 = Table85(:, 3);
 plot(bins_hog_85, vel_hog_85)
 hold on
 
-legend('30 deg', '45 deg', '60 deg', '85 deg')
+xline(30, '--r');
+hold on
+
+legend('0 deg', '10 deg', '20 deg', '30 deg')
+
 
 % Table90=csvread('data_hog_tot_90.csv');
 % bins_hog_90 = Table90(:, 1);
@@ -310,22 +323,113 @@ thetas = Table(:, 1);
 dists = Table(:, 2);
 
 f_1 = figure;
-tiledlayout(2, 1);
-nexttile
+%tiledlayout(2, 1);
+%nexttile
 plot(dists, '.');
-subtitle("Euclidian distance btw frames 3 deg")
+subtitle("Laplacian speed model analyisis")
 xlim([0 length(dists)])
-ylabel('Magnitude [px]')
-xlabel('Difference [#]')
+ylabel('Standard deviation [px]')
+xlabel('Laplacian analysis step [#]')
 hold on
 
-nexttile
-plot(thetas, '.');
-subtitle("Direction of shift btw frames 3 deg")
-xlim([0 length(thetas)])
-ylabel('Angle [deg]')
-xlabel('Difference [#]')
+hold on
+% x = 1:1:6
+% pfv1 = 30* exp(-0.07*x)
+% plot(x, pfv1, 'r', 'LineWidth',2)
+% hold on
+% x = 6:1:100
+% pfv2 = 24* exp(-0.03*x)
+% plot(x, pfv2 ,'r',  'LineWidth',2)
+% hold on
+% x = 100:1:399
+% pfv3 = 7 -0.015* x
+% plot(x, pfv3 ,'r',  'LineWidth',2)
+% 
+% hold on
+% xline(17, '--');
+% hold on
+% xline(91, '--')
 
+down = 0;
+up = 10;
+
+x = (down+1:1:up)';
+f1 = fit(x,dists(down+1:up), 'exp1')
+plot((down+1:up),f1(down+1:up), 'LineWidth',2)
+xticks([10 25 40 65 100 200])
+hold on
+xline(10, '--')
+
+hold on
+down = 10;
+up = 25;
+
+x = (down+1:1:up)';
+f2 = fit(x,dists(down+1:up), 'exp1')
+plot((down+1:up), f2(down+1:up), 'LineWidth',2)
+hold on
+xline(25, '--')
+
+hold on
+down = 25;
+up = 40;
+
+x = (down+1:1:up)';
+f3 = fit(x,dists(down+1:up), 'exp1')
+plot((down+1:up), f3(down+1:up), 'LineWidth',2)
+hold on
+xline(40, '--')
+
+hold on
+down = 40;
+up = 65;
+
+x = (down+1:1:up)';
+f4 = fit(x,dists(down+1:up), 'exp1')
+plot((down+1:up), f4(down+1:up), 'LineWidth',2)
+hold on
+xline(65, '--')
+
+hold on
+down = 65;
+up = 100;
+
+x = (down+1:1:up)';
+f5 = fit(x,dists(down+1:up), 'exp1')
+plot((down+1:up), f5(down+1:up), 'LineWidth',2)
+hold on
+xline(100, '--')
+
+
+hold on
+down = 100;
+up = 200;
+
+x = (down+1:1:up)';
+f6 = fit(x,dists(down+1:up), 'exp1')
+plot((down+1:up), f6(down+1:up), 'LineWidth',2)
+hold on
+xline(200, '--')
+
+hold on
+down = 200;
+up = 394;
+
+x = (down+1:1:up)';
+f7 = fit(x,dists(down+1:up), 'exp1')
+plot((down+1:up), f7(down+1:up), 'LineWidth',2)
+
+% nexttile
+% plot(thetas, '.');
+% subtitle("FFT Direction of velocity vector at 15 deg")
+% xlim([0 length(thetas)])
+% ylim([0 17])
+% ylabel('Direction [deg]')
+% xlabel('FFT analysis step [#]')
+% hold on
+% yline(15, '--r')
+% hold on
+%
 %x=(1:1:length(thetas));
 %y=transpose(thetas);
 % coeff=polyfit(x, y, 1);
@@ -338,12 +442,14 @@ xlabel('Difference [#]')
 %plot(u, v);
 %disp(mean(thetas));
 %disp("|||||\n")
-hold on
-yline(3, '--r');
+
+%hold on
+%yline(3, '--r');
 %disp(std(thetas));
 %hold on
 %disp(trimmean(thetas, 30));
 %text(10,0,sprintf('MODE=%.2f',m))
+
 
 %% Motion blur
 Table = load(['../../../sim_log/sine_steer1.mat']);
@@ -455,3 +561,27 @@ subtitle("Direction velocity vector")
 ylabel('Velcoity angle [rad]')
 xlabel('Time[ms]')
 hold on
+
+%%
+x = 0:5:60
+y = [0.04^2 0.35^2 0.63^2 0.4^2 0.42^2 0.67^2 0.95^2 0.86^2 1.01^2 1.28^2 1.35^2 1.69^2 1.77^2]
+
+bar(x, y);
+
+subtitle("Mean squared error at different directions")
+ylabel('Mean squared error [deg^2]')
+xlabel('Direction orientation [deg]')
+
+% 60 --- 58.23 --- 1.77
+% 55 --- 53.31 --- 1.69
+% 50 --- 48.65 --- 1.35
+% 45 --- 43.72 --- 1.28
+% 40 --- 38.99 --- 1.01
+% 35 --- 34.14 --- 0.86
+% 30 --- 29.05 --- 0.95
+% 25 --- 24.33 --- 0.67
+% 20 --- 19.58 --- 0.42
+% 15 --- 14.6 --- 0.4
+% 10 --- 9.37 --- 0.63
+% 5 --- 4.65 --- 0.35
+% 0 --- 0.04 --- 0.04

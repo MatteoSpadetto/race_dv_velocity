@@ -187,28 +187,28 @@ float gvs_fft(cv::Mat &frame)
     normalize(magI, magI, 0, 1, NORM_MINMAX);
 
     /// LP filter on dft ///
-    magI = ideal_high_pass_filter(magI, 0.5);
-    magI = ideal_low_pass_filter(magI, 15);
+    //magI = ideal_high_pass_filter(magI, 0.5);
+    //magI = ideal_low_pass_filter(magI, 15);
 
     /// Find maximum on of each col of magnitude Mat ///
-    vector<Point> store; // Store the magnitude max point values
-    int bound = 75;
-    int llim = int(magI.cols / 2);
-    int ulim = int(magI.cols / 2) + bound;
-    int err = ERROR * magI.rows / 2;
-    for (int k = llim; k < ulim; k++)
-    {
+    //vector<Point> store; // Store the magnitude max point values
+    int bound = int(magI.cols / 2) - 1;
+    //int llim = int(magI.cols / 2);
+    //int ulim = int(magI.cols / 2) + bound;
+    //int err = ERROR * magI.rows / 2;
+    ///for (int k = llim; k < ulim; k++)
+    //{
         float max_col = 0.0f;
         int max_col_id = 0;
         for (int i = 0; i < magI.rows; i++)
         {
-            if (magI.at<float>(i, k) > max_col)
+            if (magI.at<float>(i, int(magI.cols)-1) > max_col)
             {
-                max_col = magI.at<float>(i, k);
+                max_col = magI.at<float>(i, int(magI.cols)-1);
                 max_col_id = i;
             }
         }
-        if (store.size() > 1)
+        /*if (store.size() > 1)
         {
             if (abs(max_col_id - store[store.size() - 1].y) <= err)
             {
@@ -218,15 +218,17 @@ float gvs_fft(cv::Mat &frame)
         else
         {
             store.push_back(Point(k, max_col_id));
-        }
-    }
+        }*/
+    //}
     /*for (int i = 0; i < store.size(); i++)
     {
          circle(magI, Point(int(magI.cols / 2) + i, store[i].y), 1, Scalar(255, 255, 255), 1);
     }*/
-    Point p0 = Point(int(magI.cols / 2), store[0].y);
-    Point p1 = Point(int(magI.cols / 2) + store.size(), store[store.size() - 1].y);
-    // line(magI, p0, p1, Scalar(255, 255, 0), 2, 2);
+    //Point p0 = Point(int(magI.cols / 2), store[0].y);
+    //Point p1 = Point(int(magI.cols / 2) + store.size(), store[store.size() - 1].y);
+    Point p0 = Point(int(magI.cols / 2), int(magI.rows / 2));
+    Point p1 = Point(int(magI.cols)-1, max_col_id);
+    //line(magI, p0, p1, Scalar(255, 255, 0), 2, 2);
     float tmp_y = p1.y - p0.y;
     float tmp_x = p1.x - p0.x;
     float angle_fft = -atan2(tmp_y, tmp_x) * 180 / CV_PI;

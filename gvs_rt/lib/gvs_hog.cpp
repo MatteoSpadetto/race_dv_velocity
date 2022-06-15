@@ -35,6 +35,7 @@ float gvs_hog(cv::Mat frame)
     // frame.convertTo(frame, CV_32F);              // Convert to multi-channels
     cvtColor(frame, frame, COLOR_RGB2HSV);
     GaussianBlur(frame, frame, Size(5, 5), 0);
+
     /*
     Mat frame_b;
     threshold(frame, frame_b, 0, 255, THRESH_OTSU);
@@ -60,6 +61,7 @@ float gvs_hog(cv::Mat frame)
     Sobel(channels[2], gx, CV_32F, 1, 0);     // Gradient
     Sobel(channels[2], gy, CV_32F, 0, 1);     // Gradient
     cartToPolar(gx, gy, mag_mat, ang_mat, 1); // Get HOG
+
 
     /// Testing point ///
     Point test_p = Point((ang_mat.cols / 2), (ang_mat.rows / 2));

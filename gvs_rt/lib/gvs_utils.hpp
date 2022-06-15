@@ -19,7 +19,7 @@ using namespace std;
 #define LINEAR 0
 #define MEAN_ANGLE 1
 #define START_FRAME 900
-#define END_FRAME 200
+#define END_FRAME 400
 #define CROP_W 350
 #define CROP_H 250
 #define STEP 1
