@@ -66,7 +66,6 @@ float gvs_fd(cv::Mat frame_a, cv::Mat frame_b)
     cv::cvtColor(frame_a, frame_bw_a, COLOR_RGB2HSV);
     threshold(frame_bw_a, img_th_a, 128, 255, THRESH_BINARY);
     inRange(img_th_a, Scalar(0, 0, 50), Scalar(255, 255, 255), img_th_a);
-    imshow("a", img_th_a);
 
     Mat img_th_b;
     Mat frame_bw_b;
@@ -75,18 +74,18 @@ float gvs_fd(cv::Mat frame_a, cv::Mat frame_b)
     inRange(img_th_b, Scalar(0, 0, 50), Scalar(255, 255, 255), img_th_b);
 
     /// Erode and dilate ///
-    size_t elem_x_erd = 3;
-    size_t elem_y_erd = 3;
-    size_t elem_x_dil = 3;
-    size_t elem_y_dil = 3;
+    size_t elem_x_erd = 1;
+    size_t elem_y_erd = 1;
+    size_t elem_x_dil = 1;
+    size_t elem_y_dil = 1;
     Mat element_erd = getStructuringElement(MORPH_ELLIPSE, Size(2 * elem_x_erd + 1, 2 * elem_y_erd + 1), Point(elem_x_erd, elem_y_erd)); // Setting dilation
-    Mat element_dil = getStructuringElement(MORPH_ELLIPSE, Size(2 * elem_x_dil + 1, 2 * elem_y_dil + 1), Point(elem_x_dil, elem_y_dil)); // Setting dilation
+    Mat element_dil = getStructuringElement(MORPH_ELLIPSE, Size(3, 3), Point(elem_x_dil, elem_y_dil)); // Setting dilation
 
-    erode(img_th_a, img_th_a, element_erd);  // Erode
-    dilate(img_th_a, img_th_a, element_dil); // Dilate
+    // erode(img_th_a, img_th_a, element_erd);  // Erode
+    //dilate(img_th_a, img_th_a, element_dil); // Dilate
 
-    erode(img_th_b, img_th_b, element_erd);  // Erode
-    dilate(img_th_b, img_th_b, element_dil); // Dilate
+    // erode(img_th_b, img_th_b, element_erd);  // Erode
+    //dilate(img_th_b, img_th_b, element_dil); // Dilate
 
     Mat tmp_img = img_th_b.clone();
     cvtColor(tmp_img, tmp_img, COLOR_GRAY2RGBA);
@@ -99,12 +98,12 @@ float gvs_fd(cv::Mat frame_a, cv::Mat frame_b)
     findContours(canny_output_a, contours_a, RETR_EXTERNAL, CHAIN_APPROX_SIMPLE);
     for (size_t i = 0; i < contours_a.size(); i++)
     {
-        if (contourArea(contours_a[i]) >= C_AREA)
-        {
-            cv::Moments M = cv::moments(contours_a[i]);
-            cv::Point center_a(M.m10 / M.m00, M.m01 / M.m00);
-            centers_a.push_back(center_a);
-        }
+        // if (contourArea(contours_a[i]) >= C_AREA)
+        //{
+        cv::Moments M = cv::moments(contours_a[i]);
+        cv::Point center_a(M.m10 / M.m00, M.m01 / M.m00);
+        centers_a.push_back(center_a);
+        //}
     }
 
     Mat canny_output_b;
@@ -114,12 +113,12 @@ float gvs_fd(cv::Mat frame_a, cv::Mat frame_b)
     findContours(canny_output_b, contours_b, RETR_EXTERNAL, CHAIN_APPROX_SIMPLE);
     for (size_t i = 0; i < contours_b.size(); i++)
     {
-        if (contourArea(contours_b[i]) >= C_AREA)
-        {
-            cv::Moments M = cv::moments(contours_b[i]);
-            cv::Point center_b(M.m10 / M.m00, M.m01 / M.m00);
-            centers_b.push_back(center_b);
-        }
+        // if (contourArea(contours_b[i]) >= C_AREA)
+        //{
+        cv::Moments M = cv::moments(contours_b[i]);
+        cv::Point center_b(M.m10 / M.m00, M.m01 / M.m00);
+        centers_b.push_back(center_b);
+        //}
     }
     for (int i = 0; i < contours_a.size(); i++)
     {
@@ -167,28 +166,34 @@ float gvs_fd(cv::Mat frame_a, cv::Mat frame_b)
         }
     }
     // file_t.close();
+    /*float thetas_mode = 0;
+    if (thetas.size() > 0)
+    {
+        float thetas_mode = get_mode_float(thetas, 10); // Get the mode of remaining thetas
+    }*/
 
-    float thetas_mode = get_mode_float(thetas, 0.5); // Get the mode of remaining thetas
-    float result = thetas_mode;
-    // cout << "RES: " << result << endl;
+    imshow("ff", tmp_img);
+    waitKey(20);
 
-    /*vector<float> dists;
+    // float result = thetas_mode;
+
+    vector<float> dists;
     float dd = 0;
     int n = 0;
     for (int i = 0; i < feat_vect.size(); i++)
     {
         for (int m = 0; m < feat_vect[i].size(); m++)
         {
-            dists.push_back(feat_vect[i][m].dist);
-            dd += feat_vect[i][m].dist;
+            dists.push_back(feat_vect[i][m].theta);
+            dd += feat_vect[i][m].theta;
             n++;
         }
     }
-    float dists_mode = dd / n;
-    dists_mode = get_mode_float(dists, 1); // Get the mode of the vector (aka choose the most common length)
-    cout << "dists" << dists_mode << endl;
+    float result = dd / n;
+    // dists_mode = get_mode_float(dists, 1); // Get the mode of the vector (aka choose the most common length)
+    // cout << "dists" << dists_mode << endl;
     /// Rearrange the angles in a vetor ///
-    vector<float> thetas;
+    /* vector<float> thetas;
     float sum = 0;
     int k = 0;
     for (int i = 0; i < feat_vect.size(); i++)

@@ -18,8 +18,8 @@ using namespace std;
 #define GVS_FFT_MODE 1
 #define LINEAR 0
 #define MEAN_ANGLE 1
-#define START_FRAME 900
-#define END_FRAME 400
+#define START_FRAME 2
+#define END_FRAME 960
 #define CROP_W 350
 #define CROP_H 250
 #define STEP 1

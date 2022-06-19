@@ -69,7 +69,7 @@ xlabel('Direction bins [deg]')
 ylabel('Sum of direction px magnitude per bin [#]')
 
 %% HOG analysis
-Tablel=csvread('data_csv_45_t.csv');
+Tablel=csvread('data_sine.csv');
 
 bins_hog = Tablel(:, 1);
 
@@ -85,7 +85,7 @@ xlabel('Direction bins [deg]')
 ylabel('Sum of px magnitudes per bin [#]')
 
 %% HOG speed and dir
-Tablel=csvread('data_hog_tot_45.csv');
+Tablel=csvread('data_sine.csv');
 
 vel_hog = Tablel(:, 3);
 dir_hog = Tablel(:, 2);
@@ -318,21 +318,21 @@ vel_hog_30 = Table30(:, 2);
 plot(bins_hog_30, vel_hog_30, '.')
 
 %% TOT analysis
-Table=csvread('data_csv_45_new.csv');
+Table=csvread('data_sine_5_0.csv');
 thetas = Table(:, 1);
 dists = Table(:, 2);
 
 f_1 = figure;
 %tiledlayout(2, 1);
 %nexttile
-plot(dists, '.');
-subtitle("Laplacian speed model analyisis")
-xlim([0 length(dists)])
-ylabel('Standard deviation [px]')
-xlabel('Laplacian analysis step [#]')
-hold on
-
-hold on
+% plot(dists, '.');
+% subtitle("Laplacian speed model analyisis")
+% xlim([0 length(dists)])
+% ylabel('Standard deviation [px]')
+% xlabel('Laplacian analysis step [#]')
+% hold on
+% 
+% hold on
 % x = 1:1:6
 % pfv1 = 30* exp(-0.07*x)
 % plot(x, pfv1, 'r', 'LineWidth',2)
@@ -350,83 +350,83 @@ hold on
 % hold on
 % xline(91, '--')
 
-down = 0;
-up = 10;
+% % down = 0;
+% % up = 10;
+% % 
+% % x = (down+1:1:up)';
+% % f1 = fit(x,dists(down+1:up), 'exp1')
+% % plot((down+1:up),f1(down+1:up), 'LineWidth',2)
+% % xticks([10 25 40 65 100 200])
+% % hold on
+% % xline(10, '--')
+% % 
+% % hold on
+% % down = 10;
+% % up = 25;
+% % 
+% % x = (down+1:1:up)';
+% % f2 = fit(x,dists(down+1:up), 'exp1')
+% % plot((down+1:up), f2(down+1:up), 'LineWidth',2)
+% % hold on
+% % xline(25, '--')
+% % 
+% % hold on
+% % down = 25;
+% % up = 40;
+% % 
+% % x = (down+1:1:up)';
+% % f3 = fit(x,dists(down+1:up), 'exp1')
+% % plot((down+1:up), f3(down+1:up), 'LineWidth',2)
+% % hold on
+% % xline(40, '--')
+% % 
+% % hold on
+% % down = 40;
+% % up = 65;
+% % 
+% % x = (down+1:1:up)';
+% % f4 = fit(x,dists(down+1:up), 'exp1')
+% % plot((down+1:up), f4(down+1:up), 'LineWidth',2)
+% % hold on
+% % xline(65, '--')
+% % 
+% % hold on
+% % down = 65;
+% % up = 100;
+% % 
+% % x = (down+1:1:up)';
+% % f5 = fit(x,dists(down+1:up), 'exp1')
+% % plot((down+1:up), f5(down+1:up), 'LineWidth',2)
+% % hold on
+% % xline(100, '--')
+% % 
+% % 
+% % hold on
+% % down = 100;
+% % up = 200;
+% % 
+% % x = (down+1:1:up)';
+% % f6 = fit(x,dists(down+1:up), 'exp1')
+% % plot((down+1:up), f6(down+1:up), 'LineWidth',2)
+% % hold on
+% % xline(200, '--')
+% % 
+% % hold on
+% % down = 200;
+% % up = 394;
+% % 
+% % x = (down+1:1:up)';
+% % f7 = fit(x,dists(down+1:up), 'exp1')
+% % plot((down+1:up), f7(down+1:up), 'LineWidth',2)
 
-x = (down+1:1:up)';
-f1 = fit(x,dists(down+1:up), 'exp1')
-plot((down+1:up),f1(down+1:up), 'LineWidth',2)
-xticks([10 25 40 65 100 200])
+%nexttile
+plot(thetas, '.');
+subtitle("FFT Direction of velocity vector at 15 deg")
+xlim([0 length(thetas)])
+ylabel('Direction [deg]')
+xlabel('FFT analysis step [#]')
 hold on
-xline(10, '--')
-
-hold on
-down = 10;
-up = 25;
-
-x = (down+1:1:up)';
-f2 = fit(x,dists(down+1:up), 'exp1')
-plot((down+1:up), f2(down+1:up), 'LineWidth',2)
-hold on
-xline(25, '--')
-
-hold on
-down = 25;
-up = 40;
-
-x = (down+1:1:up)';
-f3 = fit(x,dists(down+1:up), 'exp1')
-plot((down+1:up), f3(down+1:up), 'LineWidth',2)
-hold on
-xline(40, '--')
-
-hold on
-down = 40;
-up = 65;
-
-x = (down+1:1:up)';
-f4 = fit(x,dists(down+1:up), 'exp1')
-plot((down+1:up), f4(down+1:up), 'LineWidth',2)
-hold on
-xline(65, '--')
-
-hold on
-down = 65;
-up = 100;
-
-x = (down+1:1:up)';
-f5 = fit(x,dists(down+1:up), 'exp1')
-plot((down+1:up), f5(down+1:up), 'LineWidth',2)
-hold on
-xline(100, '--')
-
-
-hold on
-down = 100;
-up = 200;
-
-x = (down+1:1:up)';
-f6 = fit(x,dists(down+1:up), 'exp1')
-plot((down+1:up), f6(down+1:up), 'LineWidth',2)
-hold on
-xline(200, '--')
-
-hold on
-down = 200;
-up = 394;
-
-x = (down+1:1:up)';
-f7 = fit(x,dists(down+1:up), 'exp1')
-plot((down+1:up), f7(down+1:up), 'LineWidth',2)
-
-% nexttile
-% plot(thetas, '.');
-% subtitle("FFT Direction of velocity vector at 15 deg")
-% xlim([0 length(thetas)])
-% ylim([0 17])
-% ylabel('Direction [deg]')
-% xlabel('FFT analysis step [#]')
-% hold on
+yline(0, '--r');
 % yline(15, '--r')
 % hold on
 %
@@ -459,36 +459,62 @@ v = Table.VehicleModel_VM_Outputs_States_v;
 fl = Table.VehicleModel_VM_Outputs_AdditionalStates_delta_fl;
 fr = Table.VehicleModel_VM_Outputs_AdditionalStates_delta_fr;
 
-amp = [];
-theta = [];
+% amp = 0;2
+% theta = [];
 
-for n = 1:length(u)
-    amp(end + 1) = sqrt((u(n) *u(n)) + ( v(n) * v(n)));
-    theta(end + 1) = (fl(n) + fr(n))/2;
-end
-
-for c = 95:200
-    if (c < 10)
-        path = '000' + string(c);
-    elseif(c >= 10 && c < 100)
-        path = '00' + string(c);
-    elseif(c >= 100 && c < 1000)
-        path = '0' + string(c);
-    else
-        path = string(c);
-    end
-    k=0;
-    A = imread('../../../60fps_1cd/gss_camera/' + path + '.png');
-    if (c > 115)
-        H = fspecial('motion',amp(c+5120+k)*7,(theta(c+5120+k)*180/pi)-90);
+for i = 1:960
+    if i <= 130
+        A = imread('../../../test_sine_60fps/frame_3.png');
+        imwrite(A, ['../../../test_sine_5_0_60fps_matlab/frame_'  num2str(i,'%d')  '.png']);
+    elseif i > 130 && i <= 867
+        tmp_i = fix(i * 16.66667);
+        amp = sqrt((u(tmp_i) * u(tmp_i)) + ( v(tmp_i) * v(tmp_i)));
+        theta = (fl(tmp_i) + fr(tmp_i)) / 2;
+        k=90+i-131;
+        A = imread(['../../../test_sine_60fps/frame_' num2str(k, '%d') '.png']);
+        H = fspecial('motion', amp*5, ((theta * 180 / pi)) + 90);
         MotionBlur = imfilter(A ,H,'replicate');
-        k= k+ 40;
+        imwrite(MotionBlur, ['../../../test_sine_5_0_60fps_matlab/frame_'  num2str(i,'%d')  '.png']);
     else
-        MotionBlur = A;
+        A = imread('../../../test_sine_60fps/frame_830.png');
+        imwrite(A, ['../../../test_sine_5_0_60fps_matlab/frame_'  num2str(i,'%d')  '.png']);
     end
-    imwrite(MotionBlur, '../../../test_60fps_1cd_matlab/frame_'+string(c-95)+ '.png');
-    disp(c)
-end
+    disp(i);
+end       
+
+% 
+% for n = 1:length(u)
+%     amp(end + 1) = sqrt((u(n) *u(n)) + ( v(n) * v(n)));
+%     theta(end + 1) = (fl(n) + fr(n))/2;
+% end
+
+%for i = 0:
+% %     if (c < 10)
+% %         path = '000' + string(c);
+% %     elseif(c >= 10 && c < 100)
+% %         path = '00' + string(c);
+% %     elseif(c >= 100 && c < 1000)
+% %         path = '0' + string(c);
+% %     else
+% %         path = string(c);
+% %     end
+%     
+%     A = imread('../../../test_speed_v1/mb_speed_' + i + '.png');
+% 
+% 
+% 
+% 
+%     k = 0;
+%     if (c > 115)
+%         H = fspecial('motion',amp(c+5120+k)*7,(theta(c+5120+k)*180/pi)-90);
+%         MotionBlur = imfilter(A ,H,'replicate');
+%         k= k+ 40;
+%     else
+%         MotionBlur = A;
+%     end
+%     imwrite(MotionBlur, '../../../test_60fps_1cd_matlab/frame_'+string(c-95)+ '.png');
+%     disp(c)
+% end
 
 %% Open sim log
 
@@ -510,37 +536,43 @@ end
 
 tit = 'Sine steer'
 
-fig1 = figure;
-tiledlayout(3, 1);
+% fig1 = figure;
+% tiledlayout(3, 1);
+% 
+% nexttile
+% plot(u);
+% subtitle("Longitudinal velocity")
+% ylabel('Velocity [m/s]')
+% xlabel('Time[ms]')
+% hold on
+% plot(amp, 'r');
+% hold on
+% 
+% t1 = title(tit);
+% t1.Visible = 'on';
+% 
+% nexttile
+% plot(v);
+% subtitle("Lateral velocity")
+% ylabel('Velocity [m/s]')
+% xlabel('Time[ms]')
+% hold on
+% 
+% nexttile
+% plot(fl);
+% hold on
+% plot(fr, 'r');
+% hold on
+% plot(theta, 'g');
+% subtitle("wheels fl/fr angle")
+% ylabel('Wheel angle [rad]')
+% xlabel('Time[ms]')
 
-nexttile
-plot(u);
-subtitle("Longitudinal velocity")
-ylabel('Velocity [m/s]')
-xlabel('Time[ms]')
-hold on
-plot(amp, 'r');
-hold on
 
-t1 = title(tit);
-t1.Visible = 'on';
-
-nexttile
-plot(v);
-subtitle("Lateral velocity")
-ylabel('Velocity [m/s]')
-xlabel('Time[ms]')
-hold on
-
-nexttile
-plot(fl);
-hold on
-plot(fr, 'r');
-hold on
-plot(theta, 'g');
-subtitle("wheels fl/fr angle")
-ylabel('Wheel angle [rad]')
-xlabel('Time[ms]')
+Table=csvread('data_sine_5_0.csv');
+points = Table(:, 1);
+thetas = Table(:, 2);
+dists = Table(:, 3);
 
 fig2 = figure;
 tiledlayout(2, 1);
@@ -556,13 +588,20 @@ t1 = title(tit);
 t1.Visible = 'on';
 
 nexttile
-plot(fr);
+plot(theta * 180/pi, LineWidth= 1);
+hold on
+
+
+plot(points*16.666667, thetas, 'r');
+hold on
+yline(0, '--g');
+
 subtitle("Direction velocity vector")
 ylabel('Velcoity angle [rad]')
 xlabel('Time[ms]')
-hold on
 
-%%
+legend('sim data', 'GVS data')
+%% MSE ERROR OF FFT
 x = 0:5:60
 y = [0.04^2 0.35^2 0.63^2 0.4^2 0.42^2 0.67^2 0.95^2 0.86^2 1.01^2 1.28^2 1.35^2 1.69^2 1.77^2]
 

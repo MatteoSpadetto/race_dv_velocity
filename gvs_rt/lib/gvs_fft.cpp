@@ -153,6 +153,8 @@ float gvs_fft(cv::Mat &frame)
 {
     /// Go to gray scale ///
     cv::cvtColor(frame, frame, COLOR_RGBA2GRAY);
+    equalizeHist(frame, frame);
+    imshow("eq", frame);
 
     /// Find magnitude Mat ///
     Mat padded_img;
@@ -187,50 +189,59 @@ float gvs_fft(cv::Mat &frame)
     normalize(magI, magI, 0, 1, NORM_MINMAX);
 
     /// LP filter on dft ///
-    //magI = ideal_high_pass_filter(magI, 0.5);
-    //magI = ideal_low_pass_filter(magI, 15);
+    // int kernel_size = 3;
+    // Mat kernel = (Mat_<double>(kernel_size, kernel_size) << 0, 1, 0, 0, 1, 0, 0, 1, 0);
+    // filter2D(magI, magI, -1, kernel, Point(-1, -1), 0, BORDER_DEFAULT);
 
-    /// Find maximum on of each col of magnitude Mat ///
-    //vector<Point> store; // Store the magnitude max point values
-    int bound = int(magI.cols / 2) - 1;
-    //int llim = int(magI.cols / 2);
-    //int ulim = int(magI.cols / 2) + bound;
-    //int err = ERROR * magI.rows / 2;
-    ///for (int k = llim; k < ulim; k++)
-    //{
-        float max_col = 0.0f;
-        int max_col_id = 0;
-        for (int i = 0; i < magI.rows; i++)
-        {
-            if (magI.at<float>(i, int(magI.cols)-1) > max_col)
-            {
-                max_col = magI.at<float>(i, int(magI.cols)-1);
-                max_col_id = i;
-            }
-        }
-        /*if (store.size() > 1)
-        {
-            if (abs(max_col_id - store[store.size() - 1].y) <= err)
-            {
-                store.push_back(Point(k, max_col_id));
-            }
-        }
-        else
-        {
-            store.push_back(Point(k, max_col_id));
-        }*/
-    //}
-    /*for (int i = 0; i < store.size(); i++)
+    magI = ideal_high_pass_filter(magI, 0.00001);
+    magI = ideal_low_pass_filter(magI, 20);
+
+    imshow("FFT", magI);
+    cv::Mat mask = cv::Mat::zeros(magI.size(), magI.type());
+    // Define your destination image
+
+
+    // I assume you want to draw the circle at the center of your image, with a radius of 50
+    cv::circle(mask, cv::Point(mask.cols / 2, mask.rows / 2), 100, cv::Scalar(255, 255, 255), -1, 8, 0);
+    // Now you can copy your source image to destination image with masking
+    cv::Mat magI_crop = cv::Mat::zeros(magI.size(), magI.type());
+    magI_crop.convertTo(magI_crop, CV_8UC4);
+    mask.convertTo(mask, CV_8UC4);
+    magI.copyTo(magI_crop, mask);
+
+    Mat gx, gy, mag_mat, ang_mat;
+    Sobel(magI_crop, gx, CV_32F, 1, 0);       // Gradient
+    Sobel(magI_crop, gy, CV_32F, 0, 1);       // Gradient
+    cartToPolar(gx, gy, mag_mat, ang_mat, 1); // Get HOG
+
+    gy = gy + 0.5;
+
+    float sum = 0.000f;
+    float count = 0.000f;
+    int area_length = 75; // int(100 * sqrt(2));
+    Point center = Point(ang_mat.cols / 2, ang_mat.rows / 2);
+    for (int i = center.x - area_length; i < center.x + area_length; i++)
     {
-         circle(magI, Point(int(magI.cols / 2) + i, store[i].y), 1, Scalar(255, 255, 255), 1);
-    }*/
-    //Point p0 = Point(int(magI.cols / 2), store[0].y);
-    //Point p1 = Point(int(magI.cols / 2) + store.size(), store[store.size() - 1].y);
-    Point p0 = Point(int(magI.cols / 2), int(magI.rows / 2));
-    Point p1 = Point(int(magI.cols)-1, max_col_id);
-    //line(magI, p0, p1, Scalar(255, 255, 0), 2, 2);
-    float tmp_y = p1.y - p0.y;
+        for (int j = center.y - area_length; j < center.y + area_length; j++)
+        {
+            if (((i - center.x) * (i - center.x)) + ((j - center.y) * (j - center.y)) <= (area_length) * (area_length))
+            {
+                sum += mag_mat.at<float>(i, j) * ang_mat.at<float>(i, j);
+                count += mag_mat.at<float>(i, j);
+            }
+        }
+    }
+    float orientation = -((sum / count) - 180);
+    Point p0 = Point(int(gy.cols / 2), int(gy.rows / 2));
+    Point p1 = Point(int(gy.cols / 2) + area_length, int(gy.rows / 2) + (area_length)*tan(orientation * CV_PI / 180));
+    line(gy, p0, p1, Scalar(255, 255, 0), 2, 2);
+
+    // float slope = (p1.y - p0.y) / (p1.x - p0.x);
+    imshow("FFT sobel", gy);
+    waitKey(20);
+    /*float tmp_y = p1.y - p0.y;
     float tmp_x = p1.x - p0.x;
-    float angle_fft = -atan2(tmp_y, tmp_x) * 180 / CV_PI;
+    float angle_fft = -atan2(tmp_y, tmp_x) * 180 / CV_PI;*/
+    float angle_fft = orientation;
     return angle_fft;
 }
