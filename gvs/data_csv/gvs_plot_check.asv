@@ -462,7 +462,7 @@ fr = Table.VehicleModel_VM_Outputs_AdditionalStates_delta_fr;
 % amp = 0;2
 % theta = [];
 
-for i = 501:970
+for i = 1:500
 %     if i <= 130
 %         A = imread('../../../test_sine_60fps/frame_3.png');
 %         imwrite(A, ['../../../test_sine_5_10_60fps_matlab/frame_'  num2str(i,'%d')  '.png']);
@@ -471,10 +471,10 @@ for i = 501:970
         amp = sqrt((u(tmp_i) * u(tmp_i)) + ( v(tmp_i) * v(tmp_i)));
         theta = (fl(tmp_i) + fr(tmp_i)) / 2;
         k=90+i-131;
-        A = imread(['../../../test_sine_60fps/frame_' num2str(i, '%d') '.png']);
-        H = fspecial('motion', amp*5, ((theta * 180 / pi)) + 90);
+        A = imread(['../../../test_sine_60fps/frame_' num2str(90+i, '%d') '.png']);
+        H = fspecial('motion', amp*5, ((theta * 180 / pi)*10) + 90);
         MotionBlur = imfilter(A ,H,'replicate');
-        imwrite(MotionBlur, ['../../../test_sine_5_0_60fps_matlab/frame_'  num2str(i,'%d')  '.png']);
+        imwrite(MotionBlur, ['../../../test_sine_5_10_60fps_matlab/frame_'  num2str(i,'%d')  '.png']);
 %     else
 %         A = imread('../../../test_sine_60fps/frame_830.png');
 %         imwrite(A, ['../../../test_sine_5_10_60fps_matlab/frame_'  num2str(i,'%d')  '.png']);

@@ -6,10 +6,6 @@
 
 #IncludeRegexTransform: 
 
-/home/matteospadetto/Documents/thesis/race_dv_velocity/gvs_rt/lib/gvs_fd.cpp
-gvs_fd.hpp
-/home/matteospadetto/Documents/thesis/race_dv_velocity/gvs_rt/lib/gvs_fd.hpp
-
 /home/matteospadetto/Documents/thesis/race_dv_velocity/gvs_rt/lib/gvs_fd.hpp
 opencv2/opencv.hpp
 -
@@ -44,10 +40,6 @@ vector
 gvs_utils.hpp
 /home/matteospadetto/Documents/thesis/race_dv_velocity/gvs_rt/lib/gvs_utils.hpp
 
-/home/matteospadetto/Documents/thesis/race_dv_velocity/gvs_rt/lib/gvs_fft.cpp
-gvs_fft.hpp
-/home/matteospadetto/Documents/thesis/race_dv_velocity/gvs_rt/lib/gvs_fft.hpp
-
 /home/matteospadetto/Documents/thesis/race_dv_velocity/gvs_rt/lib/gvs_fft.hpp
 opencv2/opencv.hpp
 -
@@ -69,10 +61,6 @@ string
 -
 gvs_utils.hpp
 /home/matteospadetto/Documents/thesis/race_dv_velocity/gvs_rt/lib/gvs_utils.hpp
-
-/home/matteospadetto/Documents/thesis/race_dv_velocity/gvs_rt/lib/gvs_hog.cpp
-gvs_hog.hpp
-/home/matteospadetto/Documents/thesis/race_dv_velocity/gvs_rt/lib/gvs_hog.hpp
 
 /home/matteospadetto/Documents/thesis/race_dv_velocity/gvs_rt/lib/gvs_hog.hpp
 opencv2/opencv.hpp
@@ -108,10 +96,6 @@ vector
 gvs_utils.hpp
 /home/matteospadetto/Documents/thesis/race_dv_velocity/gvs_rt/lib/gvs_utils.hpp
 
-/home/matteospadetto/Documents/thesis/race_dv_velocity/gvs_rt/lib/gvs_lap.cpp
-gvs_lap.hpp
-/home/matteospadetto/Documents/thesis/race_dv_velocity/gvs_rt/lib/gvs_lap.hpp
-
 /home/matteospadetto/Documents/thesis/race_dv_velocity/gvs_rt/lib/gvs_lap.hpp
 opencv2/opencv.hpp
 -
@@ -143,10 +127,6 @@ numeric
 -
 vector
 -
-gvs_utils.hpp
-/home/matteospadetto/Documents/thesis/race_dv_velocity/gvs_rt/lib/gvs_utils.hpp
-
-/home/matteospadetto/Documents/thesis/race_dv_velocity/gvs_rt/lib/gvs_utils.cpp
 gvs_utils.hpp
 /home/matteospadetto/Documents/thesis/race_dv_velocity/gvs_rt/lib/gvs_utils.hpp
 
