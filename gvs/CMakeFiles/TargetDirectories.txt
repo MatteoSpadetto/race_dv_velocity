@@ -1,3 +1,0 @@
-/home/matteospadetto/Documents/thesis/race_dv_velocity/gvs/CMakeFiles/rebuild_cache.dir
-/home/matteospadetto/Documents/thesis/race_dv_velocity/gvs/CMakeFiles/edit_cache.dir
-/home/matteospadetto/Documents/thesis/race_dv_velocity/gvs/CMakeFiles/gvs.dir
